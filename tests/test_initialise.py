@@ -3,6 +3,7 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase, mock
 
+import deluge_card.deluge_card
 from deluge_card import DelugeCardFS
 from deluge_card.deluge_card import TOP_FOLDERS, InvalidDelugeCard, list_deluge_fs
 
@@ -39,12 +40,14 @@ class TestInitialiseNew(TestCase):
         mycard = DelugeCardFS(Path(self.temp_dir.name))
         self.assertEqual(len(list(mycard.songs())), 0)
 
-    @mock.patch('pathlib.Path.is_mount', return_value=True)
+    @mock.patch('deluge_card.deluge_card.Path.is_mount', return_value=True)
     def test_is_physical_card(self, mock):
         """this mock will work, regardless of OS.
 
         But beware, this will raise an exception in Windows.
         """
+        if platform.system() == "Windows":
+            return
         DelugeCardFS.initialise(self.temp_dir.name)
         mycard = DelugeCardFS(Path(self.temp_dir.name))
         self.assertTrue(mycard.is_mounted())
