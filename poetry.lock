@@ -1,4 +1,15 @@
 [[package]]
+name = "astunparse"
+version = "1.6.3"
+description = "An AST unparser for Python"
+category = "main"
+optional = true
+python-versions = "*"
+
+[package.dependencies]
+six = ">=1.6.1,<2.0"
+
+[[package]]
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
@@ -695,6 +706,9 @@ category = "main"
 optional = true
 python-versions = ">=3.6.1,<4.0.0"
 
+[package.dependencies]
+astunparse = {version = ">=1.6.3,<2.0.0", markers = "python_version < \"3.9\""}
+
 [package.extras]
 numpy-style = ["docstring_parser (>=0.7.3,<0.8.0)"]
 
@@ -961,10 +975,14 @@ test = ["pytest", "black", "isort", "mypy", "flake8", "flake8-docstrings", "pyte
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.9,<4.0"
-content-hash = "a96152f7165d87f1b365a0dd76a480b067bb9f2575df77c3e7b85b54351b2823"
+python-versions = ">=3.8,<4.0"
+content-hash = "2645a3fe114aac466643f5047123e104ae2dec9595200aa769c2b9d9158b5b35"
 
 [metadata.files]
+astunparse = [
+    {file = "astunparse-1.6.3-py2.py3-none-any.whl", hash = "sha256:c2652417f2c8b5bb325c885ae329bdf3f86424075c4fd1a128674bc6fba4b8e8"},
+    {file = "astunparse-1.6.3.tar.gz", hash = "sha256:5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872"},
+]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
     {file = "atomicwrites-1.4.0.tar.gz", hash = "sha256:ae70396ad1a434f9c7046fd2dd196fc04b12f9e91ffb859164193be8b6168a7a"},

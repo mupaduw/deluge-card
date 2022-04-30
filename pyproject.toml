@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "deluge-card"
-version = "0.1.0"
+version = "0.1.1-alpha"
 homepage = "https://github.com/mupaduw/deluge-card"
 description = "python api for synthstrom deluge cards from fw3.15+."
 authors = ["Chris Chamberlain <chrisbc@artisan.co.nz>"]
