@@ -3,6 +3,7 @@
 Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
+import typing
 from pathlib import Path
 
 from lxml import etree
@@ -50,7 +51,7 @@ class Sample:
             filepath (Path): Path object for the sample.
         """
         self._filepath = filepath
-        self._song_settings: dict[str, SampleSetting] = {}
+        self._song_settings: typing.Dict[str, SampleSetting] = {}
 
     def add_setting(self, sample_setting):
         """Add a sample setting. sample.
