@@ -80,8 +80,6 @@ class DelugeCardFS:
             card_root (Path): Path object for the root folder.
         """
         self._card_root = card_root
-        self._is_real_card = card_root.is_mount()  # TODO revisit & test this
-
         card_root.is_dir()
         for folder in TOP_FOLDERS:
             if not Path(card_root, folder).exists():
@@ -100,6 +98,9 @@ class DelugeCardFS:
 
         Returns:
             boolean: True is card_root is a mount.
+
+        Raises:
+            err (Exception): on windows is_mount isnpt available
         """
         return Path(self._card_root).is_mount()
 

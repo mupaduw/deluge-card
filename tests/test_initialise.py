@@ -1,3 +1,4 @@
+import platform
 import tempfile
 from pathlib import Path
 from unittest import TestCase, mock
@@ -40,10 +41,11 @@ class TestInitialiseNew(TestCase):
 
     @mock.patch('pathlib.Path.is_mount', return_value=True)
     def test_is_physical_card(self, mock):
-        # p = Path('folder')
-        # self.assertTrue(p.is_mount())
-        DelugeCardFS.initialise(self.temp_dir.name)
+        """this mock will work, regardless of OS.
 
+        But beware, this will raise an exception in Windows.
+        """
+        DelugeCardFS.initialise(self.temp_dir.name)
         mycard = DelugeCardFS(Path(self.temp_dir.name))
         self.assertTrue(mycard.is_mounted())
         self.assertTrue(mock.called)
