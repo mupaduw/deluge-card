@@ -38,6 +38,10 @@ jobs:
           pip install poetry tox tox-gh-actions
           poetry install -E dev -E test
 
+      - name: test with pytest
+        run:
+          poetry run pytest
+
       - name: test with tox
         run:
           poetry run tox
