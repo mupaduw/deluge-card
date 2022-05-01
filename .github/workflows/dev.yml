@@ -35,7 +35,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry tox tox-gh-actions isort flake8 pytest
+          pip install poetry tox tox-gh-actions
+          tox requirements...
+          pip install isort flake8 pytest pytest-cov 
           # poetry install -E dev -E test -E doc
 
       # - name: test with pytest
