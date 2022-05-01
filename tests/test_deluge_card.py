@@ -4,7 +4,7 @@ import importlib.metadata
 from unittest import TestCase
 
 
-class TestModule(TestCase):
+class TestPackage(TestCase):
     def test_has_version_attribute(self):
-        ver = importlib.metadata.version('deluge_card')
+        ver = importlib.metadata.version('deluge-card')
         self.assertTrue(ver)
