@@ -22,7 +22,6 @@ packages = [
 ]
 
 [tool.poetry.dev-dependencies]
-python = ">=3.8,<4.0"
 
 black  = { version = ">=22.3", optional = true}
 isort  = { version = "^5.8.0", optional = true}
