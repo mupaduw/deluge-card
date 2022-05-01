@@ -36,6 +36,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry tox tox-gh-actions
+          # tox requirements...
+          # pip install isort flake8 pytest pytest-cov black mypy
+          # poetry install -E dev -E test -E doc
+          # app requirements
+          poetry export --dev --without-hashes > reqs.txt
+          pip install -r reqs.txt
+          pip install .
+
+      # - name: test with pytest
+      #   run:
+      #     poetry run pytest
 
       - name: test with tox
         run:
