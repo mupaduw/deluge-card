@@ -36,7 +36,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry tox tox-gh-actions
-          poetry install -E dev -E test
+          poetry install -E dev -E test -E doc
 
       - name: test with pytest
         run:

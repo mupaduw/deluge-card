@@ -34,13 +34,13 @@ tox  = { version = "^3.20.1"}
 virtualenv  = { version = "^20.2.2"}
 pip  = { version = "^20.3.1", optional = true}
 
-mkdocs  = { version = ">=1.1", optional = true}
-mkdocs-include-markdown-plugin  = { version = ">=1.0.0", optional = true}
-mkdocs-material  = { version = ">=6.1.7", optional = true}
-mkdocstrings  = { version = ">=0.18.0" }
-mkdocs-autorefs = {version = ">=0.3.1", optional = true}
-mkdocs-material-extensions  = {version = ">=1.0.1", optional = true}
-twine  = { version = "^3.3.0", optional = true}
+mkdocs  = { version = ">=1.1"}
+mkdocs-include-markdown-plugin  = { version = ">=1.0.0"}
+mkdocs-material  = { version = ">=6.1.7"}
+mkdocstrings  = { version = ">=0.18.0"}
+mkdocs-autorefs = {version = ">=0.3.1"}
+mkdocs-material-extensions  = {version = ">=1.0.1"}
+twine  = { version = "^3.3.0"}
 
 pre-commit = {version = "^2.12.0", optional = true}
 toml = {version = "^0.10.2", optional = true}
