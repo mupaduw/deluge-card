@@ -39,6 +39,9 @@ jobs:
           # tox requirements...
           pip install isort flake8 pytest pytest-cov 
           # poetry install -E dev -E test -E doc
+          # app requirements
+          poetry export --without-hashes > reqs.txt
+          pip install -r reqs.txt
 
       # - name: test with pytest
       #   run:
