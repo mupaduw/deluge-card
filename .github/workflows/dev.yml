@@ -42,6 +42,7 @@ jobs:
           # app requirements
           poetry export --without-hashes > reqs.txt
           pip install -r reqs.txt
+          pip install .
 
       # - name: test with pytest
       #   run:
