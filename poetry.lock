@@ -14,7 +14,7 @@ name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -22,7 +22,7 @@ name = "attrs"
 version = "21.4.0"
 description = "Classes Without Boilerplate"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.extras]
@@ -36,7 +36,7 @@ name = "black"
 version = "22.3.0"
 description = "The uncompromising code formatter."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.6.2"
 
 [package.dependencies]
@@ -139,7 +139,7 @@ name = "coverage"
 version = "6.3.2"
 description = "Code coverage measurement for Python"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.extras]
@@ -169,7 +169,7 @@ name = "distlib"
 version = "0.3.4"
 description = "Distribution utilities"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -185,7 +185,7 @@ name = "filelock"
 version = "3.6.0"
 description = "A platform independent file lock."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.extras]
@@ -197,7 +197,7 @@ name = "flake8"
 version = "3.9.2"
 description = "the modular source code checker: pep8 pyflakes and co"
 category = "dev"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [package.dependencies]
@@ -210,7 +210,7 @@ name = "flake8-docstrings"
 version = "1.6.0"
 description = "Extension for flake8 which uses pydocstyle to check docstrings"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [package.dependencies]
@@ -282,7 +282,7 @@ name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -290,7 +290,7 @@ name = "isort"
 version = "5.10.1"
 description = "A Python utility / library to sort Python imports."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
@@ -384,7 +384,7 @@ name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -517,7 +517,7 @@ name = "mypy"
 version = "0.900"
 description = "Optional static typing for Python"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -534,7 +534,7 @@ name = "mypy-extensions"
 version = "0.4.3"
 description = "Experimental type system extensions for programs checked with the mypy typechecker."
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -561,7 +561,7 @@ name = "pathspec"
 version = "0.9.0"
 description = "Utility library for gitignore style pattern matching of file paths."
 category = "dev"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
@@ -580,7 +580,7 @@ name = "platformdirs"
 version = "2.5.2"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.extras]
@@ -592,7 +592,7 @@ name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.extras]
@@ -620,7 +620,7 @@ name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
@@ -628,7 +628,7 @@ name = "pycodestyle"
 version = "2.7.0"
 description = "Python style guide checker"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -644,7 +644,7 @@ name = "pydocstyle"
 version = "6.1.1"
 description = "Python docstring style checker"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -658,7 +658,7 @@ name = "pyflakes"
 version = "2.3.1"
 description = "passive checker of Python programs"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -696,7 +696,7 @@ name = "pytest"
 version = "6.2.5"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -717,7 +717,7 @@ name = "pytest-cov"
 version = "2.12.1"
 description = "Pytest plugin for measuring coverage."
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -861,7 +861,7 @@ name = "snowballstemmer"
 version = "2.2.0"
 description = "This package provides 29 stemmers for 28 languages generated from Snowball algorithms."
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -869,7 +869,7 @@ name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -877,7 +877,7 @@ name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
@@ -885,7 +885,7 @@ name = "tox"
 version = "3.25.0"
 description = "tox is a generic virtualenv management and test command line tool"
 category = "dev"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [package.dependencies]
@@ -944,7 +944,7 @@ name = "typing-extensions"
 version = "4.2.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "dev"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
@@ -965,7 +965,7 @@ name = "virtualenv"
 version = "20.14.1"
 description = "Virtual Python Environment builder"
 category = "dev"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [package.dependencies]
@@ -1017,7 +1017,7 @@ test = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "555e515a1c14b5f309b1395a275d3b05a12bcd1df569117c69ee9ac4a7e3b102"
+content-hash = "e136ac2995fd9e647261a4a7f56b015ecd756a50e38af229b97facd18c647851"
 
 [metadata.files]
 astunparse = [
