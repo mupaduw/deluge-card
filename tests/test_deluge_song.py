@@ -93,4 +93,6 @@ class TestDelugeSample(TestCase):
         self.card = DelugeCardFS(p)
 
     def test_list_samples(self):
-        self.assertEqual(list(self.card.samples())[0].path().name, 'wurgle.wav')
+        samples = sorted([s.path().name for s in self.card.samples()])
+        print(samples)
+        self.assertEqual(samples[-1], 'wurgle.wav')
