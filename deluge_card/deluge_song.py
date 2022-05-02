@@ -4,7 +4,7 @@ Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 import typing
-from pathlib import Path
+from pathlib import Path, PurePath
 
 from lxml import etree
 
@@ -200,14 +200,23 @@ class DelugeSong:
         # tempo = round(55125/realTPT/2, 1)
         return tempo
 
-    def samples(self):
+    def samples(self, pattern: str = ""):
         """Generator for samples referenced in the DelugeSong.
 
+        Args:
+            pattern (str): glob-style filename pattern.
+
         Yields:
-            Sample: the next sample object.
+            object (Sample): the next sample object.
         """
         root = self.xmlroot()
         tree = etree.ElementTree(root)
+
+        def sample_in_setting(sample_file, tree):
+            sample = Sample(Path(sample_file))
+            sample.add_setting(SampleSetting(self._filepath, tree.getpath(e)))
+            return sample
+
         for sample_path in [
             './/instruments/kit/soundSources/sound/osc1',
             './/instruments/kit/soundSources/sound/osc2',
@@ -216,6 +225,8 @@ class DelugeSong:
             for e in root.findall(sample_path):
                 sample_file = e.get('fileName')
                 if sample_file:
-                    sample = Sample(Path(sample_file))
-                    sample.add_setting(SampleSetting(self._filepath, tree.getpath(e)))
-                    yield sample
+                    if not pattern:
+                        yield sample_in_setting(sample_file, tree)
+                        continue
+                    if PurePath(sample_file).match(pattern):
+                        yield sample_in_setting(sample_file, tree)

@@ -51,7 +51,7 @@ plugins:
       lang: en
   - mkdocstrings:
       watch:
-        - deluge-card
+        - deluge_card
       handlers:
         python:
           selection:
