@@ -1,6 +1,6 @@
 """Main class representing a Deluge Filesystem in a folder or a mounted SD card."""
 
-from pathlib import Path
+from pathlib import Path, PurePath
 
 from .deluge_song import DelugeSong, Sample
 
@@ -97,29 +97,43 @@ class DelugeCardFS:
         """Is this a mounted SD card.
 
         Returns:
-            boolean: True is card_root is a mount.
+            mounted (boolean): True if card_root is a mounted filesystem.
 
         Raises:
             err (Exception): on windows is_mount isnpt available
         """
         return Path(self._card_root).is_mount()
 
-    def songs(self):
+    def songs(self, pattern: str = ""):
         """Generator for songs in the Card.
 
+        Args:
+            pattern (str): glob-style filename pattern.
+
         Yields:
-            DelugeSong: the next song on the card.
+            object (DelugeSong): the next song on the card.
         """
         for songfile in sorted(Path(self._card_root, SONGS).glob('*.XML')):
-            yield DelugeSong(songfile)
+            if not pattern:
+                yield DelugeSong(songfile)
+                continue
+            if PurePath(songfile).match(pattern):
+                yield DelugeSong(songfile)
 
-    def samples(self):
+    def samples(self, pattern: str = ""):
         """Generator for samples in the Card.
 
+        Args:
+            pattern (str): glob-style filename pattern.
+
         Yields:
-            Sample: the next sample on the card.
+            object (Sample): the next sample on the card.
         """
         smp = Path(self._card_root, SAMPLES)
         paths = (p.resolve() for p in Path(smp).glob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
         for fname in paths:
-            yield Sample(Path(fname))
+            if not pattern:
+                yield Sample(Path(fname))
+                continue
+            if PurePath(fname).match(pattern):
+                yield Sample(Path(fname))

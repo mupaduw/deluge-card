@@ -23,6 +23,33 @@ class TestDelugeSong(TestCase):
         # assert 0
 
 
+class TestSongSamples(TestCase):
+    def setUp(self):
+        cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
+        self.song = DelugeSong(p)
+
+    def test_list_all_samples(self):
+        samples = list(self.song.samples())
+        print(samples)
+        self.assertEqual(len(samples), 32)
+
+    def test_list_samples_0(self):
+        samples = list(self.song.samples("*Snare*"))
+        print(samples)
+        self.assertEqual(len(samples), 2)
+
+    def test_list_samples_1(self):
+        samples = list(self.song.samples("*808*"))
+        print(samples)
+        self.assertEqual(len(samples), 16)
+
+    def test_list_samples_2(self):
+        samples = list(self.song.samples("**/Clap/*"))
+        print(samples)
+        self.assertEqual(len(samples), 2)
+
+
 class TestTempo(TestDelugeSong):
     def test_get_tempe(self):
         self.assertEqual(self.song.tempo(), 96.0)
@@ -66,4 +93,6 @@ class TestDelugeSample(TestCase):
         self.card = DelugeCardFS(p)
 
     def test_list_samples(self):
-        self.assertEqual(list(self.card.samples())[0].path().name, 'wurgle.wav')
+        samples = sorted([s.path().name for s in self.card.samples()])
+        print(samples)
+        self.assertEqual(samples[-1], 'wurgle.wav')
