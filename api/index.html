@@ -1017,7 +1017,21 @@
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DelugeCardFS</span><span class="p">:</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DelugeCardFS</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Main class representing a Deluge SD card/folder structure.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
@@ -1061,32 +1075,46 @@
         <span class="sd">&quot;&quot;&quot;Is this a mounted SD card.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            boolean: True is card_root is a mount.</span>
+<span class="sd">            mounted (boolean): True if card_root is a mounted filesystem.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            err (Exception): on windows is_mount isnpt available</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_root</span><span class="p">)</span><span class="o">.</span><span class="n">is_mount</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generator for songs in the Card.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">        Yields:</span>
-<span class="sd">            DelugeSong: the next song on the card.</span>
+<span class="sd">            object (DelugeSong): the next song on the card.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">songfile</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_root</span><span class="p">,</span> <span class="n">SONGS</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.XML&#39;</span><span class="p">)):</span>
-            <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">        Yields:</span>
-<span class="sd">            Sample: the next sample on the card.</span>
+<span class="sd">            object (Sample): the next sample on the card.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">smp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_root</span><span class="p">,</span> <span class="n">SAMPLES</span><span class="p">)</span>
         <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">smp</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">SAMPLE_TYPES</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
           </details>
 
@@ -1330,9 +1358,10 @@
     </thead>
     <tbody>
         <tr>
-<td><code>boolean</code></td>          <td>
+<td><code>mounted</code></td>          <td>
+                <code>boolean</code>
           </td>
-          <td><p>True is card_root is a mount.</p></td>
+          <td><p>True if card_root is a mounted filesystem.</p></td>
         </tr>
     </tbody>
   </table>
@@ -1370,7 +1399,7 @@
     <span class="sd">&quot;&quot;&quot;Is this a mounted SD card.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        boolean: True is card_root is a mount.</span>
+<span class="sd">        mounted (boolean): True if card_root is a mounted filesystem.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        err (Exception): on windows is_mount isnpt available</span>
@@ -1389,7 +1418,7 @@
 
 
 <h3 id="deluge_card.deluge_card.DelugeCardFS.samples" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">samples</span><span class="p">()</span></code>
+<code class="highlight language-python"><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 
 <a href="#deluge_card.deluge_card.DelugeCardFS.samples" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1398,6 +1427,30 @@
     <div class="doc doc-contents ">
 
       <p>Generator for samples in the Card.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   <p><strong>Yields:</strong></p>
   <table>
@@ -1409,7 +1462,8 @@
     </thead>
     <tbody>
         <tr>
-<td><code>Sample</code></td>          <td>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_song.Sample" href="#deluge_card.deluge_song.Sample">Sample</a></code>
           </td>
           <td><p>the next sample on the card.</p></td>
         </tr>
@@ -1418,25 +1472,39 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
 <span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">    Yields:</span>
-<span class="sd">        Sample: the next sample on the card.</span>
+<span class="sd">        object (Sample): the next sample on the card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">smp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_root</span><span class="p">,</span> <span class="n">SAMPLES</span><span class="p">)</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">smp</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">SAMPLE_TYPES</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -1450,7 +1518,7 @@
 
 
 <h3 id="deluge_card.deluge_card.DelugeCardFS.songs" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">songs</span><span class="p">()</span></code>
+<code class="highlight language-python"><span class="n">songs</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 
 <a href="#deluge_card.deluge_card.DelugeCardFS.songs" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1459,6 +1527,30 @@
     <div class="doc doc-contents ">
 
       <p>Generator for songs in the Card.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   <p><strong>Yields:</strong></p>
   <table>
@@ -1470,7 +1562,8 @@
     </thead>
     <tbody>
         <tr>
-<td><code>DelugeSong</code></td>          <td>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_song.DelugeSong" href="#deluge_card.deluge_song.DelugeSong">DelugeSong</a></code>
           </td>
           <td><p>the next song on the card.</p></td>
         </tr>
@@ -1486,14 +1579,28 @@
 <span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
-<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generator for songs in the Card.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">    Yields:</span>
-<span class="sd">        DelugeSong: the next song on the card.</span>
+<span class="sd">        object (DelugeSong): the next song on the card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">songfile</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_card_root</span><span class="p">,</span> <span class="n">SONGS</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.XML&#39;</span><span class="p">)):</span>
-        <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">DelugeSong</span><span class="p">(</span><span class="n">songfile</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -1977,7 +2084,18 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 <span class="normal">218</span>
 <span class="normal">219</span>
 <span class="normal">220</span>
-<span class="normal">221</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DelugeSong</span><span class="p">:</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DelugeSong</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class representing song data on a DelugeCard (in SONGS/*.xml).&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
@@ -2104,14 +2222,23 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
         <span class="c1"># tempo = round(55125/realTPT/2, 1)</span>
         <span class="k">return</span> <span class="n">tempo</span>
 
-    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generator for samples referenced in the DelugeSong.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">        Yields:</span>
-<span class="sd">            Sample: the next sample object.</span>
+<span class="sd">            object (Sample): the next sample object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">()</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span>
+            <span class="n">sample</span><span class="o">.</span><span class="n">add_setting</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">sample</span>
+
         <span class="k">for</span> <span class="n">sample_path</span> <span class="ow">in</span> <span class="p">[</span>
             <span class="s1">&#39;.//instruments/kit/soundSources/sound/osc1&#39;</span><span class="p">,</span>
             <span class="s1">&#39;.//instruments/kit/soundSources/sound/osc2&#39;</span><span class="p">,</span>
@@ -2120,9 +2247,11 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
             <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">sample_path</span><span class="p">):</span>
                 <span class="n">sample_file</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">sample_file</span><span class="p">:</span>
-                    <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span>
-                    <span class="n">sample</span><span class="o">.</span><span class="n">add_setting</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
-                    <span class="k">yield</span> <span class="n">sample</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                        <span class="k">yield</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                        <span class="k">yield</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
           </details>
 
@@ -2422,7 +2551,7 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
 
 <h3 id="deluge_card.deluge_song.DelugeSong.samples" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">samples</span><span class="p">()</span></code>
+<code class="highlight language-python"><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 
 <a href="#deluge_card.deluge_song.DelugeSong.samples" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -2431,6 +2560,30 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
     <div class="doc doc-contents ">
 
       <p>Generator for samples referenced in the DelugeSong.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   <p><strong>Yields:</strong></p>
   <table>
@@ -2442,7 +2595,8 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
     </thead>
     <tbody>
         <tr>
-<td><code>Sample</code></td>          <td>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_song.Sample" href="#deluge_card.deluge_song.Sample">Sample</a></code>
           </td>
           <td><p>the next sample object.</p></td>
         </tr>
@@ -2469,14 +2623,34 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 <span class="normal">218</span>
 <span class="normal">219</span>
 <span class="normal">220</span>
-<span class="normal">221</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generator for samples referenced in the DelugeSong.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
 <span class="sd">    Yields:</span>
-<span class="sd">        Sample: the next sample object.</span>
+<span class="sd">        object (Sample): the next sample object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">()</span>
     <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span>
+        <span class="n">sample</span><span class="o">.</span><span class="n">add_setting</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">sample</span>
+
     <span class="k">for</span> <span class="n">sample_path</span> <span class="ow">in</span> <span class="p">[</span>
         <span class="s1">&#39;.//instruments/kit/soundSources/sound/osc1&#39;</span><span class="p">,</span>
         <span class="s1">&#39;.//instruments/kit/soundSources/sound/osc2&#39;</span><span class="p">,</span>
@@ -2485,9 +2659,11 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">sample_path</span><span class="p">):</span>
             <span class="n">sample_file</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sample_file</span><span class="p">:</span>
-                <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span>
-                <span class="n">sample</span><span class="o">.</span><span class="n">add_setting</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filepath</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
-                <span class="k">yield</span> <span class="n">sample</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                    <span class="k">yield</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
