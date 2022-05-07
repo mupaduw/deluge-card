@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.4.0] - 2022-05-03
+### Changed
+ - using attrs, some methods are now attributes.
+ - root_note, scale changes
+
 ## [0.3.0] - 2022-05-03
 ### Added
  - Posix glob-style filename matching for songs, samples, song_samples.
