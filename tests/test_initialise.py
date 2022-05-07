@@ -77,6 +77,6 @@ class TestListDelugeCardFS(TestCase):
 
         non_deluge = Path(self.temp_dir.name, 'C').mkdir()
 
-        cards = list_deluge_fs(self.temp_dir.name)
+        cards = list(list_deluge_fs(self.temp_dir.name))
         self.assertEqual(len(cards), 3)
         self.assertTrue(isinstance(cards[0], DelugeCardFS))

@@ -28,8 +28,8 @@ repos:
       - id: flake8
         additional_dependencies: [ flake8-typing-imports==1.10.0 ]
         exclude: tests/
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.901
-    hooks:
-      - id: mypy
-        exclude: tests/
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v0.901
+  #   hooks:
+  #     - id: mypy
+  #       exclude: tests/

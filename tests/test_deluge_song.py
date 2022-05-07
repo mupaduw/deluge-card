@@ -65,13 +65,13 @@ class TestSongSamples(TestCase):
 
 
 class TestTempo(TestDelugeSong):
-    def test_get_tempe(self):
+    def test_get_tempo(self):
         self.assertEqual(self.song.tempo(), 96.0)
 
 
 class TestScales(TestDelugeSong):
     def test_get_root(self):
-        self.assertEqual(self.song.root_note(), 'C3')
+        self.assertEqual(self.song.root_note(), 0)
 
     def test_get_modenotes(self):
         self.assertEqual(self.song.mode_notes(), [0, 2, 4, 5, 7, 9, 11])  # major scale intervals
@@ -84,7 +84,7 @@ class TestScales(TestDelugeSong):
 
     # TODO: how to patch lxml
     # @mock.patch('deluge_card.deluge_song.etree._Element')
-    @mock.patch('deluge_card.DelugeSong.root_note', return_value='Bb3')
+    @mock.patch('deluge_card.DelugeSong.root_note', return_value=10)
     def test_scale_Bb_major(self, mocked):
         # mocked.parse.return_value =
         # mocked.return_value.get.return_value = -2 #mock.MagicMock(spec='deluge_card.deluge_song.etree.Element', )

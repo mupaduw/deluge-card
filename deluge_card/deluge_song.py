@@ -4,6 +4,7 @@ Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 from pathlib import Path, PurePath
+from typing import Iterator
 
 from attrs import define, field
 from lxml import etree
@@ -57,10 +58,10 @@ class DelugeSong:
     def _default_xlmroot(self):
         return etree.parse(self.path).getroot()
 
-    def __repr__(self):
-        return f"DelugeSong({self._filepath})"
+    def __repr__(self) -> str:
+        return f"DelugeSong({self.path})"
 
-    def minimum_firmware(self):
+    def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.
 
         Returns:
@@ -68,20 +69,15 @@ class DelugeSong:
         """
         return self.xmlroot.get('earliestCompatibleFirmware')
 
-    def root_note(self):
+    def root_note(self) -> int:
         """Get the root note.
 
         Returns:
-            str: root note (e.g C).
+            int: root note (e.g 36 for C3).
         """
-        note = int(self.xmlroot.get('rootNote')) % 12
-        try:
-            return NOTES[note + C3_IDX]
-        except IndexError as err:
-            print(f'note {note} {err}')
-            return "64"
+        return int(self.xmlroot.get('rootNote'))
 
-    def mode_notes(self):
+    def mode_notes(self) -> list[int]:
         """Get the notes in the song scale (mode).
 
         Returns:
@@ -90,7 +86,7 @@ class DelugeSong:
         notes = self.xmlroot.findall('.//modeNotes/modeNote')
         return [int(e.text) for e in notes]
 
-    def scale_mode(self):
+    def scale_mode(self) -> str:
         """Get the descriptive name of the song scale (mode).
 
         Returns:
@@ -111,18 +107,19 @@ class DelugeSong:
             return 'mixolydian'
         if mn == [0, 1, 3, 5, 6, 8, 10]:
             return 'locrian'
+        return 'other'
 
-    def scale(self):
+    def scale(self) -> str:
         """Get the song scale and key.
 
         Returns:
             str: scale name.
         """
         mode = self.scale_mode()
-        root_note = self.root_note()
-        return f'{root_note[:-1]} {mode}'
+        root_note = self.root_note() % 12
+        return f'{SCALE[root_note]} {mode}'
 
-    def tempo(self):
+    def tempo(self) -> float:
         """Get the song tempo in beats per minute.
 
         Returns:
@@ -157,7 +154,7 @@ class DelugeSong:
         # tempo = round(55125/realTPT/2, 1)
         return tempo
 
-    def samples(self, pattern: str = ""):
+    def samples(self, pattern: str = "") -> Iterator[Sample]:
         """Generator for samples referenced in the DelugeSong.
 
         Args:
