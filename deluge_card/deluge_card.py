@@ -113,7 +113,7 @@ class DelugeCardFS:
                 yield DelugeSong(songfile)  # type: ignore
                 continue
             if PurePath(songfile).match(pattern):
-                yield DelugeSong(songfile)  # type: ignore
+                yield DelugeSong(songfile)
 
     def samples(self, pattern: str = "") -> Iterator[Sample]:
         """Generator for samples in the Card.
@@ -128,7 +128,7 @@ class DelugeCardFS:
         paths = (p.resolve() for p in Path(smp).glob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
         for fname in paths:
             if not pattern:
-                yield Sample(Path(fname))  # type: ignore
+                yield Sample(Path(fname))
                 continue
             if PurePath(fname).match(pattern):
-                yield Sample(Path(fname))  # type: ignore
+                yield Sample(Path(fname))

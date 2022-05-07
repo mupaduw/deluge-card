@@ -165,7 +165,7 @@ class DelugeSong:
         """
         tree = etree.ElementTree(self.xmlroot)
 
-        def sample_in_setting(sample_file, tree):
+        def sample_in_setting(sample_file, tree) -> Sample:
             sample = Sample(Path(sample_file))
             sample.settings.append(SampleSetting(self.path, tree.getpath(e)))
             return sample
