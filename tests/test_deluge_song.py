@@ -32,7 +32,7 @@ class TestDelugeSong(TestCase):
         samples = list(self.song.samples())
         self.assertEqual(samples[0].path, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav'))
         print(samples[0])
-        self.assertEqual(samples[0].settings[0].song_path, self.song.path)
+        self.assertEqual(samples[0].settings[0].song, self.song)
         self.assertEqual(len(samples), 32)
 
 
@@ -109,3 +109,63 @@ class TestDelugeSample(TestCase):
         samples = sorted([s.path.name for s in self.card.samples()])
         print(samples)
         self.assertEqual(samples[-1], 'wurgle.wav')
+
+
+# from functools import map
+import itertools
+
+
+class TestSongSampleMove(TestCase):
+    def setUp(self):
+        cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    def test_move_samples(self):
+
+        # get the flat list of all song_samples
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+
+        ssl = list(song_samples)
+
+        print([s.path for s in ssl[:2]])
+
+        # get the list of samples to be moved
+        old_path = Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/2.wav')
+
+        def mv_match(sample):
+            # try Path parent/child here https://stackoverflow.com/a/34236245
+            return str(old_path) == str(sample.path)
+
+        moving_samples = list(filter(mv_match, ssl))
+        print(moving_samples)
+        print()
+
+        # update paths for the matched
+        new_path = Path('SAMPLES/MV/Hangdrum/2.wav')
+
+        def replace_path(sample):
+            sample.path = Path(str(sample.path).replace(str(old_path), str(new_path)))
+            return sample
+
+        moved_samples = list(map(replace_path, moving_samples))
+        print("moved:", moved_samples)
+        print()
+        updated_samples = list(filter(lambda s: str(new_path) == str(s.path), ssl))
+        print("updated:", updated_samples)
+        print()
+        self.assertEqual(moved_samples, updated_samples)
+
+        updated_songs = set()
+        for sample in updated_samples:
+            for setting in sample.settings:
+                elem = setting.song.update_sample_element(setting)
+                assert elem.get('fileName') == str(sample.path)
+                updated_songs.add(setting.song)
+
+        print(updated_songs)
+        # write the modified XML
+        for s in updated_songs:
+            s.write_xml(new_path=Path("hacked.XML"))
+
+        assert 0

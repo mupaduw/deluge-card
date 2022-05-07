@@ -26,7 +26,8 @@ class SampleSetting(object):
         xml_path (str): Xmlpath string locating the sample setting within the XML.
     """
 
-    song_path: Path
+    song: 'DelugeSong'
+    sample: 'Sample'
     xml_path: str
 
 
@@ -43,7 +44,7 @@ class Sample(object):
     settings: list[SampleSetting] = field(factory=list, eq=False)
 
 
-@define(repr=False)
+@define(repr=False, frozen=True)
 class DelugeSong:
     """Class representing song data on a DelugeCard (in SONGS/*.xml).
 
@@ -60,6 +61,17 @@ class DelugeSong:
 
     def __repr__(self) -> str:
         return f"DelugeSong({self.path})"
+
+    def update_sample_element(self, sample_setting):
+        tree = etree.ElementTree(self.xmlroot)
+        elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
+        elem.set('fileName', str(sample_setting.sample.path))
+        return elem
+
+    def write_xml(self, new_path=None):
+        filename = new_path or self.path
+        with open(filename, 'wb') as doc:
+            doc.write(etree.tostring(self.xmlroot, pretty_print=True))
 
     def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.
@@ -167,11 +179,11 @@ class DelugeSong:
 
         def sample_in_setting(sample_file, tree) -> Sample:
             sample = Sample(Path(sample_file))
-            sample.settings.append(SampleSetting(self.path, tree.getpath(e)))
+            sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
             return sample
 
         for e in self.xmlroot.findall(".//*[@fileName]"):
-            print(f'elem {e}')
+            # print(f'elem {e}')
             sample_file = e.get('fileName')
             if sample_file:
                 if not pattern:
