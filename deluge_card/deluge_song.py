@@ -170,16 +170,12 @@ class DelugeSong:
             sample.settings.append(SampleSetting(self.path, tree.getpath(e)))
             return sample
 
-        for sample_path in [
-            './/instruments/kit/soundSources/sound/osc1',
-            './/instruments/kit/soundSources/sound/osc2',
-            './/osc1/sampleRanges/sampleRange',
-        ]:
-            for e in self.xmlroot.findall(sample_path):
-                sample_file = e.get('fileName')
-                if sample_file:
-                    if not pattern:
-                        yield sample_in_setting(sample_file, tree)
-                        continue
-                    if PurePath(sample_file).match(pattern):
-                        yield sample_in_setting(sample_file, tree)
+        for e in self.xmlroot.findall(".//*[@fileName]"):
+            print(f'elem {e}')
+            sample_file = e.get('fileName')
+            if sample_file:
+                if not pattern:
+                    yield sample_in_setting(sample_file, tree)
+                    continue
+                if PurePath(sample_file).match(pattern):
+                    yield sample_in_setting(sample_file, tree)

@@ -30,11 +30,10 @@ class TestDelugeSong(TestCase):
 
     def test_get_song_samples(self):
         samples = list(self.song.samples())
-        self.assertEqual(samples[0].path, Path('SAMPLES/DRUMS/Kick/DDD1 Kick.wav'))
+        self.assertEqual(samples[0].path, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav'))
         print(samples[0])
         self.assertEqual(samples[0].settings[0].song_path, self.song.path)
-        # print(list(samples[0].settings().values())[0].song_path())
-        # assert 0
+        self.assertEqual(len(samples), 32)
 
 
 class TestSongSamples(TestCase):
