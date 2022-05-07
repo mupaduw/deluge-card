@@ -1,9 +1,22 @@
+import inspect
 import os
 from pathlib import Path
 from unittest import TestCase, mock
 
+import attr
+import attrs
+
 import deluge_card.deluge_song
 from deluge_card import DelugeSong
+from deluge_card.deluge_song import Sample
+
+
+class TestSampleAttr(TestCase):
+    def test_initialise(self):
+        print(inspect.signature(Sample.__init__))
+        mySample = Sample(Path("a/b/c"))
+        print(mySample)
+        # assert 0
 
 
 class TestDelugeSong(TestCase):
@@ -16,9 +29,10 @@ class TestDelugeSong(TestCase):
         self.assertEqual(self.song.minimum_firmware(), '3.1.0-beta')
 
     def test_get_song_samples(self):
-        samples = [s for s in self.song.samples()]
-        self.assertEqual(samples[0].path(), Path('SAMPLES/DRUMS/Kick/DDD1 Kick.wav'))
-        self.assertEqual(list(samples[0].settings().values())[0].song_path(), self.song.path())
+        samples = list(self.song.samples())
+        self.assertEqual(samples[0].path, Path('SAMPLES/DRUMS/Kick/DDD1 Kick.wav'))
+        print(samples[0])
+        self.assertEqual(samples[0].settings[0].song_path, self.song.path())
         # print(list(samples[0].settings().values())[0].song_path())
         # assert 0
 
@@ -93,6 +107,6 @@ class TestDelugeSample(TestCase):
         self.card = DelugeCardFS(p)
 
     def test_list_samples(self):
-        samples = sorted([s.path().name for s in self.card.samples()])
+        samples = sorted([s.path.name for s in self.card.samples()])
         print(samples)
         self.assertEqual(samples[-1], 'wurgle.wav')

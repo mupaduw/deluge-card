@@ -133,7 +133,7 @@ class DelugeCardFS:
         paths = (p.resolve() for p in Path(smp).glob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
         for fname in paths:
             if not pattern:
-                yield Sample(Path(fname))
+                yield Sample(Path(fname))  # type: ignore
                 continue
             if PurePath(fname).match(pattern):
-                yield Sample(Path(fname))
+                yield Sample(Path(fname))  # type: ignore

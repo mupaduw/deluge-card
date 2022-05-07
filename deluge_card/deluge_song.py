@@ -3,9 +3,10 @@
 Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
-import typing
 from pathlib import Path, PurePath
 
+import pydel
+from attrs import define, field
 from lxml import etree
 
 SONGS = 'SONGS'
@@ -16,61 +17,30 @@ NOTES = [f'{n}{o}' for o in range(8) for n in scale]
 C3_IDX = 36
 
 
-class SampleSetting:
-    """Class representing a sample in the context of a DelugeSong."""
+@define
+class SampleSetting(object):
+    """represents a sample in the context of a DelugeSong.
 
-    def __init__(self, song_path, xml_path):
-        """Create a new SampleSetting instance.
+    Attributes:
+        song_path (Path): Path object for the XML song file.
+        xml_path (str): Xmlpath string locating the sample setting within the XML.
+    """
 
-        Args:
-            song_path (Path): Path object for the song.
-            xml_path (str): Xmlpath string for the song context.
-        """
-        self._song_path = song_path
-        self._xml_path = xml_path
-
-    def xml_path(self):
-        """Path object for the song."""
-        return self._xml_path
-
-    def song_path(self):
-        """Xmlpath string for the song context."""
-        return self._song_path
-
-    def __repr__(self):
-        return f"SampleSetting({self._xml_path})"
+    song_path: Path
+    xml_path: str
 
 
-class Sample:
-    """Class representing a Sample file."""
+@define
+class Sample(object):
+    """represents a sample file.
 
-    def __init__(self, filepath: Path):
-        """Create a new Sample instance.
+    Attributes:
+        path (Path): Path object for the sample file.
+        settings (list[SampleSetting]): list of SampleSettings for this
+    """
 
-        Args:
-            filepath (Path): Path object for the sample.
-        """
-        self._filepath = filepath
-        self._song_settings: typing.Dict[str, SampleSetting] = {}
-
-    def add_setting(self, sample_setting):
-        """Add a sample setting. sample.
-
-        Args:
-            sample_setting (SampleSetting): sample setting.
-        """
-        self._song_settings[sample_setting.xml_path()] = sample_setting
-
-    def path(self):
-        """Path object for the sample."""
-        return self._filepath
-
-    def settings(self):
-        """Settings for the song."""
-        return self._song_settings
-
-    def __repr__(self):
-        return f"Sample({self._filepath})"
+    path: Path
+    settings: list[SampleSetting] = field(factory=list)
 
 
 class DelugeSong:
@@ -115,6 +85,13 @@ class DelugeSong:
             str: root note (e.g C).
         """
         root = self.xmlroot()
+
+        try:
+            project = pydel.Project.from_element(root)
+            print("pydel p.tempo", project.tempo)
+        except Exception as err:
+            print(err)
+
         note = int(root.get('rootNote')) % 12
         try:
             return NOTES[note + C3_IDX]
@@ -214,7 +191,7 @@ class DelugeSong:
 
         def sample_in_setting(sample_file, tree):
             sample = Sample(Path(sample_file))
-            sample.add_setting(SampleSetting(self._filepath, tree.getpath(e)))
+            sample.settings.append(SampleSetting(self._filepath, tree.getpath(e)))
             return sample
 
         for sample_path in [
