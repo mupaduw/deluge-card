@@ -5,15 +5,14 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 from pathlib import Path, PurePath
 
-import pydel
 from attrs import define, field
 from lxml import etree
 
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
 
-scale = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
-NOTES = [f'{n}{o}' for o in range(8) for n in scale]
+SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
+NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
 
 
@@ -40,34 +39,26 @@ class Sample(object):
     """
 
     path: Path
-    settings: list[SampleSetting] = field(factory=list)
+    settings: list[SampleSetting] = field(factory=list, eq=False)
 
 
+@define(repr=False)
 class DelugeSong:
-    """Class representing song data on a DelugeCard (in SONGS/*.xml)."""
+    """Class representing song data on a DelugeCard (in SONGS/*.xml).
 
-    def __init__(self, filepath: Path):
-        """Create a new DelugeSong instance.
+    Attributes:
+        path (Path): Path object for the sample file. file.
+    """
 
-        Args:
-            filepath (Path): Path object for the sample.
-        """
-        self._filepath = filepath
-        self._xmlroot = None
+    path: Path
+    xmlroot: etree.ElementTree = field()
 
-    def path(self):
-        """Path object for the song XML file."""
-        return self._filepath
+    @xmlroot.default
+    def _default_xlmroot(self):
+        return etree.parse(self.path).getroot()
 
     def __repr__(self):
         return f"DelugeSong({self._filepath})"
-
-    def xmlroot(self):
-        """Get the xmlroot of the songs XML document."""
-        if self._xmlroot is None:
-            self._xmlroot = etree.parse(self._filepath).getroot()
-            assert self._xmlroot.tag == 'song'
-        return self._xmlroot
 
     def minimum_firmware(self):
         """Get the songs earliest Compatible Firmware version.
@@ -75,8 +66,7 @@ class DelugeSong:
         Returns:
             str: earliestCompatibleFirmware version.
         """
-        root = self.xmlroot()
-        return root.get('earliestCompatibleFirmware')
+        return self.xmlroot.get('earliestCompatibleFirmware')
 
     def root_note(self):
         """Get the root note.
@@ -84,15 +74,7 @@ class DelugeSong:
         Returns:
             str: root note (e.g C).
         """
-        root = self.xmlroot()
-
-        try:
-            project = pydel.Project.from_element(root)
-            print("pydel p.tempo", project.tempo)
-        except Exception as err:
-            print(err)
-
-        note = int(root.get('rootNote')) % 12
+        note = int(self.xmlroot.get('rootNote')) % 12
         try:
             return NOTES[note + C3_IDX]
         except IndexError as err:
@@ -105,8 +87,7 @@ class DelugeSong:
         Returns:
             [int]: list of mode intervals, relative to root.
         """
-        root = self.xmlroot()
-        notes = root.findall('.//modeNotes/modeNote')
+        notes = self.xmlroot.findall('.//modeNotes/modeNote')
         return [int(e.text) for e in notes]
 
     def scale_mode(self):
@@ -138,8 +119,8 @@ class DelugeSong:
             str: scale name.
         """
         mode = self.scale_mode()
-        root = self.root_note()
-        return f'{root[:-1]} {mode}'
+        root_note = self.root_note()
+        return f'{root_note[:-1]} {mode}'
 
     def tempo(self):
         """Get the song tempo in beats per minute.
@@ -167,11 +148,10 @@ class DelugeSong:
         #     // console.log("timerTickFraction=" + jsong.timerTickFraction + " fractPart= " +  fractPart);
         #     return tempo;
         # }
-        root = self.xmlroot()
-        fractPart = (int(root.get('timerTickFraction'))) / int('0x100000000', 16)
+        fractPart = (int(self.xmlroot.get('timerTickFraction'))) / int('0x100000000', 16)
         # print(int('0x100000000', 16))
         # print(fractPart)
-        realTPT = float(root.get('timePerTimerTick')) + fractPart
+        realTPT = float(self.xmlroot.get('timePerTimerTick')) + fractPart
         # print(realTPT)
         tempo = round((44100 * 60) / (96 * realTPT), 1)
         # tempo = round(55125/realTPT/2, 1)
@@ -186,12 +166,11 @@ class DelugeSong:
         Yields:
             object (Sample): the next sample object.
         """
-        root = self.xmlroot()
-        tree = etree.ElementTree(root)
+        tree = etree.ElementTree(self.xmlroot)
 
         def sample_in_setting(sample_file, tree):
             sample = Sample(Path(sample_file))
-            sample.settings.append(SampleSetting(self._filepath, tree.getpath(e)))
+            sample.settings.append(SampleSetting(self.path, tree.getpath(e)))
             return sample
 
         for sample_path in [
@@ -199,7 +178,7 @@ class DelugeSong:
             './/instruments/kit/soundSources/sound/osc2',
             './/osc1/sampleRanges/sampleRange',
         ]:
-            for e in root.findall(sample_path):
+            for e in self.xmlroot.findall(sample_path):
                 sample_file = e.get('fileName')
                 if sample_file:
                     if not pattern:

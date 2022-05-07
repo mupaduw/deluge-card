@@ -115,10 +115,10 @@ class DelugeCardFS:
         """
         for songfile in sorted(Path(self._card_root, SONGS).glob('*.XML')):
             if not pattern:
-                yield DelugeSong(songfile)
+                yield DelugeSong(songfile)  # type: ignore
                 continue
             if PurePath(songfile).match(pattern):
-                yield DelugeSong(songfile)
+                yield DelugeSong(songfile)  # type: ignore
 
     def samples(self, pattern: str = ""):
         """Generator for samples in the Card.
