@@ -130,7 +130,15 @@ class TestSongSampleMove(TestCase):
 
         # print("moved:", moved_samples)
         # print()
-        updated_samples = list(filter(lambda s: s.path.is_relative_to(new_path), ssl))
+
+        def is_relative_to(sample):
+            try:
+                p = sample.path.relative_to(new_path)
+                return True
+            except ValueError:
+                return False
+
+        updated_samples = list(filter(is_relative_to, ssl))
 
         # print("updated:", updated_samples)
         # print()
