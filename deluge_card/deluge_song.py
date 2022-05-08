@@ -44,11 +44,12 @@ class DelugeSong:
         elem.set('fileName', str(sample_setting.sample.path))
         return elem
 
-    def write_xml(self, new_path=None):
+    def write_xml(self, new_path=None) -> str:
         """Write the song XML."""
         filename = new_path or self.path
         with open(filename, 'wb') as doc:
             doc.write(etree.tostring(self.xmlroot, pretty_print=True))
+        return str(filename)
 
     def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.

@@ -1,5 +1,6 @@
 """Main classes representing Deluge Sample."""
 
+import itertools
 from pathlib import Path
 from typing import Iterator, List, Set
 
@@ -8,8 +9,6 @@ from attrs import define, field
 if False:
     # for forward-reference type-checking:
     # ref https://stackoverflow.com/a/38962160
-    from itertools import chain
-
     import deluge_song
 
 
@@ -31,34 +30,38 @@ def modify_sample_paths(samples: Iterator['Sample'], pattern: str, dest: Path) -
     return map(replace_path, matching_samples)
 
 
-def modify_sample_songs(move_ops: Iterator['SampleMoveOperation']) -> Set['deluge_song.DelugeSong']:
-    '''Update song XML'''
+def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeSong']:
+    """Update song XML elements."""
 
-    def update_song_elements(move_op):
-        for setting in move_op.sample.settings:
+    def update_song_elements(sample):
+        for setting in sample.settings:
             elem = setting.song.update_sample_element(setting)
             assert elem.get('fileName') == str(setting.sample.path)
             yield setting.song
 
-    return set(chain(map(update_song_elements, move_ops)))
+    return set(itertools.chain.from_iterable(map(update_song_elements, samples)))
 
 
 def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path):
+    """Move samples, updating any affected songs."""
+    sample_move_ops = list(modify_sample_paths(samples, pattern, dest))
+    updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
 
-    sample_move_ops = modify_sample_paths(samples, pattern, dest)
-    updated_songs = modify_sample_songs(sample_move_ops)
-
-    print("sample_move_ops")
-    print(sample_move_ops)
     print("Song updates")
     print(updated_songs)
     # write the modified XML
-    # map(lambda song: DelugeSong.write_xml(song), updated_songs)
+    for song in updated_songs:
+        song.write_xml()
+
+    print("sample_move_ops")
+    print(sample_move_ops)
+    for move_op in sample_move_ops:
+        move_op.do_move()
 
 
 @define
 class SampleMoveOperation(object):
-    """represents a sample file move operation.
+    """Represents a sample file move operation.
 
     Attributes:
         old_path (Path): original Path.
@@ -69,6 +72,13 @@ class SampleMoveOperation(object):
     old_path: Path
     new_path: Path
     sample: 'Sample'
+    moved: bool = field(default=False)
+
+    def do_move(self) -> bool:
+        """Complete the move operation."""
+        self.old_path.rename(self.new_path)
+        self.moved = True
+        return self.moved
 
 
 @define
