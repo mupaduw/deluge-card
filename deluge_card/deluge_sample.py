@@ -1,7 +1,7 @@
 """Main classes representing Deluge Sample."""
 
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, List
 
 from attrs import define, field
 
@@ -33,7 +33,7 @@ class Sample(object):
     """
 
     path: Path
-    settings: list['SampleSetting'] = field(factory=list, eq=False)
+    settings: List['SampleSetting'] = field(factory=list, eq=False)
 
 
 if False:

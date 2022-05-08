@@ -4,7 +4,7 @@ Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 from pathlib import Path, PurePath
-from typing import Iterator
+from typing import Iterator, List
 
 from attrs import define, field
 from lxml import etree
@@ -66,7 +66,7 @@ class DelugeSong:
         """
         return int(self.xmlroot.get('rootNote'))
 
-    def mode_notes(self) -> list[int]:
+    def mode_notes(self) -> List[int]:
         """Get the notes in the song scale (mode).
 
         Returns:
