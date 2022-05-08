@@ -1,4 +1,5 @@
 import inspect
+import itertools
 import os
 from pathlib import Path
 from unittest import TestCase, mock
@@ -8,7 +9,7 @@ import attrs
 
 import deluge_card.deluge_song
 from deluge_card import DelugeSong
-from deluge_card.deluge_song import Sample
+from deluge_card.deluge_sample import Sample, mv_samples
 
 
 class TestSampleAttr(TestCase):
@@ -111,10 +112,6 @@ class TestDelugeSample(TestCase):
         self.assertEqual(samples[-1], 'wurgle.wav')
 
 
-# from functools import map
-import itertools
-
-
 class TestSongSampleMove(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
@@ -125,47 +122,41 @@ class TestSongSampleMove(TestCase):
 
         # get the flat list of all song_samples
         song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
-
         ssl = list(song_samples)
+        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
+        new_path = Path('SAMPLES/MV2/JOBB/Hangdrum/NEW2.wav')
 
-        print([s.path for s in ssl[:2]])
+        moved_samples = list(mv_samples(ssl, matching, new_path))
 
-        # get the list of samples to be moved
-        old_path = Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/2.wav')
+        # print("moved:", moved_samples)
+        # print()
+        updated_samples = list(filter(lambda s: s.path.is_relative_to(new_path), ssl))
 
-        def mv_match(sample):
-            # try Path parent/child here https://stackoverflow.com/a/34236245
-            return str(old_path) == str(sample.path)
-
-        moving_samples = list(filter(mv_match, ssl))
-        print(moving_samples)
-        print()
-
-        # update paths for the matched
-        new_path = Path('SAMPLES/MV/Hangdrum/2.wav')
-
-        def replace_path(sample):
-            sample.path = Path(str(sample.path).replace(str(old_path), str(new_path)))
-            return sample
-
-        moved_samples = list(map(replace_path, moving_samples))
-        print("moved:", moved_samples)
-        print()
-        updated_samples = list(filter(lambda s: str(new_path) == str(s.path), ssl))
-        print("updated:", updated_samples)
-        print()
+        # print("updated:", updated_samples)
+        # print()
         self.assertEqual(moved_samples, updated_samples)
 
-        updated_songs = set()
-        for sample in updated_samples:
-            for setting in sample.settings:
-                elem = setting.song.update_sample_element(setting)
-                assert elem.get('fileName') == str(sample.path)
-                updated_songs.add(setting.song)
+        # updated_songs = set()
+        # for sample in updated_samples:
+        #     for setting in sample.settings:
+        #         elem = setting.song.update_sample_element(setting)
+        #         assert elem.get('fileName') == str(sample.path)
+        #         updated_songs.add(setting.song)
 
-        print(updated_songs)
-        # write the modified XML
-        for s in updated_songs:
-            s.write_xml(new_path=Path("hacked.XML"))
+        # print(updated_songs)
+        # # write the modified XML
+        # for s in updated_songs:
+        #     s.write_xml(new_path=Path("hacked.XML"))
 
-        assert 0
+        # assert 0
+
+    def test_path_glob_replace_mv(self):
+
+        old_path = Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/2.wav')
+        new_path = Path('SAMPLES/MV/Hangdrum/')
+
+        self.assertEqual('2.wav', old_path.name)
+        self.assertEqual(old_path.parent, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum'))
+
+        new_file = Path(new_path, old_path.name)
+        self.assertEqual(new_file, Path('SAMPLES/MV/Hangdrum/2.wav'))

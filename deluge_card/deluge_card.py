@@ -19,13 +19,13 @@ def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
     Args:
         folder (str): path of target folder.
 
-    Returns:
-        [DelugeCardFS]: list of DelugeCardFS instances.
+    Yields:
+        cards (Iterator[DelugeCardFS]): generator of DelugeCardFS instances.
     """
 
     def _test_card_fs(folder):
         try:
-            return DelugeCardFS(Path(folder))
+            return DelugeCardFS.from_folder(folder)
         except InvalidDelugeCard:
             return
 
@@ -61,7 +61,7 @@ class DelugeCardFS:
         card_root (Path): Path object for the root folder.
     """
 
-    card_root: str = field()
+    card_root: Path = field()
 
     @card_root.validator
     def _check_card_root(self, attribute, value):
@@ -75,6 +75,9 @@ class DelugeCardFS:
     def initialise(path: str) -> 'DelugeCardFS':
         """Create a new Deluge Folder structure.
 
+        Args:
+            path (str): a valid folder name.
+
         Returns:
             instance (DelugeCardFS): new instance.
         """
@@ -87,6 +90,18 @@ class DelugeCardFS:
             Path(card_root, folder).mkdir()
 
         return DelugeCardFS(card_root)  # type: ignore
+
+    @staticmethod
+    def from_folder(folder: str) -> 'DelugeCardFS':
+        """New instance from a Deluge Folder structure.
+
+        Args:
+            folder (str): valid folder name.
+
+        Returns:
+            instance (DelugeCardFS): new instance.
+        """
+        return DelugeCardFS(Path(folder))
 
     def is_mounted(self) -> bool:
         """Is this a mounted SD card.

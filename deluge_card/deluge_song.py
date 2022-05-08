@@ -9,39 +9,14 @@ from typing import Iterator
 from attrs import define, field
 from lxml import etree
 
+from deluge_card.deluge_sample import Sample, SampleSetting
+
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
 
 SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
 NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
-
-
-@define
-class SampleSetting(object):
-    """represents a sample in the context of a DelugeSong.
-
-    Attributes:
-        song_path (Path): Path object for the XML song file.
-        xml_path (str): Xmlpath string locating the sample setting within the XML.
-    """
-
-    song: 'DelugeSong'
-    sample: 'Sample'
-    xml_path: str
-
-
-@define
-class Sample(object):
-    """represents a sample file.
-
-    Attributes:
-        path (Path): Path object for the sample file.
-        settings (list[SampleSetting]): list of SampleSettings for this
-    """
-
-    path: Path
-    settings: list[SampleSetting] = field(factory=list, eq=False)
 
 
 @define(repr=False, frozen=True)
@@ -63,12 +38,14 @@ class DelugeSong:
         return f"DelugeSong({self.path})"
 
     def update_sample_element(self, sample_setting):
+        """Update XML element from sample_setting."""
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
         elem.set('fileName', str(sample_setting.sample.path))
         return elem
 
     def write_xml(self, new_path=None):
+        """Write the song XML."""
         filename = new_path or self.path
         with open(filename, 'wb') as doc:
             doc.write(etree.tostring(self.xmlroot, pretty_print=True))
