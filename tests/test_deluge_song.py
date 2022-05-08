@@ -1,9 +1,23 @@
+import inspect
+import itertools
 import os
 from pathlib import Path
 from unittest import TestCase, mock
 
+import attr
+import attrs
+
 import deluge_card.deluge_song
 from deluge_card import DelugeSong
+from deluge_card.deluge_sample import Sample, mv_samples
+
+
+class TestSampleAttr(TestCase):
+    def test_initialise(self):
+        print(inspect.signature(Sample.__init__))
+        mySample = Sample(Path("a/b/c"))
+        print(mySample)
+        # assert 0
 
 
 class TestDelugeSong(TestCase):
@@ -16,11 +30,11 @@ class TestDelugeSong(TestCase):
         self.assertEqual(self.song.minimum_firmware(), '3.1.0-beta')
 
     def test_get_song_samples(self):
-        samples = [s for s in self.song.samples()]
-        self.assertEqual(samples[0].path(), Path('SAMPLES/DRUMS/Kick/DDD1 Kick.wav'))
-        self.assertEqual(list(samples[0].settings().values())[0].song_path(), self.song.path())
-        # print(list(samples[0].settings().values())[0].song_path())
-        # assert 0
+        samples = list(self.song.samples())
+        self.assertEqual(samples[0].path, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav'))
+        print(samples[0])
+        self.assertEqual(samples[0].settings[0].song, self.song)
+        self.assertEqual(len(samples), 32)
 
 
 class TestSongSamples(TestCase):
@@ -51,13 +65,13 @@ class TestSongSamples(TestCase):
 
 
 class TestTempo(TestDelugeSong):
-    def test_get_tempe(self):
+    def test_get_tempo(self):
         self.assertEqual(self.song.tempo(), 96.0)
 
 
 class TestScales(TestDelugeSong):
     def test_get_root(self):
-        self.assertEqual(self.song.root_note(), 'C3')
+        self.assertEqual(self.song.root_note(), 0)
 
     def test_get_modenotes(self):
         self.assertEqual(self.song.mode_notes(), [0, 2, 4, 5, 7, 9, 11])  # major scale intervals
@@ -70,7 +84,7 @@ class TestScales(TestDelugeSong):
 
     # TODO: how to patch lxml
     # @mock.patch('deluge_card.deluge_song.etree._Element')
-    @mock.patch('deluge_card.DelugeSong.root_note', return_value='Bb3')
+    @mock.patch('deluge_card.DelugeSong.root_note', return_value=10)
     def test_scale_Bb_major(self, mocked):
         # mocked.parse.return_value =
         # mocked.return_value.get.return_value = -2 #mock.MagicMock(spec='deluge_card.deluge_song.etree.Element', )
@@ -93,6 +107,64 @@ class TestDelugeSample(TestCase):
         self.card = DelugeCardFS(p)
 
     def test_list_samples(self):
-        samples = sorted([s.path().name for s in self.card.samples()])
+        samples = sorted([s.path.name for s in self.card.samples()])
         print(samples)
         self.assertEqual(samples[-1], 'wurgle.wav')
+
+
+class TestSongSampleMove(TestCase):
+    def setUp(self):
+        cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    def test_move_samples(self):
+
+        # get the flat list of all song_samples
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)
+        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
+        new_path = Path('SAMPLES/MV2/JOBB/Hangdrum/NEW2.wav')
+
+        moved_samples = list(mv_samples(ssl, matching, new_path))
+
+        # print("moved:", moved_samples)
+        # print()
+
+        def is_relative_to(sample):
+            try:
+                p = sample.path.relative_to(new_path)
+                return True
+            except ValueError:
+                return False
+
+        updated_samples = list(filter(is_relative_to, ssl))
+
+        # print("updated:", updated_samples)
+        # print()
+        self.assertEqual(moved_samples, updated_samples)
+
+        # updated_songs = set()
+        # for sample in updated_samples:
+        #     for setting in sample.settings:
+        #         elem = setting.song.update_sample_element(setting)
+        #         assert elem.get('fileName') == str(sample.path)
+        #         updated_songs.add(setting.song)
+
+        # print(updated_songs)
+        # # write the modified XML
+        # for s in updated_songs:
+        #     s.write_xml(new_path=Path("hacked.XML"))
+
+        # assert 0
+
+    def test_path_glob_replace_mv(self):
+
+        old_path = Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/2.wav')
+        new_path = Path('SAMPLES/MV/Hangdrum/')
+
+        self.assertEqual('2.wav', old_path.name)
+        self.assertEqual(old_path.parent, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum'))
+
+        new_file = Path(new_path, old_path.name)
+        self.assertEqual(new_file, Path('SAMPLES/MV/Hangdrum/2.wav'))

@@ -55,6 +55,7 @@ mkdocs-pymdownx-material-extras = "^2.0.3"
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 lxml = "^4.8.0"
+pydel = "^0.5.3"
 
 [tool.poetry.extras]
 test = [

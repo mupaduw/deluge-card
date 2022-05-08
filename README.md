@@ -8,8 +8,7 @@
 
 
 
-python api for synthstrom deluge cards from fw3.15+
-
+A Python3 api for Synthstrom Audible Deluge SD cards.
 
 * Documentation: <https://mupaduw.github.io/deluge-card>
 * GitHub: <https://github.com/mupaduw/deluge-card>
@@ -19,7 +18,14 @@ python api for synthstrom deluge cards from fw3.15+
 
 ## Features
 
-* TODO
+* List sub-folders that resemble Deluge cards (DelugeCardFS).
+* List contents of deluge filesystems (cards , folders).
+* Get details of card contents: songs, samples, sample usage.
+* Get song details like **tempo**, **key**, **scale**.
+* Filter contents by paths, using posix **ls** glob patterns.
+* Move samples like posix **mv**.
+* Unit tested on Macosx, Linux & Windows, Python 3.8+.
+* Song XML from fw3.15.
 
 ## Credits
 

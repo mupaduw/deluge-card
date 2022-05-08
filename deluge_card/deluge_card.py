@@ -1,6 +1,9 @@
 """Main class representing a Deluge Filesystem in a folder or a mounted SD card."""
 
 from pathlib import Path, PurePath
+from typing import Iterator
+
+from attrs import define, field
 
 from .deluge_song import DelugeSong, Sample
 
@@ -10,55 +13,70 @@ TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', SAMPLES]
 SAMPLE_TYPES = {".wav", ".mp3", ".aiff", ".ogg"}
 
 
-def _test_card_fs(folder):
-    try:
-        return DelugeCardFS(Path(folder))
-    except InvalidDelugeCard:
-        return
-
-
-def list_deluge_fs(folder):
+def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
     """List deluge_card look-alike filesystems.
 
     Args:
         folder (str): path of target folder.
 
-    Returns:
-        [DelugeCardFS]: list of DelugeCardFS instances.
+    Yields:
+        cards (Iterator[DelugeCardFS]): generator of DelugeCardFS instances.
     """
+
+    def _test_card_fs(folder):
+        try:
+            return DelugeCardFS.from_folder(folder)
+        except InvalidDelugeCard:
+            return
+
     card = _test_card_fs(folder)
     if card:
-        return [card]
-
-    res = []
+        yield card
     for fldr in Path(folder).iterdir():
         card = _test_card_fs(fldr)
-        if card:
-            res.append(card)
-    return res
+        if not card:
+            print(f"not a Deluge FS {folder}")
+            continue
+        yield card
 
 
+@define
 class InvalidDelugeCard(Exception):
     """This is not a valid DelugeCard FS."""
 
     def __init__(self, msg):
         """Create a new InvalidDelugeCard Exception.
 
-        Args:
-            msg (str): Human readable string describing the exception.
-
         Attributes:
             msg (str): Human readable string describing the exception.
         """
-        self.msg = msg
+        msg: str
 
 
+@define
 class DelugeCardFS:
-    """Main class representing a Deluge SD card/folder structure."""
+    """Main class representing a Deluge SD card/folder structure.
+
+    Attributes:
+        card_root (Path): Path object for the root folder.
+    """
+
+    card_root: Path = field()
+
+    @card_root.validator
+    def _check_card_root(self, attribute, value):
+        if not value.is_dir():
+            raise InvalidDelugeCard(f'{value} is not a directory path.')
+        for folder in TOP_FOLDERS:
+            if not Path(value, folder).exists():
+                raise InvalidDelugeCard(f'required folder {folder} does not exist in path {value}')
 
     @staticmethod
-    def initialise(path: str):
+    def initialise(path: str) -> 'DelugeCardFS':
         """Create a new Deluge Folder structure.
+
+        Args:
+            path (str): a valid folder name.
 
         Returns:
             instance (DelugeCardFS): new instance.
@@ -71,40 +89,32 @@ class DelugeCardFS:
         for folder in TOP_FOLDERS:
             Path(card_root, folder).mkdir()
 
-        return DelugeCardFS(card_root)
+        return DelugeCardFS(card_root)  # type: ignore
 
-    def __init__(self, card_root: Path):
-        """Create a new DelugeCardFS instance.
+    @staticmethod
+    def from_folder(folder: str) -> 'DelugeCardFS':
+        """New instance from a Deluge Folder structure.
 
         Args:
-            card_root (Path): Path object for the root folder.
-        """
-        self._card_root = card_root
-        card_root.is_dir()
-        for folder in TOP_FOLDERS:
-            if not Path(card_root, folder).exists():
-                raise InvalidDelugeCard(f'required folder {folder} does not exist in path {card_root}')
-
-    def card_root(self):
-        """Get card root path.
+            folder (str): valid folder name.
 
         Returns:
-           card_root (pathlib.Path): path of card_root.
+            instance (DelugeCardFS): new instance.
         """
-        return self._card_root
+        return DelugeCardFS(Path(folder))
 
-    def is_mounted(self):
+    def is_mounted(self) -> bool:
         """Is this a mounted SD card.
 
         Returns:
-            mounted (boolean): True if card_root is a mounted filesystem.
+            mounted (bool): True if card_root is a mounted filesystem.
 
         Raises:
             err (Exception): on windows is_mount isnpt available
         """
-        return Path(self._card_root).is_mount()
+        return Path(self.card_root).is_mount()
 
-    def songs(self, pattern: str = ""):
+    def songs(self, pattern: str = "") -> Iterator[DelugeSong]:
         """Generator for songs in the Card.
 
         Args:
@@ -113,14 +123,14 @@ class DelugeCardFS:
         Yields:
             object (DelugeSong): the next song on the card.
         """
-        for songfile in sorted(Path(self._card_root, SONGS).glob('*.XML')):
+        for songfile in sorted(Path(self.card_root, SONGS).glob('*.XML')):
             if not pattern:
-                yield DelugeSong(songfile)
+                yield DelugeSong(songfile)  # type: ignore
                 continue
             if PurePath(songfile).match(pattern):
                 yield DelugeSong(songfile)
 
-    def samples(self, pattern: str = ""):
+    def samples(self, pattern: str = "") -> Iterator[Sample]:
         """Generator for samples in the Card.
 
         Args:
@@ -129,7 +139,7 @@ class DelugeCardFS:
         Yields:
             object (Sample): the next sample on the card.
         """
-        smp = Path(self._card_root, SAMPLES)
+        smp = Path(self.card_root, SAMPLES)
         paths = (p.resolve() for p in Path(smp).glob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
         for fname in paths:
             if not pattern:

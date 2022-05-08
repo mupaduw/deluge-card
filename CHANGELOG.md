@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.4.0] - 2022-05-08
+### Added
+ - new mv_samples method.
+ - more usage examples.
+ - more typing.
+ - new DelugeCardFS.from_folder() static method.
+ - list of features in README.
+
+### Changed
+ - using attrs, some methods are now attributes.
+ - root_note, scale changes.
+ - improving docstrings.
+
 ## [0.3.0] - 2022-05-03
 ### Added
  - Posix glob-style filename matching for songs, samples, song_samples.

@@ -3,136 +3,79 @@
 Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
-import typing
 from pathlib import Path, PurePath
+from typing import Iterator, List
 
+from attrs import define, field
 from lxml import etree
+
+from deluge_card.deluge_sample import Sample, SampleSetting
 
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
 
-scale = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
-NOTES = [f'{n}{o}' for o in range(8) for n in scale]
+SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
+NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
 
 
-class SampleSetting:
-    """Class representing a sample in the context of a DelugeSong."""
-
-    def __init__(self, song_path, xml_path):
-        """Create a new SampleSetting instance.
-
-        Args:
-            song_path (Path): Path object for the song.
-            xml_path (str): Xmlpath string for the song context.
-        """
-        self._song_path = song_path
-        self._xml_path = xml_path
-
-    def xml_path(self):
-        """Path object for the song."""
-        return self._xml_path
-
-    def song_path(self):
-        """Xmlpath string for the song context."""
-        return self._song_path
-
-    def __repr__(self):
-        return f"SampleSetting({self._xml_path})"
-
-
-class Sample:
-    """Class representing a Sample file."""
-
-    def __init__(self, filepath: Path):
-        """Create a new Sample instance.
-
-        Args:
-            filepath (Path): Path object for the sample.
-        """
-        self._filepath = filepath
-        self._song_settings: typing.Dict[str, SampleSetting] = {}
-
-    def add_setting(self, sample_setting):
-        """Add a sample setting. sample.
-
-        Args:
-            sample_setting (SampleSetting): sample setting.
-        """
-        self._song_settings[sample_setting.xml_path()] = sample_setting
-
-    def path(self):
-        """Path object for the sample."""
-        return self._filepath
-
-    def settings(self):
-        """Settings for the song."""
-        return self._song_settings
-
-    def __repr__(self):
-        return f"Sample({self._filepath})"
-
-
+@define(repr=False, frozen=True)
 class DelugeSong:
-    """Class representing song data on a DelugeCard (in SONGS/*.xml)."""
+    """Class representing song data on a DelugeCard (in SONGS/*.xml).
 
-    def __init__(self, filepath: Path):
-        """Create a new DelugeSong instance.
+    Attributes:
+        path (Path): Path object for the sample file. file.
+    """
 
-        Args:
-            filepath (Path): Path object for the sample.
-        """
-        self._filepath = filepath
-        self._xmlroot = None
+    path: Path
+    xmlroot: etree.ElementTree = field()
 
-    def path(self):
-        """Path object for the song XML file."""
-        return self._filepath
+    @xmlroot.default
+    def _default_xlmroot(self):
+        return etree.parse(self.path).getroot()
 
-    def __repr__(self):
-        return f"DelugeSong({self._filepath})"
+    def __repr__(self) -> str:
+        return f"DelugeSong({self.path})"
 
-    def xmlroot(self):
-        """Get the xmlroot of the songs XML document."""
-        if self._xmlroot is None:
-            self._xmlroot = etree.parse(self._filepath).getroot()
-            assert self._xmlroot.tag == 'song'
-        return self._xmlroot
+    def update_sample_element(self, sample_setting):
+        """Update XML element from sample_setting."""
+        tree = etree.ElementTree(self.xmlroot)
+        elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
+        elem.set('fileName', str(sample_setting.sample.path))
+        return elem
 
-    def minimum_firmware(self):
+    def write_xml(self, new_path=None):
+        """Write the song XML."""
+        filename = new_path or self.path
+        with open(filename, 'wb') as doc:
+            doc.write(etree.tostring(self.xmlroot, pretty_print=True))
+
+    def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.
 
         Returns:
             str: earliestCompatibleFirmware version.
         """
-        root = self.xmlroot()
-        return root.get('earliestCompatibleFirmware')
+        return self.xmlroot.get('earliestCompatibleFirmware')
 
-    def root_note(self):
+    def root_note(self) -> int:
         """Get the root note.
 
         Returns:
-            str: root note (e.g C).
+            int: root note (e.g 36 for C3).
         """
-        root = self.xmlroot()
-        note = int(root.get('rootNote')) % 12
-        try:
-            return NOTES[note + C3_IDX]
-        except IndexError as err:
-            print(f'note {note} {err}')
-            return "64"
+        return int(self.xmlroot.get('rootNote'))
 
-    def mode_notes(self):
+    def mode_notes(self) -> List[int]:
         """Get the notes in the song scale (mode).
 
         Returns:
             [int]: list of mode intervals, relative to root.
         """
-        root = self.xmlroot()
-        notes = root.findall('.//modeNotes/modeNote')
+        notes = self.xmlroot.findall('.//modeNotes/modeNote')
         return [int(e.text) for e in notes]
 
-    def scale_mode(self):
+    def scale_mode(self) -> str:
         """Get the descriptive name of the song scale (mode).
 
         Returns:
@@ -153,18 +96,19 @@ class DelugeSong:
             return 'mixolydian'
         if mn == [0, 1, 3, 5, 6, 8, 10]:
             return 'locrian'
+        return 'other'
 
-    def scale(self):
+    def scale(self) -> str:
         """Get the song scale and key.
 
         Returns:
             str: scale name.
         """
         mode = self.scale_mode()
-        root = self.root_note()
-        return f'{root[:-1]} {mode}'
+        root_note = self.root_note() % 12
+        return f'{SCALE[root_note]} {mode}'
 
-    def tempo(self):
+    def tempo(self) -> float:
         """Get the song tempo in beats per minute.
 
         Returns:
@@ -190,17 +134,16 @@ class DelugeSong:
         #     // console.log("timerTickFraction=" + jsong.timerTickFraction + " fractPart= " +  fractPart);
         #     return tempo;
         # }
-        root = self.xmlroot()
-        fractPart = (int(root.get('timerTickFraction'))) / int('0x100000000', 16)
+        fractPart = (int(self.xmlroot.get('timerTickFraction'))) / int('0x100000000', 16)
         # print(int('0x100000000', 16))
         # print(fractPart)
-        realTPT = float(root.get('timePerTimerTick')) + fractPart
+        realTPT = float(self.xmlroot.get('timePerTimerTick')) + fractPart
         # print(realTPT)
         tempo = round((44100 * 60) / (96 * realTPT), 1)
         # tempo = round(55125/realTPT/2, 1)
         return tempo
 
-    def samples(self, pattern: str = ""):
+    def samples(self, pattern: str = "") -> Iterator[Sample]:
         """Generator for samples referenced in the DelugeSong.
 
         Args:
@@ -209,24 +152,19 @@ class DelugeSong:
         Yields:
             object (Sample): the next sample object.
         """
-        root = self.xmlroot()
-        tree = etree.ElementTree(root)
+        tree = etree.ElementTree(self.xmlroot)
 
-        def sample_in_setting(sample_file, tree):
+        def sample_in_setting(sample_file, tree) -> Sample:
             sample = Sample(Path(sample_file))
-            sample.add_setting(SampleSetting(self._filepath, tree.getpath(e)))
+            sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
             return sample
 
-        for sample_path in [
-            './/instruments/kit/soundSources/sound/osc1',
-            './/instruments/kit/soundSources/sound/osc2',
-            './/osc1/sampleRanges/sampleRange',
-        ]:
-            for e in root.findall(sample_path):
-                sample_file = e.get('fileName')
-                if sample_file:
-                    if not pattern:
-                        yield sample_in_setting(sample_file, tree)
-                        continue
-                    if PurePath(sample_file).match(pattern):
-                        yield sample_in_setting(sample_file, tree)
+        for e in self.xmlroot.findall(".//*[@fileName]"):
+            # print(f'elem {e}')
+            sample_file = e.get('fileName')
+            if sample_file:
+                if not pattern:
+                    yield sample_in_setting(sample_file, tree)
+                    continue
+                if PurePath(sample_file).match(pattern):
+                    yield sample_in_setting(sample_file, tree)
