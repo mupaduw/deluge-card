@@ -1,12 +1,19 @@
 """Main classes representing Deluge Sample."""
 
 from pathlib import Path
-from typing import Iterator, List
+from typing import Iterator, List, Set
 
 from attrs import define, field
 
+if False:
+    # for forward-reference type-checking:
+    # ref https://stackoverflow.com/a/38962160
+    from itertools import chain
 
-def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path) -> Iterator['Sample']:
+    import deluge_song
+
+
+def modify_sample_paths(samples: Iterator['Sample'], pattern: str, dest: Path) -> Iterator['SampleMoveOperation']:
     """Modify sample paths just as posix mv does."""
 
     def glob_match(sample):
@@ -14,13 +21,54 @@ def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path) -> Iterato
 
     def replace_path(sample):
         if dest.suffix == '':
-            sample.path = Path(dest, sample.path.name)
+            move_op = SampleMoveOperation(Path(sample.path), Path(dest, sample.path.name), sample)
         else:
-            sample.path = dest
-        return sample
+            move_op = SampleMoveOperation(Path(sample.path), Path(dest), sample)
+        sample.path = move_op.new_path
+        return move_op
 
     matching_samples = filter(glob_match, samples)
     return map(replace_path, matching_samples)
+
+
+def modify_sample_songs(move_ops: Iterator['SampleMoveOperation']) -> Set['deluge_song.DelugeSong']:
+    '''Update song XML'''
+
+    def update_song_elements(move_op):
+        for setting in move_op.sample.settings:
+            elem = setting.song.update_sample_element(setting)
+            assert elem.get('fileName') == str(setting.sample.path)
+            yield setting.song
+
+    return set(chain(map(update_song_elements, move_ops)))
+
+
+def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path):
+
+    sample_move_ops = modify_sample_paths(samples, pattern, dest)
+    updated_songs = modify_sample_songs(sample_move_ops)
+
+    print("sample_move_ops")
+    print(sample_move_ops)
+    print("Song updates")
+    print(updated_songs)
+    # write the modified XML
+    # map(lambda song: DelugeSong.write_xml(song), updated_songs)
+
+
+@define
+class SampleMoveOperation(object):
+    """represents a sample file move operation.
+
+    Attributes:
+        old_path (Path): original Path.
+        new_path (Path): new Path.
+        sample (Sample): sample instance.
+    """
+
+    old_path: Path
+    new_path: Path
+    sample: 'Sample'
 
 
 @define
@@ -34,12 +82,6 @@ class Sample(object):
 
     path: Path
     settings: List['SampleSetting'] = field(factory=list, eq=False)
-
-
-if False:
-    # for forward-reference type-checking:
-    # ref https://stackoverflow.com/a/38962160
-    import deluge_song
 
 
 @define

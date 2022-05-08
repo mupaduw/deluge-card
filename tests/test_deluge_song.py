@@ -112,6 +112,9 @@ class TestDelugeSample(TestCase):
         self.assertEqual(samples[-1], 'wurgle.wav')
 
 
+from deluge_card.deluge_sample import modify_sample_paths
+
+
 class TestSongSampleMove(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
@@ -126,10 +129,10 @@ class TestSongSampleMove(TestCase):
         matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
         new_path = Path('SAMPLES/MV2/JOBB/Hangdrum/NEW2.wav')
 
-        moved_samples = list(mv_samples(ssl, matching, new_path))
+        moved_samples = [mov.sample for mov in modify_sample_paths(ssl, matching, new_path)]
 
-        # print("moved:", moved_samples)
-        # print()
+        print("moved:", moved_samples)
+        print()
 
         def is_relative_to(sample):
             try:
@@ -143,18 +146,6 @@ class TestSongSampleMove(TestCase):
         # print("updated:", updated_samples)
         # print()
         self.assertEqual(moved_samples, updated_samples)
-
-        # updated_songs = set()
-        # for sample in updated_samples:
-        #     for setting in sample.settings:
-        #         elem = setting.song.update_sample_element(setting)
-        #         assert elem.get('fileName') == str(sample.path)
-        #         updated_songs.add(setting.song)
-
-        # print(updated_songs)
-        # # write the modified XML
-        # for s in updated_songs:
-        #     s.write_xml(new_path=Path("hacked.XML"))
 
         # assert 0
 
