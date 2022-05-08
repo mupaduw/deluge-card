@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.5.0] - 2022-05-08
+### Added
+ - new mv_samples method.
+ - list of features in README.
+ - more usage examples.
+ - more use of typing.
+ - DelugeCardFS.from_folder() static method.
+
+### Changed
+ - improving docstrings.
+
 ## [0.4.0] - 2022-05-03
 ### Changed
  - using attrs, some methods are now attributes.
