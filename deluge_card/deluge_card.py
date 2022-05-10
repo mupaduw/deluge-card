@@ -5,7 +5,8 @@ from typing import Iterator
 
 from attrs import define, field
 
-from .deluge_song import DelugeSong, Sample
+from deluge_card.deluge_sample import Sample
+from deluge_card.deluge_song import DelugeSong
 
 SONGS = 'SONGS'
 SAMPLES = 'SAMPLES'
@@ -40,7 +41,6 @@ def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
         yield card
 
 
-@define
 class InvalidDelugeCard(Exception):
     """This is not a valid DelugeCard FS."""
 
@@ -53,7 +53,7 @@ class InvalidDelugeCard(Exception):
         msg: str
 
 
-@define
+@define(frozen=True)
 class DelugeCardFS:
     """Main class representing a Deluge SD card/folder structure.
 
@@ -114,7 +114,7 @@ class DelugeCardFS:
         """
         return Path(self.card_root).is_mount()
 
-    def songs(self, pattern: str = "") -> Iterator[DelugeSong]:
+    def songs(self, pattern: str = "") -> Iterator['DelugeSong']:
         """Generator for songs in the Card.
 
         Args:
@@ -125,12 +125,12 @@ class DelugeCardFS:
         """
         for songfile in sorted(Path(self.card_root, SONGS).glob('*.XML')):
             if not pattern:
-                yield DelugeSong(songfile)  # type: ignore
+                yield DelugeSong(self, songfile)  # type: ignore
                 continue
             if PurePath(songfile).match(pattern):
-                yield DelugeSong(songfile)
+                yield DelugeSong(self, songfile)
 
-    def samples(self, pattern: str = "") -> Iterator[Sample]:
+    def samples(self, pattern: str = "") -> Iterator['Sample']:
         """Generator for samples in the Card.
 
         Args:

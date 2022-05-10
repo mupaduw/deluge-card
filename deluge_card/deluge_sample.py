@@ -47,16 +47,18 @@ def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path):
     sample_move_ops = list(modify_sample_paths(samples, pattern, dest))
     updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
 
-    print("Song updates")
-    print(updated_songs)
+    # print("Song updates")
+    # print(updated_songs)
+
     # write the modified XML
     for song in updated_songs:
         song.write_xml()
 
-    print("sample_move_ops")
-    print(sample_move_ops)
+    # print("sample_move_ops")
+    # print(sample_move_ops)
     for move_op in sample_move_ops:
         move_op.do_move()
+        yield move_op
 
 
 @define
@@ -72,12 +74,14 @@ class SampleMoveOperation(object):
     old_path: Path
     new_path: Path
     sample: 'Sample'
-    moved: bool = field(default=False)
+    # moved: bool = field(default=False)
 
     def do_move(self) -> bool:
         """Complete the move operation."""
+        if not self.new_path.parent.exists():
+            self.new_path.parent.mkdir(exist_ok=True, parents=True)
         self.old_path.rename(self.new_path)
-        self.moved = True
+        # self.moved = True
         return self.moved
 
 

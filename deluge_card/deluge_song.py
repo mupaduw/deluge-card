@@ -18,6 +18,11 @@ SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
 NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
 
+if False:
+    # for forward-reference type-checking:
+    # ref https://stackoverflow.com/a/38962160
+    from deluge_card import DelugeCardFS
+
 
 @define(repr=False, frozen=True)
 class DelugeSong:
@@ -27,6 +32,7 @@ class DelugeSong:
         path (Path): Path object for the sample file. file.
     """
 
+    cardfs: 'DelugeCardFS'
     path: Path
     xmlroot: etree.ElementTree = field()
 

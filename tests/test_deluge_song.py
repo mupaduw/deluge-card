@@ -8,7 +8,7 @@ import attr
 import attrs
 
 import deluge_card.deluge_song
-from deluge_card import DelugeSong
+from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_sample import Sample, mv_samples
 
 
@@ -23,8 +23,10 @@ class TestSampleAttr(TestCase):
 class TestDelugeSong(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        card = DelugeCardFS(p)
         p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(p)
+        self.song = DelugeSong(card, p)
 
     def test_get_minimum_firmware(self):
         self.assertEqual(self.song.minimum_firmware(), '3.1.0-beta')
@@ -40,8 +42,10 @@ class TestDelugeSong(TestCase):
 class TestSongSamples(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        card = DelugeCardFS(p)
         p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(p)
+        self.song = DelugeSong(card, p)
 
     def test_list_all_samples(self):
         samples = list(self.song.samples())

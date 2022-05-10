@@ -233,7 +233,7 @@ dev = ["twine", "markdown", "flake8", "wheel"]
 
 [[package]]
 name = "griffe"
-version = "0.19.0"
+version = "0.19.1"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 category = "dev"
 optional = false
@@ -1251,8 +1251,8 @@ ghp-import = [
     {file = "ghp_import-2.1.0-py3-none-any.whl", hash = "sha256:8337dd7b50877f163d4c0289bc1f1c7f127550241988d568c1db512c4324a619"},
 ]
 griffe = [
-    {file = "griffe-0.19.0-py3-none-any.whl", hash = "sha256:1bff0dc8692c862780c5c5ab12e19ae70855553b48cab03210c4b14402594c66"},
-    {file = "griffe-0.19.0.tar.gz", hash = "sha256:9fd1ae56b819e0c3c48e2d8d62f768721e39f7290e5e7de8caa010fb77073b4c"},
+    {file = "griffe-0.19.1-py3-none-any.whl", hash = "sha256:7d9393f8d6d6026d80dc0865724b9d87f2cbb93e3f86998b785b01403cd3d52b"},
+    {file = "griffe-0.19.1.tar.gz", hash = "sha256:945284500df94f272b8a70bcedaac99721f26dea72d2f1b16f416de28848b753"},
 ]
 identify = [
     {file = "identify-2.5.0-py2.py3-none-any.whl", hash = "sha256:3acfe15a96e4272b4ec5662ee3e231ceba976ef63fd9980ed2ce9cc415df393f"},

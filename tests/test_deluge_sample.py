@@ -10,7 +10,7 @@ import attrs
 import deluge_card.deluge_song
 from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_card import InvalidDelugeCard
-from deluge_card.deluge_sample import Sample, mv_samples
+from deluge_card.deluge_sample import Sample, modify_sample_paths, modify_sample_songs, mv_samples
 
 
 class TestDelugeSample(TestCase):
@@ -25,16 +25,13 @@ class TestDelugeSample(TestCase):
         self.assertEqual(samples[-1], 'wurgle.wav')
 
 
-from deluge_card.deluge_sample import modify_sample_paths, modify_sample_songs, mv_samples
-
-
 class TestSongSampleMove(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
         p = Path(cwd, 'fixtures', 'DC01')
         self.card = DelugeCardFS(p)
         p2 = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(p2)
+        self.song = DelugeSong(self.card, p2)
 
     def test_move_samples(self):
 
@@ -88,9 +85,10 @@ class TestSongSampleMove(TestCase):
         matching = '**/Leonard Ludvigsen/Hangdrum/*.wav'
         new_path = Path('SAMPLES/MV4/JOBB/')
 
-        mv_samples(ssl, matching, new_path)
+        print(ssl[:5])
+        moves = list(mv_samples(ssl, matching, new_path))
 
-        self.assertTrue(mock_write.call_count == 1)
+        self.assertEqual(mock_write.call_count, 1)
         self.assertEqual(mock_move.call_count, 2)
 
     def test_path_glob_replace_mv(self):
