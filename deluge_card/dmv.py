@@ -18,7 +18,7 @@ def list_samples(card, args):
 
 def main():
     """Main entrypoint."""
-    parser = argparse.ArgumentParser(description='deluge_dls.py (dls)  - list deluge FS contents')
+    parser = argparse.ArgumentParser(description='dmv.py (dmv) - move FS contents')
 
     parser.add_argument('root', help='root folder to begin mv from')
     # parser.add_argument('type', help='one of of s=songs, a=samples, ss=song_samples (future: k=kits, i=instruments)')
@@ -33,7 +33,6 @@ def main():
         print(f"Args: {args}")
 
     card_imgs = list(list_deluge_fs(args.root))
-
     if len(card_imgs) == 0:
         print('No card found.')
         return
@@ -45,7 +44,7 @@ def main():
     samples = card.samples()
     new_path = Path(args.dest)
 
-    for moved in mv_samples(samples, args.pattern, new_path):
+    for moved in mv_samples(card.card_root, samples, args.pattern, new_path):
         print(moved.new_path)
 
 

@@ -9,7 +9,7 @@ from typing import Iterator, List
 from attrs import define, field
 from lxml import etree
 
-from deluge_card.deluge_sample import Sample, SampleSetting
+from .deluge_sample import Sample, SampleSetting
 
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
@@ -48,6 +48,9 @@ class DelugeSong:
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
         elem.set('fileName', str(sample_setting.sample.path))
+        # ss = sample_setting
+        # rel_path = ss.sample.path.relative_to(ss.song.cardfs.card_root)
+        # elem.set('fileName', str(rel_path))
         return elem
 
     def write_xml(self, new_path=None) -> str:

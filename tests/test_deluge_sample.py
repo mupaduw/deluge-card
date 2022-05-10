@@ -76,20 +76,67 @@ class TestSongSampleMove(TestCase):
         print(updated_songs)
         self.assertEqual([self.song.path], [us.path for us in updated_songs])
 
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
+    @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
+    def test_mv_sample_to_available_relative_dest(self, mock_write, mock_move):
+
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)
+        matching = '**/Leonard Ludvigsen/Hangdrum/*.wav'
+        new_path = Path('SAMPLES/MV')
+
+        print(ssl[:5])
+        moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+
+        self.assertEqual(mock_write.call_count, 1)
+        self.assertEqual(mock_move.call_count, 2)
+
     @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move', return_value=True)
     @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
-    def test_mv_sample(self, mock_write, mock_move):
+    def test_mv_sample_to_available_absolute_dest(self, mock_write, mock_move):
+
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)
+        matching = '**/Leonard Ludvigsen/Hangdrum/*.wav'
+        new_path = Path(self.card.card_root, 'SAMPLES/MV')
+
+        print(ssl[:5])
+        moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+
+        self.assertEqual(mock_write.call_count, 1)
+        self.assertEqual(mock_move.call_count, 2)
+
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move', return_value=True)
+    @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
+    def test_mv_sample_to_missing_rel_dest(self, mock_write, mock_move):
 
         song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
         ssl = list(song_samples)
         matching = '**/Leonard Ludvigsen/Hangdrum/*.wav'
         new_path = Path('SAMPLES/MV4/JOBB/')
 
-        print(ssl[:5])
-        moves = list(mv_samples(ssl, matching, new_path))
+        # print(ssl[:5])
+        with self.assertRaises(ValueError) as err:
+            moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+        # print(err)
+        self.assertEqual(mock_write.call_count, 0)
+        self.assertEqual(mock_move.call_count, 0)
 
-        self.assertEqual(mock_write.call_count, 1)
-        self.assertEqual(mock_move.call_count, 2)
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move', return_value=True)
+    @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
+    def test_mv_sample_to_available_invalid_dest(self, mock_write, mock_move):
+
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)
+        matching = '**/Leonard Ludvigsen/Hangdrum/*.wav'
+        new_path = Path('/tmp')
+
+        # print(ssl[:5])
+        with self.assertRaises(ValueError) as err:
+            moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+        # print(err)
+        self.assertEqual(mock_write.call_count, 0)
+        self.assertEqual(mock_move.call_count, 0)
 
     def test_path_glob_replace_mv(self):
 

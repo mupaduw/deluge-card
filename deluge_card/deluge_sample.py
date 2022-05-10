@@ -15,10 +15,10 @@ if False:
 def modify_sample_paths(samples: Iterator['Sample'], pattern: str, dest: Path) -> Iterator['SampleMoveOperation']:
     """Modify sample paths just as posix mv does."""
 
-    def glob_match(sample):
+    def glob_match(sample) -> bool:
         return Path(sample.path).match(pattern)
 
-    def replace_path(sample):
+    def replace_path(sample) -> SampleMoveOperation:
         if dest.suffix == '':
             move_op = SampleMoveOperation(Path(sample.path), Path(dest, sample.path.name), sample)
         else:
@@ -42,20 +42,31 @@ def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeS
     return set(itertools.chain.from_iterable(map(update_song_elements, samples)))
 
 
-def mv_samples(samples: Iterator['Sample'], pattern: str, dest: Path):
+def validate_mv_dest(root: Path, dest: Path):
+    """Check: dest path must be a child of root and must exist."""
+    absolute_dest = dest if dest.is_absolute() else Path(root, dest)
+    if not (absolute_dest.is_dir() or absolute_dest.parent.exists()):
+        raise ValueError(f"folder does not exist: {dest}")
+    try:
+        absolute_dest.parent.relative_to(root)
+    except ValueError:
+        raise ValueError("Destination must be a sub-folder of card.")
+
+
+def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path):
     """Move samples, updating any affected songs."""
-    sample_move_ops = list(modify_sample_paths(samples, pattern, dest))
-    updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
+    validate_mv_dest(root, dest)  # raises exception if args are invalid
 
-    # print("Song updates")
+    sample_move_ops = list(modify_sample_paths(samples, pattern, dest))  # do materialise the list
+    updated_songs = modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops))
+    # updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
+
+    # print("updated_songs")
     # print(updated_songs)
-
     # write the modified XML
     for song in updated_songs:
         song.write_xml()
 
-    # print("sample_move_ops")
-    # print(sample_move_ops)
     for move_op in sample_move_ops:
         move_op.do_move()
         yield move_op
@@ -74,15 +85,12 @@ class SampleMoveOperation(object):
     old_path: Path
     new_path: Path
     sample: 'Sample'
-    # moved: bool = field(default=False)
 
-    def do_move(self) -> bool:
+    def do_move(self):
         """Complete the move operation."""
         if not self.new_path.parent.exists():
             self.new_path.parent.mkdir(exist_ok=True, parents=True)
         self.old_path.rename(self.new_path)
-        # self.moved = True
-        return self.moved
 
 
 @define

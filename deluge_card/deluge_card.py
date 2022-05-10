@@ -5,8 +5,8 @@ from typing import Iterator
 
 from attrs import define, field
 
-from deluge_card.deluge_sample import Sample
-from deluge_card.deluge_song import DelugeSong
+from .deluge_sample import Sample
+from .deluge_song import DelugeSong
 
 SONGS = 'SONGS'
 SAMPLES = 'SAMPLES'
