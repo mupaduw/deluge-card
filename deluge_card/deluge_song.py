@@ -3,6 +3,8 @@
 Credit & thanks to Jamie Faye
 ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
+
+import enum
 from pathlib import Path, PurePath
 from typing import Iterator, List
 
@@ -17,6 +19,19 @@ TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
 SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
 NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
+
+
+class Mode(enum.Enum):
+    """Enum for the scale modes."""
+
+    major = [0, 2, 4, 5, 7, 9, 11]
+    minor = [0, 2, 3, 5, 7, 9, 10]
+    dorian = [0, 2, 3, 5, 7, 9, 10]
+    phrygian = [0, 1, 3, 5, 7, 8, 10]
+    lydian = [0, 2, 4, 6, 7, 9, 11]
+    mixolydian = [0, 2, 4, 5, 7, 9, 10]
+    locrian = [0, 1, 3, 5, 6, 8, 10]
+
 
 if False:
     # for forward-reference type-checking:
@@ -90,21 +105,10 @@ class DelugeSong:
             str: scale_mode name.
         """
         mn = self.mode_notes()
-        if mn == [0, 2, 4, 5, 7, 9, 11]:
-            return 'major'
-        if mn == [0, 2, 3, 5, 7, 9, 10]:
-            return 'minor'
-        if mn == [0, 2, 3, 5, 7, 9, 10]:
-            return 'dorian'
-        if mn == [0, 1, 3, 5, 7, 8, 10]:
-            return 'phrygian'
-        if mn == [0, 2, 4, 6, 7, 9, 11]:
-            return 'lydian'
-        if mn == [0, 2, 4, 5, 7, 9, 10]:
-            return 'mixolydian'
-        if mn == [0, 1, 3, 5, 6, 8, 10]:
-            return 'locrian'
-        return 'other'
+        try:
+            return Mode(mn).name
+        except ValueError:
+            return 'other'
 
     def scale(self) -> str:
         """Get the song scale and key.

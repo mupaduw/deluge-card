@@ -48,16 +48,14 @@ class TestValidateDestination(TestCase):
     def test_validate_mv_dest_invalid2(self):
         new_path = Path('SONGS/MV/NEW2.wav')
         root = self.card.card_root
-        with self.assertRaises(ValueError) as ctx:
+        with self.assertRaisesRegex(ValueError, 'target folder does not exist:.*SONGS.MV') as ctx:
             validate_mv_dest(root, new_path)
-        self.assertEqual(str(ctx.exception), 'target folder does not exist: SONGS/MV/NEW2.wav')
 
     def test_validate_mv_dest_bad_target(self):
         new_path = Path('SAMPLES/MV2/NEW2.wav')
         root = self.card.card_root
-        with self.assertRaises(ValueError) as ctx:
+        with self.assertRaisesRegex(ValueError, 'target folder does not exist:.*SAMPLES.MV2') as ctx:
             validate_mv_dest(root, new_path)
-        self.assertEqual(str(ctx.exception), 'target folder does not exist: SAMPLES/MV2/NEW2.wav')
 
     def test_validate_mv_dest_valid(self):
         root = self.card.card_root
