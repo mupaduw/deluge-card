@@ -47,11 +47,8 @@ class DelugeSong:
         """Update XML element from sample_setting."""
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
-        print('old path', elem.get('fileName'))
+        # print('DEBUG old path', elem.get('fileName'))
         elem.set('fileName', str(sample_setting.sample.path))
-        # ss = sample_setting
-        # rel_path = ss.sample.path.relative_to(ss.song.cardfs.card_root)
-        # elem.set('fileName', str(rel_path))
         return elem
 
     def write_xml(self, new_path=None) -> str:
