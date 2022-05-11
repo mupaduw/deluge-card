@@ -21,7 +21,7 @@ class TestListSongs(TestCase):
 
     def test_list_all_songs(self):
         songs = list(self.card.songs())
-        self.assertEqual(len(songs), 3)
+        self.assertEqual(len(songs), 5)
 
     def test_list_sampless_0(self):
         songs = list(self.card.songs("*002*"))
@@ -48,7 +48,7 @@ class TestListSamples(TestCase):
 
     def test_list_all_samples(self):
         samples = list(self.card.samples())
-        self.assertEqual(len(samples), 3)
+        self.assertEqual(len(samples), 5)
 
     def test_list_samples_0(self):
         samples = list(self.card.samples("*snare*"))

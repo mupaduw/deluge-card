@@ -2,7 +2,7 @@
 
 import itertools
 from pathlib import Path
-from typing import Iterator, List, Set
+from typing import Iterator, List
 
 from attrs import define, field
 
@@ -20,7 +20,8 @@ def modify_sample_paths(
     def glob_match(sample) -> bool:
         return Path(sample.path).match(pattern)
 
-    def replace_path(sample) -> SampleMoveOperation:
+    def build_move_op(sample) -> SampleMoveOperation:
+        # print('DEBUG:', sample.path)
         if dest.suffix == '':
             move_op = SampleMoveOperation(ensure_absolute(root, sample.path), Path(dest, sample.path.name), sample)
         else:
@@ -29,10 +30,10 @@ def modify_sample_paths(
         return move_op
 
     matching_samples = filter(glob_match, samples)
-    return map(replace_path, matching_samples)
+    return map(build_move_op, matching_samples)
 
 
-def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeSong']:
+def modify_sample_songs(samples: Iterator['Sample']) -> Iterator['deluge_song.DelugeSong']:
     """Update song XML elements."""
 
     def update_song_elements(sample):
@@ -43,7 +44,7 @@ def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeS
             assert elem.get('fileName') == str(setting.sample.path)
             yield setting.song
 
-    return set(itertools.chain.from_iterable(map(update_song_elements, samples)))
+    return itertools.chain.from_iterable(map(update_song_elements, samples))
 
 
 def ensure_absolute(root: Path, dest: Path):
@@ -77,18 +78,20 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
-    updated_songs = list(modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops)))
+    updated_songs = modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops))
 
-    # write the modified XML
-    for song in updated_songs:
+    # write the modified XML, per unique song
+    for song in set(updated_songs):
         song.write_xml()
+        yield ModOp("update_song_xml", str(song.path), song)
 
-    for move_op in sample_move_ops:
+    # move the files, per unique sample
+    for move_op in set(sample_move_ops):
         move_op.do_move()
-        yield move_op
+        yield ModOp("move_file", str(move_op.new_path), move_op)
 
 
-@define
+@define(eq=False)
 class SampleMoveOperation(object):
     """Represents a sample file move operation.
 
@@ -101,6 +104,16 @@ class SampleMoveOperation(object):
     old_path: Path
     new_path: Path
     sample: 'Sample'
+    uniqid: int = field(init=False)
+
+    def __attrs_post_init__(self):
+        self.uniqid = hash(self.old_path)
+
+    def __eq__(self, other):
+        return self.uniqid == other.uniqid
+
+    def __hash__(self):
+        return self.uniqid
 
     def do_move(self):
         """Complete the move operation.
@@ -113,7 +126,7 @@ class SampleMoveOperation(object):
         self.old_path.rename(self.new_path)
 
 
-@define
+@define  # (eq=False)  # frozen abuse!
 class Sample(object):
     """represents a sample file.
 
@@ -138,3 +151,18 @@ class SampleSetting(object):
     song: 'deluge_song.DelugeSong'  # noqa (for F821 undefined name)
     sample: 'Sample'
     xml_path: str
+
+
+@define
+class ModOp(object):
+    """Represents a successful modification operation.
+
+    Attributes:
+        operation: str
+        path (str): file path
+        instance (Any): modified instance.
+    """
+
+    operation: str
+    path: str
+    instance: object

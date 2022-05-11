@@ -63,6 +63,31 @@ class TestValidateDestination(TestCase):
         validate_mv_dest(root, new_path)
 
 
+class TestBugFix12SongSampleMove(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+        # p2 = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
+        # self.song = DelugeSong(self.card, p2)
+
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
+    @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
+    def test_mv_sample_to_available_relative_dest(self, mock_write, mock_move):
+
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)
+        matching = '**/Kick/CR78 Kick.wav'
+        new_path = Path('SAMPLES/MV')  # valid path
+
+        # print(ssl[:5])
+        modops = mv_samples(self.card.card_root, ssl, matching, new_path)
+        print()
+        print([(m.instance.old_path, m.instance.__hash__()) for m in modops if m.operation == "move_file"])
+        self.assertEqual(mock_move.call_count, 1)  # 1 samples in 2 songs
+        self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78 Kick
+
+
 class TestSongSampleMove(TestCase):
     def setUp(self):
         self.cwd = os.path.dirname(os.path.realpath(__file__))
@@ -114,7 +139,6 @@ class TestSongSampleMove(TestCase):
 
         updated_samples = list(filter(is_relative_to, ssl))
         self.assertEqual(moved_samples, updated_samples)
-        # assert 0
 
     def test_update_song_xml(self):
 
