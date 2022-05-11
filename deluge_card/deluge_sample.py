@@ -1,6 +1,7 @@
 """Main classes representing Deluge Sample."""
 
 import itertools
+import uuid
 from pathlib import Path
 from typing import Iterator, List, Set
 
@@ -29,7 +30,7 @@ def modify_sample_paths(
         return move_op
 
     matching_samples = filter(glob_match, samples)
-    return map(replace_path, matching_samples)
+    return set(map(replace_path, matching_samples))
 
 
 def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeSong']:
@@ -88,7 +89,7 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
         yield move_op
 
 
-@define
+@define(eq=False)
 class SampleMoveOperation(object):
     """Represents a sample file move operation.
 
@@ -101,6 +102,16 @@ class SampleMoveOperation(object):
     old_path: Path
     new_path: Path
     sample: 'Sample'
+    uniqid: uuid.uuid4 = field(init=False)
+
+    def __attrs_post_init__(self):
+        self.uniqid = hash(uuid.uuid4())
+
+    def __eq__(self, other):
+        return self.uniqid == other.uniqid
+
+    def __hash__(self):
+        return self.uniqid
 
     def do_move(self):
         """Complete the move operation.
@@ -113,7 +124,7 @@ class SampleMoveOperation(object):
         self.old_path.rename(self.new_path)
 
 
-@define
+@define(eq=False)  # frozen abuse!
 class Sample(object):
     """represents a sample file.
 
@@ -124,6 +135,22 @@ class Sample(object):
 
     path: Path
     settings: List['SampleSetting'] = field(factory=list, eq=False)
+    # uniqid: uuid.uuid4 = field(init=False)
+
+    # def __attrs_post_init__(self):
+    #     self.uniqid = hash(uuid.uuid4())
+
+    # def __eq__(self, other):
+    #     return self.uniqid == other.uniqid
+
+    # def __hash__(self):
+    #     return self.uniqid
+
+    def __eq__(self, other):
+        return self.path == other.path
+
+    def __hash__(self):
+        return hash(self.path)
 
 
 @define
