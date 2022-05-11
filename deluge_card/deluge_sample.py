@@ -77,15 +77,10 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
-    # print(f"DEBUG sample move_ops: {len(sample_move_ops)}")
     updated_songs = list(modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops)))
-    # updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
 
-    print("updated_songs")
-    print(updated_songs)
     # write the modified XML
     for song in updated_songs:
-        print(f'writing {song}')
         song.write_xml()
 
     for move_op in sample_move_ops:
