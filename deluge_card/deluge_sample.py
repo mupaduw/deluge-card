@@ -21,7 +21,7 @@ def modify_sample_paths(
         return Path(sample.path).match(pattern)
 
     def build_move_op(sample) -> SampleMoveOperation:
-        print('DEBUG:', sample.path)
+        # print('DEBUG:', sample.path)
         if dest.suffix == '':
             move_op = SampleMoveOperation(ensure_absolute(root, sample.path), Path(dest, sample.path.name), sample)
         else:
@@ -83,11 +83,12 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     # write the modified XML, per unique song
     for song in set(updated_songs):
         song.write_xml()
+        yield ModOp("update_song_xml", str(song.path), song)
 
     # move the files, per unique sample
     for move_op in set(sample_move_ops):
         move_op.do_move()
-        yield move_op
+        yield ModOp("move_file", str(move_op.new_path), move_op)
 
 
 @define(eq=False)
@@ -125,7 +126,7 @@ class SampleMoveOperation(object):
         self.old_path.rename(self.new_path)
 
 
-@define(eq=False)  # frozen abuse!
+@define  # (eq=False)  # frozen abuse!
 class Sample(object):
     """represents a sample file.
 
@@ -136,22 +137,6 @@ class Sample(object):
 
     path: Path
     settings: List['SampleSetting'] = field(factory=list, eq=False)
-    # uniqid: uuid.uuid4 = field(init=False)
-
-    # def __attrs_post_init__(self):
-    #     self.uniqid = hash(uuid.uuid4())
-
-    # def __eq__(self, other):
-    #     return self.uniqid == other.uniqid
-
-    # def __hash__(self):
-    #     return self.uniqid
-
-    def __eq__(self, other):
-        return self.path == other.path
-
-    def __hash__(self):
-        return hash(self.path)
 
 
 @define
@@ -166,3 +151,18 @@ class SampleSetting(object):
     song: 'deluge_song.DelugeSong'  # noqa (for F821 undefined name)
     sample: 'Sample'
     xml_path: str
+
+
+@define
+class ModOp(object):
+    """Represents a successful modification operation.
+
+    Attributes:
+        operation: str
+        path (str): file path
+        instance (Any): modified instance.
+    """
+
+    operation: str
+    path: str
+    instance: object

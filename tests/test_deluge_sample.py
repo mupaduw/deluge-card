@@ -81,11 +81,11 @@ class TestBugFix12SongSampleMove(TestCase):
         new_path = Path('SAMPLES/MV')  # valid path
 
         # print(ssl[:5])
-        moves = mv_samples(self.card.card_root, ssl, matching, new_path)
+        modops = mv_samples(self.card.card_root, ssl, matching, new_path)
         print()
-        print([(m.old_path, m.__hash__()) for m in moves])
+        print([(m.instance.old_path, m.instance.__hash__()) for m in modops if m.operation == "move_file"])
         self.assertEqual(mock_move.call_count, 1)  # 1 samples in 2 songs
-        self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78
+        self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78 Kick
 
 
 class TestSongSampleMove(TestCase):
