@@ -68,8 +68,8 @@ class TestBugFix12SongSampleMove(TestCase):
         self.cwd = os.path.dirname(os.path.realpath(__file__))
         p = Path(self.cwd, 'fixtures', 'DC01')
         self.card = DelugeCardFS(p)
-        p2 = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(self.card, p2)
+        # p2 = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
+        # self.song = DelugeSong(self.card, p2)
 
     @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
     @mock.patch('deluge_card.deluge_song.DelugeSong.write_xml', return_value="filepath")
@@ -81,11 +81,11 @@ class TestBugFix12SongSampleMove(TestCase):
         new_path = Path('SAMPLES/MV')  # valid path
 
         # print(ssl[:5])
-        moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+        moves = mv_samples(self.card.card_root, ssl, matching, new_path)
         print()
-        print([m.sample.path for m in moves])
-        self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78
+        print([(m.old_path, m.__hash__()) for m in moves])
         self.assertEqual(mock_move.call_count, 1)  # 1 samples in 2 songs
+        self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78
 
 
 class TestSongSampleMove(TestCase):
