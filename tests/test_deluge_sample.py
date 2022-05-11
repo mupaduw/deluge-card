@@ -2,7 +2,7 @@ import inspect
 import itertools
 import os
 from pathlib import Path
-from unittest import TestCase, mock
+from unittest import TestCase, mock, skip
 
 import attr
 import attrs
@@ -10,7 +10,14 @@ import attrs
 import deluge_card.deluge_song
 from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_card import InvalidDelugeCard
-from deluge_card.deluge_sample import Sample, modify_sample_paths, modify_sample_songs, mv_samples
+from deluge_card.deluge_sample import (
+    Sample,
+    ensure_absolute,
+    modify_sample_paths,
+    modify_sample_songs,
+    mv_samples,
+    validate_mv_dest,
+)
 
 
 class TestDelugeSample(TestCase):
@@ -25,40 +32,90 @@ class TestDelugeSample(TestCase):
         self.assertEqual(samples[-1], 'wurgle.wav')
 
 
+class TestValidateDestination(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    def test_validate_mv_dest_not_subfolder(self):
+        new_path = Path('.').absolute()  # make tthe cwd, and valid
+        root = self.card.card_root
+        with self.assertRaises(ValueError) as ctx:
+            validate_mv_dest(root, new_path)
+        self.assertEqual(str(ctx.exception), 'Destination must be a sub-folder of card.')
+
+    def test_validate_mv_dest_invalid2(self):
+        new_path = Path('SONGS/MV/NEW2.wav')
+        root = self.card.card_root
+        with self.assertRaises(ValueError) as ctx:
+            validate_mv_dest(root, new_path)
+        self.assertEqual(str(ctx.exception), 'target folder does not exist: SONGS/MV/NEW2.wav')
+
+    def test_validate_mv_dest_bad_target(self):
+        new_path = Path('SAMPLES/MV2/NEW2.wav')
+        root = self.card.card_root
+        with self.assertRaises(ValueError) as ctx:
+            validate_mv_dest(root, new_path)
+        self.assertEqual(str(ctx.exception), 'target folder does not exist: SAMPLES/MV2/NEW2.wav')
+
+    def test_validate_mv_dest_valid(self):
+        root = self.card.card_root
+        new_path = Path(root, 'SAMPLES/MV/NEW2.wav').absolute()  # make this relative to cwd
+        validate_mv_dest(root, new_path)
+
+
 class TestSongSampleMove(TestCase):
     def setUp(self):
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        p = Path(cwd, 'fixtures', 'DC01')
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
         self.card = DelugeCardFS(p)
-        p2 = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
+        p2 = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
         self.song = DelugeSong(self.card, p2)
+
+    def test_modify_sample_paths(self):
+        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
+        ssl = list(song_samples)[:2]
+        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
+        new_path = Path('SAMPLES/MV/NEW2.wav')
+
+        root = self.card.card_root
+        new_path = ensure_absolute(root, new_path)
+        validate_mv_dest(root, new_path)  # raises exception if args are invalid
+
+        moved_samples = [mo.sample for mo in modify_sample_paths(root, ssl, matching, new_path)]
+
+        self.assertEqual(len(moved_samples), 1)
+        self.assertEqual(Path(root, moved_samples[0].path), new_path)
 
     def test_move_samples(self):
 
         # get the flat list of all song_samples
         song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
         ssl = list(song_samples)
-        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
-        new_path = Path('SAMPLES/MV2/JOBB/Hangdrum/NEW2.wav')
 
-        moved_samples = [mov.sample for mov in modify_sample_paths(ssl, matching, new_path)]
+        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
+        new_path = Path('SAMPLES/NEW2.wav')
+
+        root = self.card.card_root
+        new_path = ensure_absolute(root, new_path)
+        validate_mv_dest(root, new_path)  # raises exception if args are invalid
+
+        moved_samples = [mov.sample for mov in modify_sample_paths(root, ssl, matching, new_path)]
 
         print("moved:", moved_samples)
         print()
 
         def is_relative_to(sample):
+            # print('is_relative_to', sample.path)
             try:
-                p = sample.path.relative_to(new_path)
+                p = Path(root, sample.path).relative_to(new_path)
                 return True
             except ValueError:
                 return False
 
         updated_samples = list(filter(is_relative_to, ssl))
-
-        # print("updated:", updated_samples)
-        # print()
         self.assertEqual(moved_samples, updated_samples)
-
         # assert 0
 
     def test_update_song_xml(self):
@@ -68,9 +125,17 @@ class TestSongSampleMove(TestCase):
         matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
         new_path = Path('SAMPLES/MV3/JOBB/Hangdrum/NEW2.wav')
 
-        sample_move_ops = list(modify_sample_paths(ssl, matching, new_path))
+        root = self.card.card_root
+        new_path = ensure_absolute(root, new_path)
 
-        print('smo', sample_move_ops)
+        print("new path", new_path)
+        # validate_mv_dest(root, new_path)  # raises exception if args are invalid
+
+        sample_move_ops = list(modify_sample_paths(root, ssl, matching, new_path))
+
+        # print('smo',)
+        # for s in sample_move_ops:
+        #     print(f"{s.old_path} => {s.new_path}")
 
         updated_songs = list(modify_sample_songs([mo.sample for mo in sample_move_ops]))
         print(updated_songs)

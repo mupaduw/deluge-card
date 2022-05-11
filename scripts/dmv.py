@@ -1,6 +1,7 @@
 """Main dmv script."""
 
 import argparse
+import itertools
 from pathlib import Path
 
 from deluge_card import list_deluge_fs
@@ -16,10 +17,8 @@ def main():
     parser.add_argument('dest', help='target folder or file, which must be in a subfolder of root.')
 
     args = parser.parse_args()
-    if args.debug:
-        print(f"Args: {args}")
-
     card_imgs = list(list_deluge_fs(args.root))
+
     if len(card_imgs) == 0:
         print('No card found.')
         return
@@ -28,7 +27,7 @@ def main():
         return
 
     card = card_imgs[0]
-    samples = card.samples()
+    song_samples = itertools.chain.from_iterable(map(lambda song: song.samples(), card.songs()))
     new_path = Path(args.dest)
 
     try:
@@ -37,7 +36,7 @@ def main():
         print(err)
         return
 
-    for moved in mv_samples(card.card_root, samples, args.pattern, new_path):
+    for moved in mv_samples(card.card_root, song_samples, args.pattern, new_path):
         print(moved.new_path)
 
 
