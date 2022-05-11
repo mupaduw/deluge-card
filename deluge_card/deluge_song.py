@@ -9,7 +9,7 @@ from typing import Iterator, List
 from attrs import define, field
 from lxml import etree
 
-from deluge_card.deluge_sample import Sample, SampleSetting
+from .deluge_sample import Sample, SampleSetting
 
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
@@ -17,6 +17,11 @@ TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
 SCALE = "C,Db,D,Eb,E,F,Gb,G,Ab,A,Bb,B".split(',')
 NOTES = [f'{n}{o}' for o in range(8) for n in SCALE]
 C3_IDX = 36
+
+if False:
+    # for forward-reference type-checking:
+    # ref https://stackoverflow.com/a/38962160
+    from deluge_card import DelugeCardFS
 
 
 @define(repr=False, frozen=True)
@@ -27,6 +32,7 @@ class DelugeSong:
         path (Path): Path object for the sample file. file.
     """
 
+    cardfs: 'DelugeCardFS'
     path: Path
     xmlroot: etree.ElementTree = field()
 
@@ -42,13 +48,17 @@ class DelugeSong:
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
         elem.set('fileName', str(sample_setting.sample.path))
+        # ss = sample_setting
+        # rel_path = ss.sample.path.relative_to(ss.song.cardfs.card_root)
+        # elem.set('fileName', str(rel_path))
         return elem
 
-    def write_xml(self, new_path=None):
+    def write_xml(self, new_path=None) -> str:
         """Write the song XML."""
         filename = new_path or self.path
         with open(filename, 'wb') as doc:
             doc.write(etree.tostring(self.xmlroot, pretty_print=True))
+        return str(filename)
 
     def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.

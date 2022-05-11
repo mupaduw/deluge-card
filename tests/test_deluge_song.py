@@ -8,7 +8,7 @@ import attr
 import attrs
 
 import deluge_card.deluge_song
-from deluge_card import DelugeSong
+from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_sample import Sample, mv_samples
 
 
@@ -23,8 +23,10 @@ class TestSampleAttr(TestCase):
 class TestDelugeSong(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        card = DelugeCardFS(p)
         p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(p)
+        self.song = DelugeSong(card, p)
 
     def test_get_minimum_firmware(self):
         self.assertEqual(self.song.minimum_firmware(), '3.1.0-beta')
@@ -40,8 +42,10 @@ class TestDelugeSong(TestCase):
 class TestSongSamples(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        card = DelugeCardFS(p)
         p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(p)
+        self.song = DelugeSong(card, p)
 
     def test_list_all_samples(self):
         samples = list(self.song.samples())
@@ -94,77 +98,3 @@ class TestScales(TestDelugeSong):
         self.assertEqual(key, 'Bb major')
         self.assertEqual(mocked.call_count, 1)
         # mocked.assert_called_once_with('rootNote')
-
-
-from deluge_card import DelugeCardFS
-from deluge_card.deluge_card import InvalidDelugeCard
-
-
-class TestDelugeSample(TestCase):
-    def setUp(self):
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        p = Path(cwd, 'fixtures', 'DC01')
-        self.card = DelugeCardFS(p)
-
-    def test_list_samples(self):
-        samples = sorted([s.path.name for s in self.card.samples()])
-        print(samples)
-        self.assertEqual(samples[-1], 'wurgle.wav')
-
-
-class TestSongSampleMove(TestCase):
-    def setUp(self):
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        p = Path(cwd, 'fixtures', 'DC01')
-        self.card = DelugeCardFS(p)
-
-    def test_move_samples(self):
-
-        # get the flat list of all song_samples
-        song_samples = itertools.chain.from_iterable(map(lambda sng: sng.samples(), self.card.songs()))
-        ssl = list(song_samples)
-        matching = '**/Leonard Ludvigsen/Hangdrum/2.wav'
-        new_path = Path('SAMPLES/MV2/JOBB/Hangdrum/NEW2.wav')
-
-        moved_samples = list(mv_samples(ssl, matching, new_path))
-
-        # print("moved:", moved_samples)
-        # print()
-
-        def is_relative_to(sample):
-            try:
-                p = sample.path.relative_to(new_path)
-                return True
-            except ValueError:
-                return False
-
-        updated_samples = list(filter(is_relative_to, ssl))
-
-        # print("updated:", updated_samples)
-        # print()
-        self.assertEqual(moved_samples, updated_samples)
-
-        # updated_songs = set()
-        # for sample in updated_samples:
-        #     for setting in sample.settings:
-        #         elem = setting.song.update_sample_element(setting)
-        #         assert elem.get('fileName') == str(sample.path)
-        #         updated_songs.add(setting.song)
-
-        # print(updated_songs)
-        # # write the modified XML
-        # for s in updated_songs:
-        #     s.write_xml(new_path=Path("hacked.XML"))
-
-        # assert 0
-
-    def test_path_glob_replace_mv(self):
-
-        old_path = Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/2.wav')
-        new_path = Path('SAMPLES/MV/Hangdrum/')
-
-        self.assertEqual('2.wav', old_path.name)
-        self.assertEqual(old_path.parent, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum'))
-
-        new_file = Path(new_path, old_path.name)
-        self.assertEqual(new_file, Path('SAMPLES/MV/Hangdrum/2.wav'))
