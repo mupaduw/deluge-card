@@ -36,7 +36,6 @@ def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
     for fldr in Path(folder).iterdir():
         card = _test_card_fs(fldr)
         if not card:
-            print(f"not a Deluge FS {folder}")
             continue
         yield card
 

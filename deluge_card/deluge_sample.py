@@ -42,11 +42,23 @@ def modify_sample_songs(samples: Iterator['Sample']) -> Set['deluge_song.DelugeS
     return set(itertools.chain.from_iterable(map(update_song_elements, samples)))
 
 
+def ensure_absolute(root: Path, dest: Path):
+    """Make sure the path is absolute, if not make it relate to the root folder."""
+    return dest if dest.is_absolute() else Path(root, dest)
+
+
 def validate_mv_dest(root: Path, dest: Path):
     """Check: dest path must be a child of root and must exist."""
-    absolute_dest = dest if dest.is_absolute() else Path(root, dest)
-    if not (absolute_dest.is_dir() or absolute_dest.parent.exists()):
-        raise ValueError(f"folder does not exist: {dest}")
+    absolute_dest = ensure_absolute(root, dest)
+
+    # file as target
+    if absolute_dest.suffix:  # looks like a file target
+        if not absolute_dest.parent.exists():
+            raise ValueError(f"target folder does not exist: {dest}")
+    # folder as target
+    elif not (absolute_dest.is_dir()):
+        raise ValueError(f"target folder does not exist: {dest}")
+
     try:
         absolute_dest.parent.relative_to(root)
     except ValueError:
@@ -55,6 +67,7 @@ def validate_mv_dest(root: Path, dest: Path):
 
 def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path):
     """Move samples, updating any affected songs."""
+    dest = ensure_absolute(root, dest)
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
     sample_move_ops = list(modify_sample_paths(samples, pattern, dest))  # do materialise the list
@@ -87,9 +100,13 @@ class SampleMoveOperation(object):
     sample: 'Sample'
 
     def do_move(self):
-        """Complete the move operation."""
-        if not self.new_path.parent.exists():
-            self.new_path.parent.mkdir(exist_ok=True, parents=True)
+        """Complete the move operation.
+
+        We expect the destinatn path to exist (much like regular mv) as
+        this helps the end user avoid mistakes.
+        """
+        # if not self.new_path.parent.exists():
+        #    self.new_path.parent.mkdir(exist_ok=True, parents=True)
         self.old_path.rename(self.new_path)
 
 
