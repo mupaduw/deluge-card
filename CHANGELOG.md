@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## [0.4.0] - 2022-05-08
+## [0.4.0] - 2022-05-11
 ### Added
  - new mv_samples method.
+ - new validate_mv_dest method.
  - more usage examples.
+ - simple scripts/dmv.py script for testing.
  - more typing.
  - new DelugeCardFS.from_folder() static method.
  - list of features in README.
