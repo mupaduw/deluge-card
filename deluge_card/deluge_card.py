@@ -5,12 +5,16 @@ from typing import Iterator
 
 from attrs import define, field
 
+from .deluge_kit import DelugeKit
 from .deluge_sample import Sample
 from .deluge_song import DelugeSong
+from .deluge_synth import DelugeSynth
 
 SONGS = 'SONGS'
 SAMPLES = 'SAMPLES'
-TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', SAMPLES]
+KITS = 'KITS'
+SYNTHS = 'SYNTHS'
+TOP_FOLDERS = [SONGS, SYNTHS, KITS, SAMPLES]
 SAMPLE_TYPES = {".wav", ".mp3", ".aiff", ".ogg"}
 
 
@@ -128,6 +132,38 @@ class DelugeCardFS:
                 continue
             if PurePath(songfile).match(pattern):
                 yield DelugeSong(self, songfile)
+
+    def kits(self, pattern: str = "") -> Iterator['DelugeKit']:
+        """Generator for kits in the Card.
+
+        Args:
+            pattern (str): glob-style filename pattern.
+
+        Yields:
+            object (DelugeKit): the next kit on the card.
+        """
+        for filepath in sorted(Path(self.card_root, KITS).glob('*.XML')):
+            if not pattern:
+                yield DelugeKit(self, filepath)  # type: ignore
+                continue
+            if PurePath(filepath).match(pattern):
+                yield DelugeKit(self, filepath)
+
+    def synths(self, pattern: str = "") -> Iterator['DelugeSynth']:
+        """Generator for synths in the Card.
+
+        Args:
+            pattern (str): glob-style filename pattern.
+
+        Yields:
+            object (DelugeSynth): the next synth on the card.
+        """
+        for filepath in sorted(Path(self.card_root, SYNTHS).glob('*.XML')):
+            if not pattern:
+                yield DelugeSynth(self, filepath)  # type: ignore
+                continue
+            if PurePath(filepath).match(pattern):
+                yield DelugeSynth(self, filepath)
 
     def samples(self, pattern: str = "") -> Iterator['Sample']:
         """Generator for samples in the Card.
