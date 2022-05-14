@@ -8,11 +8,12 @@ import attr
 import attrs
 
 import deluge_card.deluge_song
-from deluge_card import DelugeCardFS, DelugeSong
+from deluge_card import DelugeCardFS, DelugeKit, DelugeSong
 from deluge_card.deluge_card import InvalidDelugeCard
 from deluge_card.deluge_sample import (
     Sample,
     ensure_absolute,
+    modify_sample_kits,
     modify_sample_paths,
     modify_sample_songs,
     mv_samples,
@@ -86,44 +87,6 @@ class TestBugFix12SongSampleMove(TestCase):
         print([(m.instance.old_path, m.instance.__hash__()) for m in modops if m.operation == "move_file"])
         self.assertEqual(mock_move.call_count, 1)  # 1 samples in 2 songs
         self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78 Kick
-
-
-class TestKitSamples(TestCase):
-    def setUp(self):
-        self.cwd = os.path.dirname(os.path.realpath(__file__))
-        p = Path(self.cwd, 'fixtures', 'DC01')
-        self.card = DelugeCardFS(p)
-
-    def test_find_all_kit_samples(self):
-        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(), self.card.kits()))
-        ksl = list(kit_samples)
-        self.assertEqual(len(ksl), 14)  # 14 samples in 1 kit
-
-    def test_find_kit_hihat_samples(self):
-        pattern = '**/Hat?/*.wav'
-        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(pattern), self.card.kits()))
-        ksl = list(kit_samples)
-        self.assertEqual(len(ksl), 2)  # 2 hihat samples in 1 kit
-
-
-class TestSynthSamples(TestCase):
-    def setUp(self):
-        self.cwd = os.path.dirname(os.path.realpath(__file__))
-        p = Path(self.cwd, 'fixtures', 'DC01')
-        self.card = DelugeCardFS(p)
-
-    def test_find_all_synth_samples(self):
-        synth_samples = itertools.chain.from_iterable(map(lambda synth: synth.samples(), self.card.synths()))
-        ksl = list(synth_samples)
-        print(ksl)
-        self.assertEqual(len(ksl), 1)  # 1 in 1 synth
-
-    def test_find_synth_hihat_samples(self):
-        pattern = '**/DX7/*.wav'
-        synth_samples = itertools.chain.from_iterable(map(lambda synth: synth.samples(pattern), self.card.synths()))
-        ksl = list(synth_samples)
-        print(ksl)
-        self.assertEqual(len(ksl), 1)
 
 
 class TestSongSampleMove(TestCase):

@@ -46,7 +46,7 @@ class TestDelugeSong(TestCase):
         samples = list(self.song.samples())
         self.assertEqual(samples[0].path, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav'))
         print(samples[0])
-        self.assertEqual(samples[0].settings[0].song, self.song)
+        self.assertEqual(samples[0].settings[0].xml_file, self.song)
         self.assertEqual(len(samples), 32)
 
 

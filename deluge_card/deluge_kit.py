@@ -12,7 +12,7 @@ if False:
     from deluge_card import DelugeCardFS
 
 
-@define(repr=False)
+@define(repr=False, hash=False, eq=False)
 class DelugeKit(DelugeXml):
     """Class representing kit data on a DelugeCard (in KITS/*.xml).
 

@@ -9,6 +9,7 @@ from attrs import define, field
 if False:
     # for forward-reference type-checking:
     # ref https://stackoverflow.com/a/38962160
+    import deluge_kit
     import deluge_song
 
 
@@ -39,12 +40,27 @@ def modify_sample_songs(samples: Iterator['Sample']) -> Iterator['deluge_song.De
     def update_song_elements(sample):
         # print(f"DEBUG update_song_elements: {sample}")
         for setting in sample.settings:
-            # print(f"DEBUG update_song_elements setting: {setting}")
-            elem = setting.song.update_sample_element(setting)
-            assert elem.get('fileName') == str(setting.sample.path)
-            yield setting.song
+            if not setting.xml_path[:6] == '/song/':
+                continue
+            print(f"DEBUG update_song_elements setting: {setting}")
+            setting.xml_file.update_sample_element(setting)
+            yield setting.xml_file
 
     return itertools.chain.from_iterable(map(update_song_elements, samples))
+
+
+def modify_sample_kits(samples: Iterator['Sample']) -> Iterator['deluge_kit.DelugeKit']:
+    """Update kit XML elements."""
+
+    def update_kit_elements(sample):
+        for setting in sample.settings:
+            if not setting.xml_path[:5] == '/kit/':
+                continue
+            print(f"DEBUG update_kit_elements setting: {setting}")
+            setting.xml_file.update_sample_element(setting)
+            yield setting.xml_file
+
+    return itertools.chain.from_iterable(map(update_kit_elements, samples))
 
 
 def ensure_absolute(root: Path, dest: Path):
@@ -79,11 +95,17 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
     updated_songs = modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops))
+    updated_kits = modify_sample_kits(map(lambda mo: mo.sample, sample_move_ops))
 
     # write the modified XML, per unique song
     for song in set(updated_songs):
         song.write_xml()
         yield ModOp("update_song_xml", str(song.path), song)
+
+    # # write the modified XML, per unique kit
+    for kit in set(updated_kits):
+        kit.write_xml()
+        yield ModOp("update_kit_xml", str(kit.path), kit)
 
     # move the files, per unique sample
     for move_op in set(sample_move_ops):
@@ -144,11 +166,11 @@ class SampleSetting(object):
     """represents a sample in the context of a DelugeSong.
 
     Attributes:
-        song_path (Path): Path object for the XML song file.
+        xml_file (deluge_xml.DelugeXML): object for the XML file (song, kit or synth).
         xml_path (str): Xmlpath string locating the sample setting within the XML.
     """
 
-    song: 'deluge_song.DelugeSong'  # noqa (for F821 undefined name)
+    xml_file: 'deluge_xml.DelugeXML'  # noqa (for F821 undefined name)
     sample: 'Sample'
     xml_path: str
 
