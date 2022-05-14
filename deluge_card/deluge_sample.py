@@ -11,6 +11,7 @@ if False:
     # ref https://stackoverflow.com/a/38962160
     import deluge_kit
     import deluge_song
+    import deluge_xml
 
 
 def modify_sample_paths(
