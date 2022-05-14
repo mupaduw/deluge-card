@@ -14,6 +14,17 @@ if False:
     import deluge_synth
     import deluge_xml
 
+    import deluge_card
+
+
+def all_used_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
+    """Get all samples referenced in XML files."""
+    return itertools.chain(
+        map(lambda synth: synth.samples(pattern), card.synths()),
+        map(lambda sng: sng.samples(pattern), card.songs()),
+        map(lambda kit: kit.samples(pattern), card.kits()),
+    )
+
 
 def modify_sample_paths(
     root: Path, samples: Iterator['Sample'], pattern: str, dest: Path

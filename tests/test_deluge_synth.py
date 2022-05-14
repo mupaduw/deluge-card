@@ -5,7 +5,7 @@ from unittest import TestCase, mock
 
 from lxml import etree
 
-from deluge_card import DelugeCardFS, DelugeSynth
+from deluge_card import DelugeCardFS, DelugeSynth, all_used_samples
 from deluge_card.deluge_sample import ensure_absolute, modify_sample_paths, modify_sample_synths, mv_samples
 
 
@@ -75,9 +75,12 @@ class TestMoveSamples(TestCase):
 
         matching = '**/DX7/*.wav'
         new_path = Path('SAMPLES/MV')
-        all_sample_gens = itertools.chain(
-            map(lambda synth: synth.samples(), self.card.synths()), map(lambda sng: sng.samples(), self.card.songs())
-        )
+        # all_sample_gens = itertools.chain(
+        #     map(lambda synth: synth.samples(), self.card.synths()),
+        #     map(lambda sng: sng.samples(), self.card.songs())
+        # )
+
+        all_sample_gens = all_used_samples(self.card, matching)
         samples = itertools.chain.from_iterable(all_sample_gens)
 
         ssl = list(samples)
