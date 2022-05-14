@@ -16,11 +16,15 @@ if False:
 
 
 def read_and_clean_xml(xml_path):
-    """Fix bad xml on read."""
+    """Strip illegal elements."""
     newxml = io.BytesIO()
     with open(xml_path, 'rb') as f:
+        lcount = 0
         for line in f.readlines():
-            if b'<firmwareVersion' == line[:16]:
+            lcount += 1
+            if b'<firmwareVersion>' == line[:17] and lcount < 3:
+                continue
+            if b'<earliestCompatibleFirmware>' == line[:28] and lcount < 4:
                 continue
             newxml.write(line)
     newxml.seek(0)
@@ -47,7 +51,12 @@ class DelugeXml:
         self.uniqid = hash(f'{str(self.cardfs.card_root)}{str(self.path)}')
         # ultimately we might want to lazy load here ....
         # see https://stackoverflow.com/questions/55548536/python-attrs-class-attribute-cached-lazy-load
-        self.xmlroot = etree.parse(read_and_clean_xml(self.path)).getroot()
+        try:
+            parser = etree.XMLParser(recover=True)
+            self.xmlroot = etree.parse(read_and_clean_xml(self.path), parser).getroot()
+        except Exception as err:
+            print(f'parsing {self.path} raises.')
+            raise err
 
     def __eq__(self, other):
         return self.uniqid == other.uniqid
@@ -59,8 +68,11 @@ class DelugeXml:
         """Update XML element from sample_setting."""
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace(f'/{self.root_elem}/', '//'))
-        print('DEBUG old path', elem.get('fileName'), elem)
-        elem.set('fileName', str(sample_setting.sample.path))
+        # print('DEBUG old path', elem.get('fileName'), elem)
+        if elem.tag == 'fileName':
+            elem.text = str(sample_setting.sample.path)
+        else:
+            elem.set('fileName', str(sample_setting.sample.path))
         return elem
 
     def write_xml(self, new_path=None) -> str:

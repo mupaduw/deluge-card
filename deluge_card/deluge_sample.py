@@ -19,11 +19,12 @@ if False:
 
 def all_used_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
     """Get all samples referenced in XML files."""
-    return itertools.chain(
+    all_sample_gens = itertools.chain(
         map(lambda synth: synth.samples(pattern), card.synths()),
         map(lambda sng: sng.samples(pattern), card.songs()),
         map(lambda kit: kit.samples(pattern), card.kits()),
     )
+    return itertools.chain.from_iterable(all_sample_gens)
 
 
 def modify_sample_paths(
@@ -55,7 +56,7 @@ def modify_sample_songs(samples: Iterator['Sample']) -> Iterator['deluge_song.De
         for setting in sample.settings:
             if not setting.xml_path[:6] == '/song/':
                 continue
-            print(f"DEBUG update_song_elements setting: {setting}")
+            # print(f"DEBUG update_song_elements setting: {setting}")
             setting.xml_file.update_sample_element(setting)
             yield setting.xml_file
 
@@ -69,7 +70,7 @@ def modify_sample_kits(samples: Iterator['Sample']) -> Iterator['deluge_kit.Delu
         for setting in sample.settings:
             if not setting.xml_path[:5] == '/kit/':
                 continue
-            print(f"DEBUG update_kit_elements setting: {setting}")
+            # print(f"DEBUG update_kit_elements setting: {setting}")
             setting.xml_file.update_sample_element(setting)
             yield setting.xml_file
 
@@ -83,7 +84,7 @@ def modify_sample_synths(samples: Iterator['Sample']) -> Iterator['deluge_synth.
         for setting in sample.settings:
             if not setting.xml_path[:7] == '/sound/':
                 continue
-            print(f"DEBUG update_synth_elements setting: {setting}")
+            # print(f"DEBUG update_synth_elements setting: {setting}")
             setting.xml_file.update_sample_element(setting)
             yield setting.xml_file
 

@@ -80,8 +80,8 @@ class TestMoveSamples(TestCase):
         #     map(lambda sng: sng.samples(), self.card.songs())
         # )
 
-        all_sample_gens = all_used_samples(self.card, matching)
-        samples = itertools.chain.from_iterable(all_sample_gens)
+        samples = all_used_samples(self.card, matching)
+        # samples = itertools.chain.from_iterable(all_sample_gens)
 
         ssl = list(samples)
 
