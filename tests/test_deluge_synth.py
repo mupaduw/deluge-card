@@ -61,3 +61,34 @@ class TestSynthSamples(TestCase):
         updated = list(modify_sample_synths([mo.sample for mo in sample_move_ops]))
 
         self.assertEqual([synth.path], [us.path for us in updated])
+
+
+class TestMoveSamples(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
+    @mock.patch('deluge_card.deluge_xml.DelugeXml.write_xml', return_value="filepath")
+    def test_mv_sample_to_available_relative_dest(self, mock_write, mock_move):
+
+        matching = '**/DX7/*.wav'
+        new_path = Path('SAMPLES/MV')
+        all_sample_gens = itertools.chain(
+            map(lambda synth: synth.samples(), self.card.synths()), map(lambda sng: sng.samples(), self.card.songs())
+        )
+        samples = itertools.chain.from_iterable(all_sample_gens)
+
+        ssl = list(samples)
+
+        moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+        song_moves = list(filter(lambda m: 'song' in m.operation, moves))
+        self.assertEqual(len(song_moves), 0)
+
+        synth_moves = list(filter(lambda m: 'synth' in m.operation, moves))
+        self.assertEqual(len(synth_moves), 1)
+        # for s in kit_moves:
+        #     print(s)
+        self.assertEqual(mock_write.call_count, 1)
+        self.assertEqual(mock_move.call_count, 1)

@@ -110,18 +110,26 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
-    updated_songs = modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops))
+    moves = map(lambda mo: mo.sample, sample_move_ops)
+    updated_songs = modify_sample_songs(moves)
     updated_kits = modify_sample_kits(map(lambda mo: mo.sample, sample_move_ops))
+    updated_synths = modify_sample_synths(map(lambda mo: mo.sample, sample_move_ops))
 
     # write the modified XML, per unique song
+    # for moved, tag in [(updated_songs, 'song'), updated]
     for song in set(updated_songs):
         song.write_xml()
         yield ModOp("update_song_xml", str(song.path), song)
 
-    # # write the modified XML, per unique kit
+    # write the modified XML, per unique kit
     for kit in set(updated_kits):
         kit.write_xml()
         yield ModOp("update_kit_xml", str(kit.path), kit)
+
+    # write the modified XML, per unique synth
+    for synth in set(updated_synths):
+        synth.write_xml()
+        yield ModOp("update_synth_xml", str(synth.path), synth)
 
     # move the files, per unique sample
     for move_op in set(sample_move_ops):

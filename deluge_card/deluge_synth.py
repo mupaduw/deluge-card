@@ -12,7 +12,7 @@ if False:
     from deluge_card import DelugeCardFS
 
 
-@define(repr=False)
+@define(repr=False, hash=False, eq=False)
 class DelugeSynth(DelugeXml):
     """Class representing a synth template on a DelugeCard (in SYNTHS/*.xml).
 
