@@ -59,7 +59,7 @@ class DelugeXml:
         """Update XML element from sample_setting."""
         tree = etree.ElementTree(self.xmlroot)
         elem = tree.find(sample_setting.xml_path.replace(f'/{self.root_elem}/', '//'))
-        # print('DEBUG old path', elem.get('fileName'))
+        print('DEBUG old path', elem.get('fileName'), elem)
         elem.set('fileName', str(sample_setting.sample.path))
         return elem
 
@@ -87,8 +87,9 @@ class DelugeXml:
             return sample
 
         for e in self.xmlroot.findall(self.samples_xpath):
-            # print(f'elem {e}')
-            sample_file = e.get('fileName')
+            # print(f'elem {e} {e.tag} {e.text}')
+            # kit uses element fileName, song, synth use attribute fileName
+            sample_file = e.text if (e.tag == 'fileName') else e.get('fileName')
             if sample_file:
                 if not pattern:
                     yield sample_in_setting(sample_file, tree)

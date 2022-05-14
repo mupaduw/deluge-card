@@ -88,6 +88,44 @@ class TestBugFix12SongSampleMove(TestCase):
         self.assertEqual(mock_write.call_count, 2)  # 2 songs refer to CR78 Kick
 
 
+class TestKitSamples(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    def test_find_all_kit_samples(self):
+        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(), self.card.kits()))
+        ksl = list(kit_samples)
+        self.assertEqual(len(ksl), 14)  # 14 samples in 1 kit
+
+    def test_find_kit_hihat_samples(self):
+        pattern = '**/Hat?/*.wav'
+        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(pattern), self.card.kits()))
+        ksl = list(kit_samples)
+        self.assertEqual(len(ksl), 2)  # 2 hihat samples in 1 kit
+
+
+class TestSynthSamples(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    def test_find_all_synth_samples(self):
+        synth_samples = itertools.chain.from_iterable(map(lambda synth: synth.samples(), self.card.synths()))
+        ksl = list(synth_samples)
+        print(ksl)
+        self.assertEqual(len(ksl), 1)  # 1 in 1 synth
+
+    def test_find_synth_hihat_samples(self):
+        pattern = '**/DX7/*.wav'
+        synth_samples = itertools.chain.from_iterable(map(lambda synth: synth.samples(pattern), self.card.synths()))
+        ksl = list(synth_samples)
+        print(ksl)
+        self.assertEqual(len(ksl), 1)
+
+
 class TestSongSampleMove(TestCase):
     def setUp(self):
         self.cwd = os.path.dirname(os.path.realpath(__file__))
