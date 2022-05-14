@@ -43,7 +43,7 @@ class TestKitSamples(TestCase):
         self.assertEqual([kit.path], [us.path for us in updated_kits])
 
 
-class TestMovesSamples(TestCase):
+class TestMoveSamples(TestCase):
     def setUp(self):
         self.cwd = os.path.dirname(os.path.realpath(__file__))
         p = Path(self.cwd, 'fixtures', 'DC01')

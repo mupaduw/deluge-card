@@ -11,6 +11,7 @@ if False:
     # ref https://stackoverflow.com/a/38962160
     import deluge_kit
     import deluge_song
+    import deluge_synth
     import deluge_xml
 
 
@@ -62,6 +63,20 @@ def modify_sample_kits(samples: Iterator['Sample']) -> Iterator['deluge_kit.Delu
             yield setting.xml_file
 
     return itertools.chain.from_iterable(map(update_kit_elements, samples))
+
+
+def modify_sample_synths(samples: Iterator['Sample']) -> Iterator['deluge_synth.DelugeSynth']:
+    """Update synth XML elements."""
+
+    def update_synth_elements(sample):
+        for setting in sample.settings:
+            if not setting.xml_path[:7] == '/sound/':
+                continue
+            print(f"DEBUG update_synth_elements setting: {setting}")
+            setting.xml_file.update_sample_element(setting)
+            yield setting.xml_file
+
+    return itertools.chain.from_iterable(map(update_synth_elements, samples))
 
 
 def ensure_absolute(root: Path, dest: Path):
@@ -164,7 +179,7 @@ class Sample(object):
 
 @define
 class SampleSetting(object):
-    """represents a sample in the context of a DelugeSong.
+    """represents a sample in the context of a DelugeXML file.
 
     Attributes:
         xml_file (deluge_xml.DelugeXML): object for the XML file (song, kit or synth).
