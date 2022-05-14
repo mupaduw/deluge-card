@@ -15,7 +15,7 @@ if False:
     from deluge_card import DelugeCardFS
 
 
-def clean_xml(xml_path):
+def read_and_clean_xml(xml_path):
     """Fix bad xml on read."""
     newxml = io.BytesIO()
     with open(xml_path, 'rb') as f:
@@ -45,7 +45,9 @@ class DelugeXml:
 
     def __attrs_post_init__(self):
         self.uniqid = hash(f'{str(self.cardfs.card_root)}{str(self.path)}')
-        self.xmlroot = etree.parse(clean_xml(self.path)).getroot()
+        # ultimately we might want to lazy load here ....
+        # see https://stackoverflow.com/questions/55548536/python-attrs-class-attribute-cached-lazy-load
+        self.xmlroot = etree.parse(read_and_clean_xml(self.path)).getroot()
 
     def __eq__(self, other):
         return self.uniqid == other.uniqid
