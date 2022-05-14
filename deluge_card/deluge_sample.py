@@ -103,35 +103,23 @@ def validate_mv_dest(root: Path, dest: Path):
 
 
 def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path):
-    """Move samples, updating any affected songs."""
-    # print('DEBUG', root, pattern, dest)
-
+    """Move samples, updating any affected XML files."""
     dest = ensure_absolute(root, dest)
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
-    moves = map(lambda mo: mo.sample, sample_move_ops)
-    updated_songs = modify_sample_songs(moves)
-    updated_kits = modify_sample_kits(map(lambda mo: mo.sample, sample_move_ops))
-    updated_synths = modify_sample_synths(map(lambda mo: mo.sample, sample_move_ops))
+
+    updated_songs = set(modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops)))
+    updated_kits = set(modify_sample_kits(map(lambda mo: mo.sample, sample_move_ops)))
+    updated_synths = set(modify_sample_synths(map(lambda mo: mo.sample, sample_move_ops)))
 
     # write the modified XML, per unique song
-    # for moved, tag in [(updated_songs, 'song'), updated]
-    for song in set(updated_songs):
-        song.write_xml()
-        yield ModOp("update_song_xml", str(song.path), song)
+    for updated, tag in [(updated_songs, 'song'), (updated_kits, 'kit'), (updated_synths, 'synth')]:
+        for xml in updated:
+            xml.write_xml()
+            yield ModOp(f"update_{tag}_xml", str(xml.path), xml)
 
-    # write the modified XML, per unique kit
-    for kit in set(updated_kits):
-        kit.write_xml()
-        yield ModOp("update_kit_xml", str(kit.path), kit)
-
-    # write the modified XML, per unique synth
-    for synth in set(updated_synths):
-        synth.write_xml()
-        yield ModOp("update_synth_xml", str(synth.path), synth)
-
-    # move the files, per unique sample
+    # move the samples
     for move_op in set(sample_move_ops):
         move_op.do_move()
         yield ModOp("move_file", str(move_op.new_path), move_op)
