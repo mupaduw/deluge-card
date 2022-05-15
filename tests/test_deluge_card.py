@@ -78,7 +78,9 @@ class TestListSamples(TestCase):
 
     def test_list_all_samples(self):
         samples = list(self.card.samples())
-        self.assertEqual(len(samples), 7)
+        for s in samples:
+            print(s.path)
+        self.assertEqual(len(samples), 9)
 
     def test_list_samples_0(self):
         samples = list(self.card.samples("*snare*"))

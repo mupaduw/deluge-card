@@ -6,7 +6,7 @@ from typing import Iterator
 from attrs import define, field
 
 from .deluge_kit import DelugeKit
-from .deluge_sample import Sample
+from .deluge_sample import Sample, all_samples
 from .deluge_song import DelugeSong
 from .deluge_synth import DelugeSynth
 
@@ -15,7 +15,6 @@ SAMPLES = 'SAMPLES'
 KITS = 'KITS'
 SYNTHS = 'SYNTHS'
 TOP_FOLDERS = [SONGS, SYNTHS, KITS, SAMPLES]
-SAMPLE_TYPES = {".wav", ".mp3", ".aiff", ".ogg"}
 
 
 def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
@@ -174,11 +173,4 @@ class DelugeCardFS:
         Yields:
             object (Sample): the next sample on the card.
         """
-        smp = Path(self.card_root, SAMPLES)
-        paths = (p.resolve() for p in Path(smp).glob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
-        for fname in paths:
-            if not pattern:
-                yield Sample(Path(fname))
-                continue
-            if PurePath(fname).match(pattern):
-                yield Sample(Path(fname))
+        return all_samples(self, pattern)

@@ -58,7 +58,7 @@ class TestSynthSamples(TestCase):
         new_path = ensure_absolute(root, new_path)
 
         sample_move_ops = list(modify_sample_paths(root, ssl, matching, new_path))
-        updated = list(modify_sample_synths([mo.sample for mo in sample_move_ops]))
+        updated = list(modify_sample_synths(sample_move_ops))
 
         self.assertEqual([synth.path], [us.path for us in updated])
 

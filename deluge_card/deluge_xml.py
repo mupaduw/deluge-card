@@ -8,6 +8,7 @@ from attrs import define, field
 from lxml import etree
 
 from .deluge_sample import Sample, SampleSetting
+from .helpers import ensure_absolute
 
 if False:
     # for forward-reference type-checking:
@@ -64,15 +65,16 @@ class DelugeXml:
     def __hash__(self):
         return self.uniqid
 
-    def update_sample_element(self, sample_setting):
+    def update_sample_element(self, xml_path, sample_path):
         """Update XML element from sample_setting."""
         tree = etree.ElementTree(self.xmlroot)
-        elem = tree.find(sample_setting.xml_path.replace(f'/{self.root_elem}/', '//'))
+        elem = tree.find(xml_path.replace(f'/{self.root_elem}/', '//'))
         # print('DEBUG old path', elem.get('fileName'), elem)
+        sample_path = sample_path.relative_to(self.cardfs.card_root)
         if elem.tag == 'fileName':
-            elem.text = str(sample_setting.sample.path)
+            elem.text = str(sample_path)
         else:
-            elem.set('fileName', str(sample_setting.sample.path))
+            elem.set('fileName', str(sample_path))
         return elem
 
     def write_xml(self, new_path=None) -> str:
@@ -82,7 +84,7 @@ class DelugeXml:
             doc.write(etree.tostring(self.xmlroot, pretty_print=True))
         return str(filename)
 
-    def samples(self, pattern: str = "") -> Iterator[Sample]:
+    def samples(self, pattern: str = "", allow_missing=False) -> Iterator[Sample]:
         """Generator for samples referenced in the DelugeSong.
 
         Args:
@@ -94,7 +96,7 @@ class DelugeXml:
         tree = etree.ElementTree(self.xmlroot)
 
         def sample_in_setting(sample_file, tree) -> Sample:
-            sample = Sample(Path(sample_file))
+            sample = Sample(ensure_absolute(self.cardfs.card_root, Path(sample_file)))
             sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
             return sample
 
@@ -102,7 +104,10 @@ class DelugeXml:
             # print(f'elem {e} {e.tag} {e.text}')
             # kit uses element fileName, song, synth use attribute fileName
             sample_file = e.text if (e.tag == 'fileName') else e.get('fileName')
+
             if sample_file:
+                if (not allow_missing) and (not ensure_absolute(self.cardfs.card_root, Path(sample_file)).exists()):
+                    continue
                 if not pattern:
                     yield sample_in_setting(sample_file, tree)
                     continue

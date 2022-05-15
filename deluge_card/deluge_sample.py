@@ -1,10 +1,14 @@
 """Main classes representing Deluge Sample."""
 
 import itertools
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import Iterator, List
 
 from attrs import define, field
+
+from .helpers import ensure_absolute
+
+SAMPLE_TYPES = {".wav", ".mp3", ".aiff", ".ogg"}
 
 if False:
     # for forward-reference type-checking:
@@ -15,6 +19,34 @@ if False:
     import deluge_xml
 
     import deluge_card
+
+
+def _sample_files(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
+    """Get all samples."""
+    smp = Path(card.card_root, 'SAMPLES')
+    paths = (p.resolve() for p in Path(smp).rglob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
+    for fname in paths:
+        # print(fname)
+        if Path(fname).name[0] == '.':  # Apple copy crap
+            continue
+        if not pattern:
+            yield Sample(Path(fname))
+            continue
+        if PurePath(fname).match(pattern):
+            yield Sample(Path(fname))
+
+
+def all_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
+    """Get all samples, preferring those used in XML."""
+    used_samples = all_used_samples(card, pattern)
+    all_samples = set(_sample_files(card, pattern))
+    for sample in used_samples:
+        # all_samples.remove(sample) #sample equality
+        # discard does not throw if item does no exist, so handles broken refs
+        all_samples.discard(sample)  # sample equality,
+        yield sample
+    for sample in all_samples:
+        yield sample
 
 
 def all_used_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
@@ -41,59 +73,54 @@ def modify_sample_paths(
             move_op = SampleMoveOperation(ensure_absolute(root, sample.path), Path(dest, sample.path.name), sample)
         else:
             move_op = SampleMoveOperation(ensure_absolute(root, sample.path), Path(dest), sample)
-        sample.path = move_op.new_path.relative_to(root)
+        # sample.path = move_op.new_path.relative_to(root)
         return move_op
 
     matching_samples = filter(glob_match, samples)
     return map(build_move_op, matching_samples)
 
 
-def modify_sample_songs(samples: Iterator['Sample']) -> Iterator['deluge_song.DelugeSong']:
+def modify_sample_songs(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_song.DelugeSong']:
     """Update song XML elements."""
 
-    def update_song_elements(sample):
+    def update_song_elements(move_op):
         # print(f"DEBUG update_song_elements: {sample}")
-        for setting in sample.settings:
+        for setting in move_op.sample.settings:
             if not setting.xml_path[:6] == '/song/':
                 continue
             # print(f"DEBUG update_song_elements setting: {setting}")
-            setting.xml_file.update_sample_element(setting)
+            setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
             yield setting.xml_file
 
-    return itertools.chain.from_iterable(map(update_song_elements, samples))
+    return itertools.chain.from_iterable(map(update_song_elements, move_ops))
 
 
-def modify_sample_kits(samples: Iterator['Sample']) -> Iterator['deluge_kit.DelugeKit']:
+def modify_sample_kits(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_kit.DelugeKit']:
     """Update kit XML elements."""
 
-    def update_kit_elements(sample):
-        for setting in sample.settings:
+    def update_kit_elements(move_op):
+        for setting in move_op.sample.settings:
             if not setting.xml_path[:5] == '/kit/':
                 continue
             # print(f"DEBUG update_kit_elements setting: {setting}")
-            setting.xml_file.update_sample_element(setting)
+            setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
             yield setting.xml_file
 
-    return itertools.chain.from_iterable(map(update_kit_elements, samples))
+    return itertools.chain.from_iterable(map(update_kit_elements, move_ops))
 
 
-def modify_sample_synths(samples: Iterator['Sample']) -> Iterator['deluge_synth.DelugeSynth']:
+def modify_sample_synths(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_synth.DelugeSynth']:
     """Update synth XML elements."""
 
-    def update_synth_elements(sample):
-        for setting in sample.settings:
+    def update_synth_elements(move_op):
+        for setting in move_op.sample.settings:
             if not setting.xml_path[:7] == '/sound/':
                 continue
             # print(f"DEBUG update_synth_elements setting: {setting}")
-            setting.xml_file.update_sample_element(setting)
+            setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
             yield setting.xml_file
 
-    return itertools.chain.from_iterable(map(update_synth_elements, samples))
-
-
-def ensure_absolute(root: Path, dest: Path):
-    """Make sure the path is absolute, if not make it relate to the root folder."""
-    return dest if dest.is_absolute() else Path(root, dest)
+    return itertools.chain.from_iterable(map(update_synth_elements, move_ops))
 
 
 def validate_mv_dest(root: Path, dest: Path):
@@ -121,9 +148,9 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
 
     sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
 
-    updated_songs = set(modify_sample_songs(map(lambda mo: mo.sample, sample_move_ops)))
-    updated_kits = set(modify_sample_kits(map(lambda mo: mo.sample, sample_move_ops)))
-    updated_synths = set(modify_sample_synths(map(lambda mo: mo.sample, sample_move_ops)))
+    updated_songs = set(modify_sample_songs(sample_move_ops))
+    updated_kits = set(modify_sample_kits(sample_move_ops))
+    updated_synths = set(modify_sample_synths(sample_move_ops))
 
     # write the modified XML, per unique song
     for updated, tag in [(updated_songs, 'song'), (updated_kits, 'kit'), (updated_synths, 'synth')]:
@@ -172,7 +199,7 @@ class SampleMoveOperation(object):
         self.old_path.rename(self.new_path)
 
 
-@define  # (eq=False)  # frozen abuse!
+@define(frozen=True)
 class Sample(object):
     """represents a sample file.
 

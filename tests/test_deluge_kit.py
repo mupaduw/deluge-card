@@ -14,13 +14,17 @@ class TestKitSamples(TestCase):
         self.card = DelugeCardFS(p)
 
     def test_find_all_kit_samples(self):
-        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(), self.card.kits()))
+        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(None, True), self.card.kits()))
         ksl = list(kit_samples)
+        for s in ksl:
+            print(s.path)
         self.assertEqual(len(ksl), 14)  # 14 samples in 1 kit
 
     def test_find_kit_hihat_samples(self):
         pattern = '**/Hat?/*.wav'
-        kit_samples = itertools.chain.from_iterable(map(lambda kit: kit.samples(pattern), self.card.kits()))
+        kit_samples = itertools.chain.from_iterable(
+            map(lambda kit: kit.samples(pattern, allow_missing=True), self.card.kits())
+        )
         ksl = list(kit_samples)
         self.assertEqual(len(ksl), 2)  # 2 hihat samples in 1 kit
 
@@ -38,7 +42,7 @@ class TestKitSamples(TestCase):
         new_path = ensure_absolute(root, new_path)
 
         sample_move_ops = list(modify_sample_paths(root, ssl, matching, new_path))
-        updated_kits = list(modify_sample_kits([mo.sample for mo in sample_move_ops]))
+        updated_kits = list(modify_sample_kits(sample_move_ops))
 
         self.assertEqual([kit.path], [us.path for us in updated_kits])
 
