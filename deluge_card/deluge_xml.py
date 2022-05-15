@@ -45,7 +45,7 @@ class DelugeXml:
     path: Path
     xmlroot: etree.ElementTree = field(init=False)
     uniqid: int = field(init=False)
-    samples_xpath: str = field(init=False)
+    # samples_xpath: str = field(init=False)
     root_elem: str = field(init=False)
 
     def __attrs_post_init__(self):
@@ -100,16 +100,23 @@ class DelugeXml:
             sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
             return sample
 
-        for e in self.xmlroot.findall(self.samples_xpath):
-            # print(f'elem {e} {e.tag} {e.text}')
-            # kit uses element fileName, song, synth use attribute fileName
-            sample_file = e.text if (e.tag == 'fileName') else e.get('fileName')
-
+        def match_and_yield(sample_file, pattern):
             if sample_file:
                 if (not allow_missing) and (not ensure_absolute(self.cardfs.card_root, Path(sample_file)).exists()):
-                    continue
+                    return
                 if not pattern:
-                    yield sample_in_setting(sample_file, tree)
-                    continue
+                    return sample_in_setting(sample_file, tree)
                 if PurePath(sample_file).match(pattern):
-                    yield sample_in_setting(sample_file, tree)
+                    return sample_in_setting(sample_file, tree)
+
+        for e in self.xmlroot.findall(".//*[@fileName]"):
+            m = match_and_yield(e.get('fileName'), pattern)
+            if not m:
+                continue
+            yield m
+
+        for e in self.xmlroot.findall(".//fileName"):
+            m = match_and_yield(e.text, pattern)
+            if not m:
+                continue
+            yield m

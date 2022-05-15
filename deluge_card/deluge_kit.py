@@ -25,7 +25,7 @@ class DelugeKit(DelugeXml):
     path: Path
 
     def __attrs_post_init__(self):
-        self.samples_xpath = ".//fileName"
+        # Sself.samples_xpath = ".//fileName"
         self.root_elem = 'kit'
         super(DelugeKit, self).__attrs_post_init__()
 

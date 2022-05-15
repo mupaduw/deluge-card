@@ -51,7 +51,7 @@ class DelugeSong(DelugeXml):
     path: Path
 
     def __attrs_post_init__(self):
-        self.samples_xpath = ".//*[@fileName]"
+        # self.samples_xpath = ".//*[@fileName]"
         self.root_elem = 'song'
         super(DelugeSong, self).__attrs_post_init__()
 
