@@ -80,7 +80,7 @@ def modify_sample_paths(
     return map(build_move_op, matching_samples)
 
 
-def modify_sample_songs(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_song.DelugeSong']:
+def modify_sample_songs(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_song.DelugeSong']:
     """Update song XML elements."""
 
     def update_song_elements(move_op):
@@ -95,7 +95,7 @@ def modify_sample_songs(move_ops: Iterator['SampleMoveOperation']) -> Iterator['
     return itertools.chain.from_iterable(map(update_song_elements, move_ops))
 
 
-def modify_sample_kits(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_kit.DelugeKit']:
+def modify_sample_kits(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_kit.DelugeKit']:
     """Update kit XML elements."""
 
     def update_kit_elements(move_op):
@@ -109,14 +109,14 @@ def modify_sample_kits(move_ops: Iterator['SampleMoveOperation']) -> Iterator['d
     return itertools.chain.from_iterable(map(update_kit_elements, move_ops))
 
 
-def modify_sample_synths(move_ops: Iterator['SampleMoveOperation']) -> Iterator['deluge_synth.DelugeSynth']:
+def modify_sample_synths(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_synth.DelugeSynth']:
     """Update synth XML elements."""
 
     def update_synth_elements(move_op):
         for setting in move_op.sample.settings:
+            print(f"DEBUG update_synth_elements setting: {setting}")
             if not setting.xml_path[:7] == '/sound/':
                 continue
-            # print(f"DEBUG update_synth_elements setting: {setting}")
             setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
             yield setting.xml_file
 
@@ -146,13 +146,14 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     dest = ensure_absolute(root, dest)
     validate_mv_dest(root, dest)  # raises exception if args are invalid
 
-    sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # do materialise the list
+    sample_move_ops = list(modify_sample_paths(root, samples, pattern, dest))  # materialise the list
 
     updated_songs = set(modify_sample_songs(sample_move_ops))
     updated_kits = set(modify_sample_kits(sample_move_ops))
     updated_synths = set(modify_sample_synths(sample_move_ops))
 
-    # write the modified XML, per unique song
+    # write the modified XML, per unique song, kit, synth
+    # TODO this is writing files per
     for updated, tag in [(updated_songs, 'song'), (updated_kits, 'kit'), (updated_synths, 'synth')]:
         for xml in updated:
             xml.write_xml()

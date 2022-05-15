@@ -66,4 +66,38 @@ class TestBugFixRabidSongSampleMove(TestCase):
         modops = list(mv_samples(self.card.card_root, ssl, matching, new_path))
 
         self.assertEqual(mock_move.call_count, 1)  # 1 samples in 1 songs
-        self.assertEqual(mock_write.call_count, 1)
+        self.assertEqual(mock_write.call_count, 5)
+
+
+class TestBugFixWaldorfSongSynthSampleMove(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(self.cwd, 'fixtures', 'DC02')
+        self.card = DelugeCardFS(p)
+
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
+    @mock.patch('deluge_card.deluge_xml.DelugeXml.write_xml', return_value="filepath")
+    def test_waldorf_dest(self, mock_write, mock_move):
+        matching = '**/WaldorfM/Loopop-Waldorf-M-4*/*.*'
+        new_path = Path('SAMPLES/MV')  #
+
+        # samples = all_used_samples(self.card, matching)
+        # samples = self.card.samples(matching)
+        samples = all_samples(self.card, matching)
+        ssl = list(samples)
+
+        modops = list(mv_samples(self.card.card_root, ssl, matching, new_path))
+
+        for m in modops:
+            print(m)
+
+        song_mods = [m for m in modops if m.operation == "update_song_xml"]
+        synth_mods = [m for m in modops if m.operation == "update_synth_xml"]
+        sample_mods = [m for m in modops if m.operation == "move_file"]
+
+        self.assertEqual(len(sample_mods), 6)
+        self.assertEqual(len(song_mods), 4)
+        self.assertEqual(len(synth_mods), 1)  # 4 songs, 1 synth
+
+        self.assertEqual(mock_move.call_count, 6)
+        self.assertEqual(mock_write.call_count, 5)  # 4 songs, 1 synth

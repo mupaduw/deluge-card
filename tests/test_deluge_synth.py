@@ -5,7 +5,7 @@ from unittest import TestCase, mock
 
 from lxml import etree
 
-from deluge_card import DelugeCardFS, DelugeSynth, all_used_samples
+from deluge_card import DelugeCardFS, DelugeSynth, all_samples, all_used_samples
 from deluge_card.deluge_sample import ensure_absolute, modify_sample_paths, modify_sample_synths, mv_samples
 
 
@@ -80,17 +80,23 @@ class TestMoveSamples(TestCase):
         #     map(lambda sng: sng.samples(), self.card.songs())
         # )
 
-        samples = all_used_samples(self.card, matching)
+        # samples = all_used_samples(self.card, matching)
+        samples = all_samples(self.card, matching)
         # samples = itertools.chain.from_iterable(all_sample_gens)
 
         ssl = list(samples)
 
-        moves = list(mv_samples(self.card.card_root, ssl, matching, new_path))
-        song_moves = list(filter(lambda m: 'song' in m.operation, moves))
-        self.assertEqual(len(song_moves), 0)
+        modops = list(mv_samples(self.card.card_root, ssl, matching, new_path))
 
-        synth_moves = list(filter(lambda m: 'synth' in m.operation, moves))
-        self.assertEqual(len(synth_moves), 1)
+        for m in modops:
+            print(m)
+
+        song_mods = [m for m in modops if m.operation == "update_song_xml"]
+        synth_mods = [m for m in modops if m.operation == "update_synth_xml"]
+        sample_mods = [m for m in modops if m.operation == "move_file"]
+
+        self.assertEqual(len(song_mods), 0)
+        self.assertEqual(len(synth_mods), 1)
         # for s in kit_moves:
         #     print(s)
         self.assertEqual(mock_write.call_count, 1)
