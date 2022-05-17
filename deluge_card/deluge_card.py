@@ -125,7 +125,7 @@ class DelugeCardFS:
         Yields:
             object (DelugeSong): the next song on the card.
         """
-        for songfile in sorted(Path(self.card_root, SONGS).glob('*.XML')):
+        for songfile in sorted(Path(self.card_root, SONGS).rglob('*.XML')):
             if not pattern:
                 yield DelugeSong(self, songfile)  # type: ignore
                 continue
@@ -141,7 +141,7 @@ class DelugeCardFS:
         Yields:
             object (DelugeKit): the next kit on the card.
         """
-        for filepath in sorted(Path(self.card_root, KITS).glob('*.XML')):
+        for filepath in sorted(Path(self.card_root, KITS).rglob('*.XML')):
             if not pattern:
                 yield DelugeKit(self, filepath)  # type: ignore
                 continue
@@ -157,7 +157,7 @@ class DelugeCardFS:
         Yields:
             object (DelugeSynth): the next synth on the card.
         """
-        for filepath in sorted(Path(self.card_root, SYNTHS).glob('*.XML')):
+        for filepath in sorted(Path(self.card_root, SYNTHS).rglob('*.XML')):
             if not pattern:
                 yield DelugeSynth(self, filepath)  # type: ignore
                 continue

@@ -80,47 +80,43 @@ def modify_sample_paths(
     return map(build_move_op, matching_samples)
 
 
-def modify_sample_songs(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_song.DelugeSong']:
-    """Update song XML elements."""
+@define
+class SettingElementUpdater(object):
+    """Setting updater class.
 
-    def update_song_elements(move_op):
+    Attributes:
+        root_xml_path (str): type or root node : /song/, /kit/, or /sound/.
+    """
+
+    root_xml_path: str
+
+    def update_settings(self, move_op: 'SampleMoveOperation'):
+        """Update settings."""
         # print(f"DEBUG update_song_elements: {sample}")
         for setting in move_op.sample.settings:
-            if not setting.xml_path[:6] == '/song/':
+            if not setting.xml_path[: len(self.root_xml_path)] == self.root_xml_path:
                 continue
             # print(f"DEBUG update_song_elements setting: {setting}")
             setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
             yield setting.xml_file
 
-    return itertools.chain.from_iterable(map(update_song_elements, move_ops))
+
+def modify_sample_songs(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_song.DelugeSong']:
+    """Update song XML elements."""
+    updater = SettingElementUpdater('/song/')
+    return itertools.chain.from_iterable(map(updater.update_settings, move_ops))
 
 
 def modify_sample_kits(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_kit.DelugeKit']:
     """Update kit XML elements."""
-
-    def update_kit_elements(move_op):
-        for setting in move_op.sample.settings:
-            if not setting.xml_path[:5] == '/kit/':
-                continue
-            # print(f"DEBUG update_kit_elements setting: {setting}")
-            setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
-            yield setting.xml_file
-
-    return itertools.chain.from_iterable(map(update_kit_elements, move_ops))
+    updater = SettingElementUpdater('/kit/')
+    return itertools.chain.from_iterable(map(updater.update_settings, move_ops))
 
 
 def modify_sample_synths(move_ops: List['SampleMoveOperation']) -> Iterator['deluge_synth.DelugeSynth']:
     """Update synth XML elements."""
-
-    def update_synth_elements(move_op):
-        for setting in move_op.sample.settings:
-            print(f"DEBUG update_synth_elements setting: {setting}")
-            if not setting.xml_path[:7] == '/sound/':
-                continue
-            setting.xml_file.update_sample_element(setting.xml_path, move_op.new_path)
-            yield setting.xml_file
-
-    return itertools.chain.from_iterable(map(update_synth_elements, move_ops))
+    updater = SettingElementUpdater('/sound/')
+    return itertools.chain.from_iterable(map(updater.update_settings, move_ops))
 
 
 def validate_mv_dest(root: Path, dest: Path):
@@ -153,7 +149,7 @@ def mv_samples(root: Path, samples: Iterator['Sample'], pattern: str, dest: Path
     updated_synths = set(modify_sample_synths(sample_move_ops))
 
     # write the modified XML, per unique song, kit, synth
-    # TODO this is writing files per
+    # TODO this is writing files multiple times
     for updated, tag in [(updated_songs, 'song'), (updated_kits, 'kit'), (updated_synths, 'synth')]:
         for xml in updated:
             xml.write_xml()
@@ -222,7 +218,7 @@ class SampleSetting(object):
         xml_path (str): Xmlpath string locating the sample setting within the XML.
     """
 
-    xml_file: 'deluge_xml.DelugeXML'  # noqa (for F821 undefined name)
+    xml_file: 'deluge_xml.DelugeXML'
     sample: 'Sample'
     xml_path: str
 

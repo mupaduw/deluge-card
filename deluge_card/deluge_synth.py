@@ -25,7 +25,6 @@ class DelugeSynth(DelugeXml):
     path: Path
 
     def __attrs_post_init__(self):
-        # self.samples_xpath = ".//*[@fileName]"
         self.root_elem = 'sound'
         super(DelugeSynth, self).__attrs_post_init__()
 

@@ -12,17 +12,6 @@ from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_sample import Sample, mv_samples
 from deluge_card.helpers import ensure_absolute
 
-"""
-bash-3.2$ grep "CR78 Kick" /Users/chrisbc/Music/DELUGE/TEST/02/KITS/*.XML
-KITS/KIT014.XML:                <fileName>SAMPLES/DRUMS/Kick/CR78 Kick.wav</fileName>
-"""
-
-
-"""
-SYNTHS/SYNT991A.XML:        <fileName>SAMPLES/CLASSIC/DX7/SYNTH-MedivalSynzzz3.wav</fileName>
-SYNTHS/SYNT991B.XML:        <fileName>SAMPLES/CLASSIC/DX7/SYNTH-PureTone.wav</fileName>
-"""
-
 
 class TestSampleAttr(TestCase):
     def test_initialise(self):

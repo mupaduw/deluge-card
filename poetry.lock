@@ -1020,6 +1020,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "xmldiff"
+version = "2.4"
+description = "Creates diffs of XML files"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+lxml = ">=3.1.0"
+six = "*"
+
+[[package]]
 name = "zipp"
 version = "3.8.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -1039,7 +1051,7 @@ test = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "0f41e3a6bc910b6d208b74cf030804b3c51eb345c5eaf31624a855ed1fe8adbb"
+content-hash = "30f49e6be8b12a6af44b0f810524fc225b6c173dd76d35a7362769ffd4b15cb8"
 
 [metadata.files]
 astunparse = [
@@ -1680,6 +1692,10 @@ watchdog = [
 webencodings = [
     {file = "webencodings-0.5.1-py2.py3-none-any.whl", hash = "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78"},
     {file = "webencodings-0.5.1.tar.gz", hash = "sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"},
+]
+xmldiff = [
+    {file = "xmldiff-2.4-py2.py3-none-any.whl", hash = "sha256:213c2f4c39ed71811a9ceeec1c8bdf2e673e5527261ea11708b3acfa6c2bdb00"},
+    {file = "xmldiff-2.4.tar.gz", hash = "sha256:05bea20ce1f2c9678683bcce0c3ba9981f87d92b709d190e018bcbf047eccf63"},
 ]
 zipp = [
     {file = "zipp-3.8.0-py3-none-any.whl", hash = "sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099"},
