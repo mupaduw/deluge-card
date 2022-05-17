@@ -10,6 +10,7 @@ import attrs
 import deluge_card.deluge_song
 from deluge_card import DelugeCardFS, DelugeSong
 from deluge_card.deluge_sample import Sample, mv_samples
+from deluge_card.helpers import ensure_absolute
 
 
 class TestSampleAttr(TestCase):
@@ -24,18 +25,21 @@ class TestDelugeSong(TestCase):
     def setUp(self):
         cwd = os.path.dirname(os.path.realpath(__file__))
         p = Path(cwd, 'fixtures', 'DC01')
-        card = DelugeCardFS(p)
+        self.card = DelugeCardFS(p)
         p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
-        self.song = DelugeSong(card, p)
+        self.song = DelugeSong(self.card, p)
 
     def test_get_minimum_firmware(self):
         self.assertEqual(self.song.minimum_firmware(), '3.1.0-beta')
 
     def test_get_song_samples(self):
-        samples = list(self.song.samples())
-        self.assertEqual(samples[0].path, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav'))
+        samples = list(self.song.samples(allow_missing=True))
+        self.assertEqual(
+            samples[0].path,
+            ensure_absolute(self.card.card_root, Path('SAMPLES/Artists/Leonard Ludvigsen/Hangdrum/1.wav')),
+        )
         print(samples[0])
-        self.assertEqual(samples[0].settings[0].song, self.song)
+        self.assertEqual(samples[0].settings[0].xml_file, self.song)
         self.assertEqual(len(samples), 32)
 
 
@@ -48,22 +52,22 @@ class TestSongSamples(TestCase):
         self.song = DelugeSong(card, p)
 
     def test_list_all_samples(self):
-        samples = list(self.song.samples())
+        samples = list(self.song.samples(allow_missing=True))
         print(samples)
         self.assertEqual(len(samples), 32)
 
     def test_list_samples_0(self):
-        samples = list(self.song.samples("*Snare*"))
+        samples = list(self.song.samples("*Snare*", allow_missing=True))
         print(samples)
         self.assertEqual(len(samples), 2)
 
     def test_list_samples_1(self):
-        samples = list(self.song.samples("*808*"))
+        samples = list(self.song.samples("*808*", allow_missing=True))
         print(samples)
         self.assertEqual(len(samples), 16)
 
     def test_list_samples_2(self):
-        samples = list(self.song.samples("**/Clap/*"))
+        samples = list(self.song.samples("**/Clap/*", allow_missing=True))
         print(samples)
         self.assertEqual(len(samples), 2)
 

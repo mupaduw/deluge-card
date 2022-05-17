@@ -7,7 +7,9 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Usage: usage.md
-  - Api: api.md
+  - Api:
+    - Main: api.md
+    - Modules: modules.md
   - Contributing: contributing.md
   - Changelog: changelog.md
 theme:

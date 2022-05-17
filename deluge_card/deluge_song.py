@@ -5,13 +5,18 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 
 import enum
-from pathlib import Path, PurePath
-from typing import Iterator, List
+from pathlib import Path
+from typing import List
 
-from attrs import define, field
-from lxml import etree
+from attrs import define
 
-from .deluge_sample import Sample, SampleSetting
+from .deluge_xml import DelugeXml
+
+if False:
+    # for forward-reference type-checking:
+    # ref https://stackoverflow.com/a/38962160
+    from deluge_card import DelugeCardFS
+
 
 SONGS = 'SONGS'
 TOP_FOLDERS = [SONGS, 'SYNTHS', 'KITS', 'SAMPLES']
@@ -33,45 +38,25 @@ class Mode(enum.Enum):
     locrian = [0, 1, 3, 5, 6, 8, 10]
 
 
-if False:
-    # for forward-reference type-checking:
-    # ref https://stackoverflow.com/a/38962160
-    from deluge_card import DelugeCardFS
-
-
-@define(repr=False, frozen=True)
-class DelugeSong:
+@define(repr=False, hash=False, eq=False)
+class DelugeSong(DelugeXml):
     """Class representing song data on a DelugeCard (in SONGS/*.xml).
 
     Attributes:
+        cardfs (DelugeCardFS): Card folder system containing this file.
         path (Path): Path object for the sample file. file.
     """
 
     cardfs: 'DelugeCardFS'
     path: Path
-    xmlroot: etree.ElementTree = field()
 
-    @xmlroot.default
-    def _default_xlmroot(self):
-        return etree.parse(self.path).getroot()
+    def __attrs_post_init__(self):
+        # self.samples_xpath = ".//*[@fileName]"
+        self.root_elem = 'song'
+        super(DelugeSong, self).__attrs_post_init__()
 
     def __repr__(self) -> str:
         return f"DelugeSong({self.path})"
-
-    def update_sample_element(self, sample_setting):
-        """Update XML element from sample_setting."""
-        tree = etree.ElementTree(self.xmlroot)
-        elem = tree.find(sample_setting.xml_path.replace('/song/', '//'))
-        # print('DEBUG old path', elem.get('fileName'))
-        elem.set('fileName', str(sample_setting.sample.path))
-        return elem
-
-    def write_xml(self, new_path=None) -> str:
-        """Write the song XML."""
-        filename = new_path or self.path
-        with open(filename, 'wb') as doc:
-            doc.write(etree.tostring(self.xmlroot, pretty_print=True))
-        return str(filename)
 
     def minimum_firmware(self) -> str:
         """Get the songs earliest Compatible Firmware version.
@@ -154,29 +139,3 @@ class DelugeSong:
         tempo = round((44100 * 60) / (96 * realTPT), 1)
         # tempo = round(55125/realTPT/2, 1)
         return tempo
-
-    def samples(self, pattern: str = "") -> Iterator[Sample]:
-        """Generator for samples referenced in the DelugeSong.
-
-        Args:
-            pattern (str): glob-style filename pattern.
-
-        Yields:
-            object (Sample): the next sample object.
-        """
-        tree = etree.ElementTree(self.xmlroot)
-
-        def sample_in_setting(sample_file, tree) -> Sample:
-            sample = Sample(Path(sample_file))
-            sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
-            return sample
-
-        for e in self.xmlroot.findall(".//*[@fileName]"):
-            # print(f'elem {e}')
-            sample_file = e.get('fileName')
-            if sample_file:
-                if not pattern:
-                    yield sample_in_setting(sample_file, tree)
-                    continue
-                if PurePath(sample_file).match(pattern):
-                    yield sample_in_setting(sample_file, tree)
