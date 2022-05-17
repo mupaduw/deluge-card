@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.5.0] - 2022-05-18
+
+### Added
+ - hanldle recursive paths for SONG, KIT, SYNTH folders for firmware 4.0+
+ - mv_samples handles KITS
+ - mv_samples handles SYNTHS
+ - drop illegal XML elements
+ - more test coverage
+ - local dev scripts for XML validation and manual tests
+
 ## [0.4.2] - 2022-05-12
 ### Changed
  - fix issue [12](https://github.com/mupaduw/deluge-card/issues/12) file not found
