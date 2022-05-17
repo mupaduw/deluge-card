@@ -1,0 +1,3889 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mupaduw.github.io/deluge-card/modules/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Modules - deluge-card</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="deluge-card" class="md-header__button md-logo" aria-label="deluge-card" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            deluge-card
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modules
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mupaduw/deluge-card" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mupaduw/deluge-card
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="deluge-card" class="md-nav__button md-logo" aria-label="deluge-card" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    deluge-card
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mupaduw/deluge-card" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mupaduw/deluge-card
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Api
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Api" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Api
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        Main
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Modules
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Modules
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+    <nav class="md-nav" aria-label="Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_sample" class="md-nav__link">
+    Module: deluge_sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample" class="md-nav__link">
+    deluge_card.deluge_sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.ModOp" class="md-nav__link">
+    ModOp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.Sample" class="md-nav__link">
+    Sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleMoveOperation" class="md-nav__link">
+    SampleMoveOperation
+  </a>
+  
+    <nav class="md-nav" aria-label="SampleMoveOperation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleMoveOperation.do_move" class="md-nav__link">
+    do_move()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleSetting" class="md-nav__link">
+    SampleSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SettingElementUpdater" class="md-nav__link">
+    SettingElementUpdater
+  </a>
+  
+    <nav class="md-nav" aria-label="SettingElementUpdater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SettingElementUpdater.update_settings" class="md-nav__link">
+    update_settings()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample._sample_files" class="md-nav__link">
+    _sample_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.all_samples" class="md-nav__link">
+    all_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.all_used_samples" class="md-nav__link">
+    all_used_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_kits" class="md-nav__link">
+    modify_sample_kits()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_paths" class="md-nav__link">
+    modify_sample_paths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_songs" class="md-nav__link">
+    modify_sample_songs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_synths" class="md-nav__link">
+    modify_sample_synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.mv_samples" class="md-nav__link">
+    mv_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.validate_mv_dest" class="md-nav__link">
+    validate_mv_dest()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_song" class="md-nav__link">
+    Module: deluge_song
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song" class="md-nav__link">
+    deluge_card.deluge_song
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong" class="md-nav__link">
+    DelugeSong
+  </a>
+  
+    <nav class="md-nav" aria-label="DelugeSong">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.minimum_firmware" class="md-nav__link">
+    minimum_firmware()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.mode_notes" class="md-nav__link">
+    mode_notes()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.root_note" class="md-nav__link">
+    root_note()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.scale" class="md-nav__link">
+    scale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.scale_mode" class="md-nav__link">
+    scale_mode()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.tempo" class="md-nav__link">
+    tempo()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.Mode" class="md-nav__link">
+    Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_kit" class="md-nav__link">
+    Module: deluge_kit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_kit" class="md-nav__link">
+    deluge_card.deluge_kit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_kit.DelugeKit" class="md-nav__link">
+    DelugeKit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_synth" class="md-nav__link">
+    Module: deluge_synth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_synth" class="md-nav__link">
+    deluge_card.deluge_synth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_synth.DelugeSynth" class="md-nav__link">
+    DelugeSynth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_xml" class="md-nav__link">
+    Module: deluge_xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml" class="md-nav__link">
+    deluge_card.deluge_xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml" class="md-nav__link">
+    DelugeXml
+  </a>
+  
+    <nav class="md-nav" aria-label="DelugeXml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.samples" class="md-nav__link">
+    samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.update_sample_element" class="md-nav__link">
+    update_sample_element()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.write_xml" class="md-nav__link">
+    write_xml()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.read_and_clean_xml" class="md-nav__link">
+    read_and_clean_xml()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+    <nav class="md-nav" aria-label="Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_sample" class="md-nav__link">
+    Module: deluge_sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample" class="md-nav__link">
+    deluge_card.deluge_sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.ModOp" class="md-nav__link">
+    ModOp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.Sample" class="md-nav__link">
+    Sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleMoveOperation" class="md-nav__link">
+    SampleMoveOperation
+  </a>
+  
+    <nav class="md-nav" aria-label="SampleMoveOperation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleMoveOperation.do_move" class="md-nav__link">
+    do_move()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SampleSetting" class="md-nav__link">
+    SampleSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SettingElementUpdater" class="md-nav__link">
+    SettingElementUpdater
+  </a>
+  
+    <nav class="md-nav" aria-label="SettingElementUpdater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.SettingElementUpdater.update_settings" class="md-nav__link">
+    update_settings()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample._sample_files" class="md-nav__link">
+    _sample_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.all_samples" class="md-nav__link">
+    all_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.all_used_samples" class="md-nav__link">
+    all_used_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_kits" class="md-nav__link">
+    modify_sample_kits()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_paths" class="md-nav__link">
+    modify_sample_paths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_songs" class="md-nav__link">
+    modify_sample_songs()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.modify_sample_synths" class="md-nav__link">
+    modify_sample_synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.mv_samples" class="md-nav__link">
+    mv_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_sample.validate_mv_dest" class="md-nav__link">
+    validate_mv_dest()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_song" class="md-nav__link">
+    Module: deluge_song
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song" class="md-nav__link">
+    deluge_card.deluge_song
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong" class="md-nav__link">
+    DelugeSong
+  </a>
+  
+    <nav class="md-nav" aria-label="DelugeSong">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.minimum_firmware" class="md-nav__link">
+    minimum_firmware()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.mode_notes" class="md-nav__link">
+    mode_notes()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.root_note" class="md-nav__link">
+    root_note()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.scale" class="md-nav__link">
+    scale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.scale_mode" class="md-nav__link">
+    scale_mode()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.tempo" class="md-nav__link">
+    tempo()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.Mode" class="md-nav__link">
+    Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_kit" class="md-nav__link">
+    Module: deluge_kit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_kit" class="md-nav__link">
+    deluge_card.deluge_kit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_kit.DelugeKit" class="md-nav__link">
+    DelugeKit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_synth" class="md-nav__link">
+    Module: deluge_synth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_synth" class="md-nav__link">
+    deluge_card.deluge_synth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_synth.DelugeSynth" class="md-nav__link">
+    DelugeSynth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-deluge_xml" class="md-nav__link">
+    Module: deluge_xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml" class="md-nav__link">
+    deluge_card.deluge_xml
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml" class="md-nav__link">
+    DelugeXml
+  </a>
+  
+    <nav class="md-nav" aria-label="DelugeXml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.samples" class="md-nav__link">
+    samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.update_sample_element" class="md-nav__link">
+    update_sample_element()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.DelugeXml.write_xml" class="md-nav__link">
+    write_xml()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_xml.read_and_clean_xml" class="md-nav__link">
+    read_and_clean_xml()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/mupaduw/deluge-card/edit/master/docs/modules.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Modules</h1>
+
+<h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
+<h3 id="module-deluge_sample">Module: deluge_sample<a class="headerlink" href="#module-deluge_sample" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="deluge_card.deluge_sample"></a>
+    <div class="doc doc-contents first">
+
+      <p>Main classes representing Deluge Sample.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_sample.ModOp" class="doc doc-heading">
+          <code>ModOp</code>
+
+
+
+<a href="#deluge_card.deluge_sample.ModOp" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+      <p>Represents a successful modification operation.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>operation</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>str</p></td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>file path</p></td>
+        </tr>
+        <tr>
+          <td><code>instance</code></td>
+          <td>
+                <code>Any</code>
+          </td>
+          <td><p>modified instance.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">ModOp</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represents a successful modification operation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        operation: str</span>
+<span class="sd">        path (str): file path</span>
+<span class="sd">        instance (Any): modified instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">instance</span><span class="p">:</span> <span class="nb">object</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_sample.Sample" class="doc doc-heading">
+          <code>Sample</code>
+
+
+
+<a href="#deluge_card.deluge_sample.Sample" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+      <p>represents a sample file.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>Path object for the sample file.</p></td>
+        </tr>
+        <tr>
+          <td><code>settings</code></td>
+          <td>
+                <code>list[<a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.SampleSetting" href="#deluge_card.deluge_sample.SampleSetting">SampleSetting</a>]</code>
+          </td>
+          <td><p>list of SampleSettings for this sample</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Sample</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;represents a sample file.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        path (Path): Path object for the sample file.</span>
+<span class="sd">        settings (list[SampleSetting]): list of SampleSettings for this sample</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SampleSetting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_sample.SampleMoveOperation" class="doc doc-heading">
+          <code>SampleMoveOperation</code>
+
+
+
+<a href="#deluge_card.deluge_sample.SampleMoveOperation" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+      <p>Represents a sample file move operation.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>old_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>original Path.</p></td>
+        </tr>
+        <tr>
+          <td><code>new_path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>new Path.</p></td>
+        </tr>
+        <tr>
+          <td><code>sample</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.Sample" href="#deluge_card.deluge_sample.Sample">Sample</a></code>
+          </td>
+          <td><p>sample instance.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SampleMoveOperation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Represents a sample file move operation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        old_path (Path): original Path.</span>
+<span class="sd">        new_path (Path): new Path.</span>
+<span class="sd">        sample (Sample): sample instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">old_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">new_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">sample</span><span class="p">:</span> <span class="s1">&#39;Sample&#39;</span>
+    <span class="n">uniqid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">uniqid</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span>
+
+    <span class="k">def</span> <span class="nf">do_move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Complete the move operation.</span>
+
+<span class="sd">        We expect the destination path to exist (much like regular mv) as</span>
+<span class="sd">        this helps the end user avoid mistakes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if not self.new_path.parent.exists():</span>
+        <span class="c1">#    self.new_path.parent.mkdir(exist_ok=True, parents=True)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_path</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_sample.SampleMoveOperation.do_move" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">do_move</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_sample.SampleMoveOperation.do_move" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Complete the move operation.</p>
+<p>We expect the destination path to exist (much like regular mv) as
+this helps the end user avoid mistakes.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">do_move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Complete the move operation.</span>
+
+<span class="sd">    We expect the destination path to exist (much like regular mv) as</span>
+<span class="sd">    this helps the end user avoid mistakes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># if not self.new_path.parent.exists():</span>
+    <span class="c1">#    self.new_path.parent.mkdir(exist_ok=True, parents=True)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_path</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_sample.SampleSetting" class="doc doc-heading">
+          <code>SampleSetting</code>
+
+
+
+<a href="#deluge_card.deluge_sample.SampleSetting" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+      <p>represents a sample in the context of a DelugeXML file.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>xml_file</code></td>
+          <td>
+                <code>deluge_xml.<span title="deluge_xml.DelugeXML">DelugeXML</span></code>
+          </td>
+          <td><p>object for the XML file (song, kit or synth).</p></td>
+        </tr>
+        <tr>
+          <td><code>xml_path</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Xmlpath string locating the sample setting within the XML.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">SampleSetting</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;represents a sample in the context of a DelugeXML file.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        xml_file (deluge_xml.DelugeXML): object for the XML file (song, kit or synth).</span>
+<span class="sd">        xml_path (str): Xmlpath string locating the sample setting within the XML.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xml_file</span><span class="p">:</span> <span class="s1">&#39;deluge_xml.DelugeXML&#39;</span>
+    <span class="n">sample</span><span class="p">:</span> <span class="s1">&#39;Sample&#39;</span>
+    <span class="n">xml_path</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_sample.SettingElementUpdater" class="doc doc-heading">
+          <code>SettingElementUpdater</code>
+
+
+
+<a href="#deluge_card.deluge_sample.SettingElementUpdater" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>object</code></p>
+
+
+      <p>Setting updater class.</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>root_xml_path</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>type or root node : /song/, /kit/, or /sound/.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">SettingElementUpdater</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Setting updater class.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        root_xml_path (str): type or root node : /song/, /kit/, or /sound/.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">root_xml_path</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="k">def</span> <span class="nf">update_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move_op</span><span class="p">:</span> <span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update settings.&quot;&quot;&quot;</span>
+        <span class="c1"># print(f&quot;DEBUG update_song_elements: {sample}&quot;)</span>
+        <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">move_op</span><span class="o">.</span><span class="n">sample</span><span class="o">.</span><span class="n">settings</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">setting</span><span class="o">.</span><span class="n">xml_path</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root_xml_path</span><span class="p">)]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_xml_path</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># print(f&quot;DEBUG update_song_elements setting: {setting}&quot;)</span>
+            <span class="n">setting</span><span class="o">.</span><span class="n">xml_file</span><span class="o">.</span><span class="n">update_sample_element</span><span class="p">(</span><span class="n">setting</span><span class="o">.</span><span class="n">xml_path</span><span class="p">,</span> <span class="n">move_op</span><span class="o">.</span><span class="n">new_path</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">setting</span><span class="o">.</span><span class="n">xml_file</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_sample.SettingElementUpdater.update_settings" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">update_settings</span><span class="p">(</span><span class="n">move_op</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.SettingElementUpdater.update_settings" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Update settings.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move_op</span><span class="p">:</span> <span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update settings.&quot;&quot;&quot;</span>
+    <span class="c1"># print(f&quot;DEBUG update_song_elements: {sample}&quot;)</span>
+    <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">move_op</span><span class="o">.</span><span class="n">sample</span><span class="o">.</span><span class="n">settings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">setting</span><span class="o">.</span><span class="n">xml_path</span><span class="p">[:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root_xml_path</span><span class="p">)]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_xml_path</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># print(f&quot;DEBUG update_song_elements setting: {setting}&quot;)</span>
+        <span class="n">setting</span><span class="o">.</span><span class="n">xml_file</span><span class="o">.</span><span class="n">update_sample_element</span><span class="p">(</span><span class="n">setting</span><span class="o">.</span><span class="n">xml_path</span><span class="p">,</span> <span class="n">move_op</span><span class="o">.</span><span class="n">new_path</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">setting</span><span class="o">.</span><span class="n">xml_file</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample._sample_files" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">_sample_files</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample._sample_files" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get all samples.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">_sample_files</span><span class="p">(</span><span class="n">card</span><span class="p">:</span> <span class="s1">&#39;deluge_card.DelugeCardFS&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all samples.&quot;&quot;&quot;</span>
+    <span class="n">smp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="s1">&#39;SAMPLES&#39;</span><span class="p">)</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">smp</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;**/*&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">SAMPLE_TYPES</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="c1"># print(fname)</span>
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>  <span class="c1"># Apple copy crap</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.all_samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">all_samples</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.all_samples" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get all samples, preferring those used in XML.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">all_samples</span><span class="p">(</span><span class="n">card</span><span class="p">:</span> <span class="s1">&#39;deluge_card.DelugeCardFS&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all samples, preferring those used in XML.&quot;&quot;&quot;</span>
+    <span class="n">used_samples</span> <span class="o">=</span> <span class="n">all_used_samples</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+    <span class="n">all_samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">pattern</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">used_samples</span><span class="p">:</span>
+        <span class="c1"># all_samples.remove(sample) #sample equality</span>
+        <span class="c1"># discard does not throw if item does no exist, so handles broken refs</span>
+        <span class="n">all_samples</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>  <span class="c1"># sample equality,</span>
+        <span class="k">yield</span> <span class="n">sample</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">all_samples</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">sample</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.all_used_samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">all_used_samples</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.all_used_samples" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get all samples referenced in XML files.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">all_used_samples</span><span class="p">(</span><span class="n">card</span><span class="p">:</span> <span class="s1">&#39;deluge_card.DelugeCardFS&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all samples referenced in XML files.&quot;&quot;&quot;</span>
+    <span class="n">all_sample_gens</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">synth</span><span class="p">:</span> <span class="n">synth</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">card</span><span class="o">.</span><span class="n">synths</span><span class="p">()),</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sng</span><span class="p">:</span> <span class="n">sng</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">card</span><span class="o">.</span><span class="n">songs</span><span class="p">()),</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">kit</span><span class="p">:</span> <span class="n">kit</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">card</span><span class="o">.</span><span class="n">kits</span><span class="p">()),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">all_sample_gens</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.modify_sample_kits" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">modify_sample_kits</span><span class="p">(</span><span class="n">move_ops</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.modify_sample_kits" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Update kit XML elements.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">modify_sample_kits</span><span class="p">(</span><span class="n">move_ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;deluge_kit.DelugeKit&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Update kit XML elements.&quot;&quot;&quot;</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">SettingElementUpdater</span><span class="p">(</span><span class="s1">&#39;/kit/&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">updater</span><span class="o">.</span><span class="n">update_settings</span><span class="p">,</span> <span class="n">move_ops</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.modify_sample_paths" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">modify_sample_paths</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.modify_sample_paths" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Modify sample paths just as posix mv does.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">modify_sample_paths</span><span class="p">(</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">samples</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">],</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Modify sample paths just as posix mv does.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">glob_match</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build_move_op</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleMoveOperation</span><span class="p">:</span>
+        <span class="c1"># print(&#39;DEBUG:&#39;, sample.path)</span>
+        <span class="k">if</span> <span class="n">dest</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">move_op</span> <span class="o">=</span> <span class="n">SampleMoveOperation</span><span class="p">(</span><span class="n">ensure_absolute</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">sample</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">move_op</span> <span class="o">=</span> <span class="n">SampleMoveOperation</span><span class="p">(</span><span class="n">ensure_absolute</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="n">Path</span><span class="p">(</span><span class="n">dest</span><span class="p">),</span> <span class="n">sample</span><span class="p">)</span>
+        <span class="c1"># sample.path = move_op.new_path.relative_to(root)</span>
+        <span class="k">return</span> <span class="n">move_op</span>
+
+    <span class="n">matching_samples</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">glob_match</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">build_move_op</span><span class="p">,</span> <span class="n">matching_samples</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.modify_sample_songs" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">modify_sample_songs</span><span class="p">(</span><span class="n">move_ops</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.modify_sample_songs" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Update song XML elements.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">modify_sample_songs</span><span class="p">(</span><span class="n">move_ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;deluge_song.DelugeSong&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Update song XML elements.&quot;&quot;&quot;</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">SettingElementUpdater</span><span class="p">(</span><span class="s1">&#39;/song/&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">updater</span><span class="o">.</span><span class="n">update_settings</span><span class="p">,</span> <span class="n">move_ops</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.modify_sample_synths" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">modify_sample_synths</span><span class="p">(</span><span class="n">move_ops</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.modify_sample_synths" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Update synth XML elements.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">modify_sample_synths</span><span class="p">(</span><span class="n">move_ops</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;SampleMoveOperation&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;deluge_synth.DelugeSynth&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Update synth XML elements.&quot;&quot;&quot;</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">SettingElementUpdater</span><span class="p">(</span><span class="s1">&#39;/sound/&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">updater</span><span class="o">.</span><span class="n">update_settings</span><span class="p">,</span> <span class="n">move_ops</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.mv_samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">mv_samples</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.mv_samples" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Move samples, updating any affected XML files.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mv_samples</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">samples</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">],</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Move samples, updating any affected XML files.&quot;&quot;&quot;</span>
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">ensure_absolute</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+    <span class="n">validate_mv_dest</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>  <span class="c1"># raises exception if args are invalid</span>
+
+    <span class="n">sample_move_ops</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">modify_sample_paths</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>  <span class="c1"># materialise the list</span>
+
+    <span class="n">updated_songs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">modify_sample_songs</span><span class="p">(</span><span class="n">sample_move_ops</span><span class="p">))</span>
+    <span class="n">updated_kits</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">modify_sample_kits</span><span class="p">(</span><span class="n">sample_move_ops</span><span class="p">))</span>
+    <span class="n">updated_synths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">modify_sample_synths</span><span class="p">(</span><span class="n">sample_move_ops</span><span class="p">))</span>
+
+    <span class="c1"># write the modified XML, per unique song, kit, synth</span>
+    <span class="c1"># TODO this is writing files multiple times</span>
+    <span class="k">for</span> <span class="n">updated</span><span class="p">,</span> <span class="n">tag</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">updated_songs</span><span class="p">,</span> <span class="s1">&#39;song&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">updated_kits</span><span class="p">,</span> <span class="s1">&#39;kit&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">updated_synths</span><span class="p">,</span> <span class="s1">&#39;synth&#39;</span><span class="p">)]:</span>
+        <span class="k">for</span> <span class="n">xml</span> <span class="ow">in</span> <span class="n">updated</span><span class="p">:</span>
+            <span class="n">xml</span><span class="o">.</span><span class="n">write_xml</span><span class="p">()</span>
+            <span class="k">yield</span> <span class="n">ModOp</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;update_</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">_xml&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">xml</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="n">xml</span><span class="p">)</span>
+
+    <span class="c1"># move the samples</span>
+    <span class="k">for</span> <span class="n">move_op</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">sample_move_ops</span><span class="p">):</span>
+        <span class="n">move_op</span><span class="o">.</span><span class="n">do_move</span><span class="p">()</span>
+        <span class="k">yield</span> <span class="n">ModOp</span><span class="p">(</span><span class="s2">&quot;move_file&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">move_op</span><span class="o">.</span><span class="n">new_path</span><span class="p">),</span> <span class="n">move_op</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_sample.validate_mv_dest" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">validate_mv_dest</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_sample.validate_mv_dest" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_sample.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">validate_mv_dest</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check: dest path must be a child of root and must exist.&quot;&quot;&quot;</span>
+    <span class="n">absolute_dest</span> <span class="o">=</span> <span class="n">ensure_absolute</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+
+    <span class="c1"># file as target</span>
+    <span class="k">if</span> <span class="n">absolute_dest</span><span class="o">.</span><span class="n">suffix</span><span class="p">:</span>  <span class="c1"># looks like a file target</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">absolute_dest</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;target folder does not exist: </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># folder as target</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="n">absolute_dest</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;target folder does not exist: </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">absolute_dest</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Destination must be a sub-folder of card.&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h3 id="module-deluge_song">Module: deluge_song<a class="headerlink" href="#module-deluge_song" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="deluge_card.deluge_song"></a>
+    <div class="doc doc-contents first">
+
+      <p>Main classes representing a Deluge Song.</p>
+<p>Credit &amp; thanks to Jamie Faye
+ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_song.DelugeSong" class="doc doc-heading">
+          <code>DelugeSong</code>
+
+
+
+<a href="#deluge_card.deluge_song.DelugeSong" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_xml.DelugeXml" href="#deluge_card.deluge_xml.DelugeXml">DelugeXml</a></code></p>
+
+
+      <p>Class representing song data on a DelugeCard (in SONGS/*.xml).</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cardfs</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.DelugeCardFS" href="../api/#deluge_card.deluge_card.DelugeCardFS">DelugeCardFS</a></code>
+          </td>
+          <td><p>Card folder system containing this file.</p></td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>Path object for the sample file. file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DelugeSong</span><span class="p">(</span><span class="n">DelugeXml</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class representing song data on a DelugeCard (in SONGS/*.xml).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cardfs (DelugeCardFS): Card folder system containing this file.</span>
+<span class="sd">        path (Path): Path object for the sample file. file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cardfs</span><span class="p">:</span> <span class="s1">&#39;DelugeCardFS&#39;</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># self.samples_xpath = &quot;.//*[@fileName]&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span> <span class="o">=</span> <span class="s1">&#39;song&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DelugeSong</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DelugeSong(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span> <span class="nf">minimum_firmware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the songs earliest Compatible Firmware version.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: earliestCompatibleFirmware version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;earliestCompatibleFirmware&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">root_note</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the root note.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: root note (e.g 36 for C3).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rootNote&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">mode_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get the notes in the song scale (mode).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [int]: list of mode intervals, relative to root.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//modeNotes/modeNote&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">scale_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the descriptive name of the song scale (mode).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: scale_mode name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode_notes</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Mode</span><span class="p">(</span><span class="n">mn</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;other&#39;</span>
+
+    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the song scale and key.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: scale name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_mode</span><span class="p">()</span>
+        <span class="n">root_note</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_note</span><span class="p">()</span> <span class="o">%</span> <span class="mi">12</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">SCALE</span><span class="p">[</span><span class="n">root_note</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span> <span class="nf">tempo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the song tempo in beats per minute.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float: tempo BPM.</span>
+
+<span class="sd">        Javascript:</span>
+<span class="sd">            [downrush convertTempo()](https://github.com/jamiefaye/downrush/blob</span>
+<span class="sd">            /a4fa2794002cdcebb093848af501ca17a32abe9a/xmlView/src/SongViewLib.js#L508)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># // Return song tempo calculated from timePerTimerTick and timerTickFraction</span>
+        <span class="c1"># function convertTempo(jsong)</span>
+        <span class="c1"># {</span>
+        <span class="c1">#     let fractPart = (jsong.timerTickFraction&gt;&gt;&gt;0) / 0x100000000;</span>
+        <span class="c1">#     let realTPT = Number(jsong.timePerTimerTick) + fractPart;</span>
+        <span class="c1">#     // Timer tick math: 44100 = standard Fs; 48 = PPQN;</span>
+        <span class="c1">#     // tempo = (44100 * 60) / 48 * realTPT;</span>
+        <span class="c1">#     // tempo = 55125 / realTPT</span>
+        <span class="c1">#     // rounded to 1 place after decimal point:</span>
+        <span class="c1">#     let tempo = Math.round(551250 / realTPT) / 10;</span>
+        <span class="c1">#</span>
+        <span class="c1">#     // console.log(&quot;timePerTimerTick=&quot; + jsong.timePerTimerTick + &quot; realTPT= &quot; +  realTPT +</span>
+        <span class="c1">#     //      &quot; tempo= &quot; + tempo);</span>
+        <span class="c1">#     // console.log(&quot;timerTickFraction=&quot; + jsong.timerTickFraction + &quot; fractPart= &quot; +  fractPart);</span>
+        <span class="c1">#     return tempo;</span>
+        <span class="c1"># }</span>
+        <span class="n">fractPart</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timerTickFraction&#39;</span><span class="p">)))</span> <span class="o">/</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;0x100000000&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="c1"># print(int(&#39;0x100000000&#39;, 16))</span>
+        <span class="c1"># print(fractPart)</span>
+        <span class="n">realTPT</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timePerTimerTick&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">fractPart</span>
+        <span class="c1"># print(realTPT)</span>
+        <span class="n">tempo</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">44100</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">96</span> <span class="o">*</span> <span class="n">realTPT</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># tempo = round(55125/realTPT/2, 1)</span>
+        <span class="k">return</span> <span class="n">tempo</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.minimum_firmware" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">minimum_firmware</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.minimum_firmware" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the songs earliest Compatible Firmware version.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>str</code></td>          <td>
+                <code>str</code>
+          </td>
+          <td><p>earliestCompatibleFirmware version.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">minimum_firmware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the songs earliest Compatible Firmware version.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: earliestCompatibleFirmware version.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;earliestCompatibleFirmware&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.mode_notes" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">mode_notes</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.mode_notes" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the notes in the song scale (mode).</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.List">List</span>[int]</code>
+          </td>
+          <td><p>[int]: list of mode intervals, relative to root.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mode_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get the notes in the song scale (mode).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [int]: list of mode intervals, relative to root.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">notes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//modeNotes/modeNote&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.root_note" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">root_note</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.root_note" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the root note.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>int</code></td>          <td>
+                <code>int</code>
+          </td>
+          <td><p>root note (e.g 36 for C3).</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">root_note</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the root note.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: root note (e.g 36 for C3).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rootNote&#39;</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.scale" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">scale</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.scale" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the song scale and key.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>str</code></td>          <td>
+                <code>str</code>
+          </td>
+          <td><p>scale name.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the song scale and key.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: scale name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_mode</span><span class="p">()</span>
+    <span class="n">root_note</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_note</span><span class="p">()</span> <span class="o">%</span> <span class="mi">12</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">SCALE</span><span class="p">[</span><span class="n">root_note</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">&#39;</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.scale_mode" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">scale_mode</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.scale_mode" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the descriptive name of the song scale (mode).</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>str</code></td>          <td>
+                <code>str</code>
+          </td>
+          <td><p>scale_mode name.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the descriptive name of the song scale (mode).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: scale_mode name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode_notes</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Mode</span><span class="p">(</span><span class="n">mn</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;other&#39;</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.tempo" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">tempo</span><span class="p">()</span></code>
+
+
+<a href="#deluge_card.deluge_song.DelugeSong.tempo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the song tempo in beats per minute.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>float</code></td>          <td>
+                <code>float</code>
+          </td>
+          <td><p>tempo BPM.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="javascript">
+  <summary>Javascript</summary>
+  <p><a href="https://github.com/jamiefaye/downrush/blob
+/a4fa2794002cdcebb093848af501ca17a32abe9a/xmlView/src/SongViewLib.js#L508">downrush convertTempo()</a></p>
+</details>
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tempo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the song tempo in beats per minute.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: tempo BPM.</span>
+
+<span class="sd">    Javascript:</span>
+<span class="sd">        [downrush convertTempo()](https://github.com/jamiefaye/downrush/blob</span>
+<span class="sd">        /a4fa2794002cdcebb093848af501ca17a32abe9a/xmlView/src/SongViewLib.js#L508)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># // Return song tempo calculated from timePerTimerTick and timerTickFraction</span>
+    <span class="c1"># function convertTempo(jsong)</span>
+    <span class="c1"># {</span>
+    <span class="c1">#     let fractPart = (jsong.timerTickFraction&gt;&gt;&gt;0) / 0x100000000;</span>
+    <span class="c1">#     let realTPT = Number(jsong.timePerTimerTick) + fractPart;</span>
+    <span class="c1">#     // Timer tick math: 44100 = standard Fs; 48 = PPQN;</span>
+    <span class="c1">#     // tempo = (44100 * 60) / 48 * realTPT;</span>
+    <span class="c1">#     // tempo = 55125 / realTPT</span>
+    <span class="c1">#     // rounded to 1 place after decimal point:</span>
+    <span class="c1">#     let tempo = Math.round(551250 / realTPT) / 10;</span>
+    <span class="c1">#</span>
+    <span class="c1">#     // console.log(&quot;timePerTimerTick=&quot; + jsong.timePerTimerTick + &quot; realTPT= &quot; +  realTPT +</span>
+    <span class="c1">#     //      &quot; tempo= &quot; + tempo);</span>
+    <span class="c1">#     // console.log(&quot;timerTickFraction=&quot; + jsong.timerTickFraction + &quot; fractPart= &quot; +  fractPart);</span>
+    <span class="c1">#     return tempo;</span>
+    <span class="c1"># }</span>
+    <span class="n">fractPart</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timerTickFraction&#39;</span><span class="p">)))</span> <span class="o">/</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;0x100000000&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+    <span class="c1"># print(int(&#39;0x100000000&#39;, 16))</span>
+    <span class="c1"># print(fractPart)</span>
+    <span class="n">realTPT</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timePerTimerTick&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="n">fractPart</span>
+    <span class="c1"># print(realTPT)</span>
+    <span class="n">tempo</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">44100</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">96</span> <span class="o">*</span> <span class="n">realTPT</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># tempo = round(55125/realTPT/2, 1)</span>
+    <span class="k">return</span> <span class="n">tempo</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_song.Mode" class="doc doc-heading">
+          <code>Mode</code>
+
+
+
+<a href="#deluge_card.deluge_song.Mode" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>enum.<span title="enum.Enum">Enum</span></code></p>
+
+
+      <p>Enum for the scale modes.</p>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum for the scale modes.&quot;&quot;&quot;</span>
+
+    <span class="n">major</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+    <span class="n">minor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+    <span class="n">dorian</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+    <span class="n">phrygian</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+    <span class="n">lydian</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+    <span class="n">mixolydian</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+    <span class="n">locrian</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h3 id="module-deluge_kit">Module: deluge_kit<a class="headerlink" href="#module-deluge_kit" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="deluge_card.deluge_kit"></a>
+    <div class="doc doc-contents first">
+
+      <p>Main class representing a Deluge Kit.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_kit.DelugeKit" class="doc doc-heading">
+          <code>DelugeKit</code>
+
+
+
+<a href="#deluge_card.deluge_kit.DelugeKit" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_xml.DelugeXml" href="#deluge_card.deluge_xml.DelugeXml">DelugeXml</a></code></p>
+
+
+      <p>Class representing kit data on a DelugeCard (in KITS/*.xml).</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cardfs</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.DelugeCardFS" href="../api/#deluge_card.deluge_card.DelugeCardFS">DelugeCardFS</a></code>
+          </td>
+          <td><p>Card folder system containing this file.</p></td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>Path object for the sample file. file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_kit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DelugeKit</span><span class="p">(</span><span class="n">DelugeXml</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class representing kit data on a DelugeCard (in KITS/*.xml).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cardfs (DelugeCardFS): Card folder system containing this file.</span>
+<span class="sd">        path (Path): Path object for the sample file. file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cardfs</span><span class="p">:</span> <span class="s1">&#39;DelugeCardFS&#39;</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Sself.samples_xpath = &quot;.//fileName&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span> <span class="o">=</span> <span class="s1">&#39;kit&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DelugeKit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DelugeKit(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h3 id="module-deluge_synth">Module: deluge_synth<a class="headerlink" href="#module-deluge_synth" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="deluge_card.deluge_synth"></a>
+    <div class="doc doc-contents first">
+
+      <p>Main class representing a Deluge Synth.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_synth.DelugeSynth" class="doc doc-heading">
+          <code>DelugeSynth</code>
+
+
+
+<a href="#deluge_card.deluge_synth.DelugeSynth" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_xml.DelugeXml" href="#deluge_card.deluge_xml.DelugeXml">DelugeXml</a></code></p>
+
+
+      <p>Class representing a synth template on a DelugeCard (in SYNTHS/*.xml).</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cardfs</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.DelugeCardFS" href="../api/#deluge_card.deluge_card.DelugeCardFS">DelugeCardFS</a></code>
+          </td>
+          <td><p>Card folder system containing this file.</p></td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>Path object for the sample file. file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_synth.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DelugeSynth</span><span class="p">(</span><span class="n">DelugeXml</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class representing a synth template on a DelugeCard (in SYNTHS/*.xml).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cardfs (DelugeCardFS): Card folder system containing this file.</span>
+<span class="sd">        path (Path): Path object for the sample file. file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cardfs</span><span class="p">:</span> <span class="s1">&#39;DelugeCardFS&#39;</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span> <span class="o">=</span> <span class="s1">&#39;sound&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DelugeSynth</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DelugeSynth(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+<h3 id="module-deluge_xml">Module: deluge_xml<a class="headerlink" href="#module-deluge_xml" title="Permanent link">&para;</a></h3>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="deluge_card.deluge_xml"></a>
+    <div class="doc doc-contents first">
+
+      <p>Base class for a Deluge XML file.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="deluge_card.deluge_xml.DelugeXml" class="doc doc-heading">
+          <code>DelugeXml</code>
+
+
+
+<a href="#deluge_card.deluge_xml.DelugeXml" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+
+      <p>Class representing XML n a DelugeCard (in SONGS/*.xml).</p>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cardfs</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.DelugeCardFS" href="../api/#deluge_card.deluge_card.DelugeCardFS">DelugeCardFS</a></code>
+          </td>
+          <td><p>Card folder system containing this file.</p></td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>Path object for the sample file. file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_xml.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span>
+<span class="k">class</span> <span class="nc">DelugeXml</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class representing XML n a DelugeCard (in SONGS/*.xml).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cardfs (DelugeCardFS): Card folder system containing this file.</span>
+<span class="sd">        path (Path): Path object for the sample file. file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cardfs</span><span class="p">:</span> <span class="s1">&#39;DelugeCardFS&#39;</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">xmlroot</span><span class="p">:</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">uniqid</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># samples_xpath: str = field(init=False)</span>
+    <span class="n">root_elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span> <span class="o">=</span> <span class="nb">hash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">)</span><span class="si">}{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># ultimately we might want to lazy load here ....</span>
+        <span class="c1"># see https://stackoverflow.com/questions/55548536/python-attrs-class-attribute-cached-lazy-load</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">parser</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">recover</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">read_and_clean_xml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="n">parser</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parsing </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> raises.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">err</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">uniqid</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uniqid</span>
+
+    <span class="k">def</span> <span class="nf">update_sample_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_path</span><span class="p">,</span> <span class="n">sample_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update XML element from sample_setting.&quot;&quot;&quot;</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">)</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">xml_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span><span class="si">}</span><span class="s1">/&#39;</span><span class="p">,</span> <span class="s1">&#39;//&#39;</span><span class="p">))</span>
+        <span class="c1"># print(&#39;DEBUG old path&#39;, elem.get(&#39;fileName&#39;), elem)</span>
+        <span class="n">sample_path</span> <span class="o">=</span> <span class="n">sample_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;fileName&#39;</span><span class="p">:</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sample_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sample_path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">elem</span>
+
+    <span class="k">def</span> <span class="nf">write_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Write the song XML.&quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">new_path</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">doc</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">allow_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Generator for samples referenced in the DelugeSong.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            object (Sample): the next sample object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sample</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">ensure_absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)))</span>
+            <span class="n">sample</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="n">sample</span>
+
+        <span class="k">def</span> <span class="nf">match_and_yield</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">sample_file</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">allow_missing</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">ensure_absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span><span class="o">.</span><span class="n">exists</span><span class="p">()):</span>
+                    <span class="k">return</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//*[@fileName]&quot;</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">match_and_yield</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">),</span> <span class="n">pattern</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">yield</span> <span class="n">m</span>
+
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//fileName&quot;</span><span class="p">):</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">match_and_yield</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">yield</span> <span class="n">m</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_xml.DelugeXml.samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">allow_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_xml.DelugeXml.samples" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Generator for samples referenced in the DelugeSong.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.Sample" href="#deluge_card.deluge_sample.Sample">Sample</a></code>
+          </td>
+          <td><p>the next sample object.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_xml.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">allow_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generator for samples referenced in the DelugeSong.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        object (Sample): the next sample object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sample</span><span class="p">:</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">ensure_absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)))</span>
+        <span class="n">sample</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SampleSetting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">tree</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">sample</span>
+
+    <span class="k">def</span> <span class="nf">match_and_yield</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sample_file</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">allow_missing</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">ensure_absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">sample_file</span><span class="p">))</span><span class="o">.</span><span class="n">exists</span><span class="p">()):</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">sample_file</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">sample_in_setting</span><span class="p">(</span><span class="n">sample_file</span><span class="p">,</span> <span class="n">tree</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//*[@fileName]&quot;</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">match_and_yield</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">),</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">yield</span> <span class="n">m</span>
+
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//fileName&quot;</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">match_and_yield</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">yield</span> <span class="n">m</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_xml.DelugeXml.update_sample_element" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">update_sample_element</span><span class="p">(</span><span class="n">xml_path</span><span class="p">,</span> <span class="n">sample_path</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_xml.DelugeXml.update_sample_element" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Update XML element from sample_setting.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_xml.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">update_sample_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_path</span><span class="p">,</span> <span class="n">sample_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update XML element from sample_setting.&quot;&quot;&quot;</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">)</span>
+    <span class="n">elem</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">xml_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span><span class="si">}</span><span class="s1">/&#39;</span><span class="p">,</span> <span class="s1">&#39;//&#39;</span><span class="p">))</span>
+    <span class="c1"># print(&#39;DEBUG old path&#39;, elem.get(&#39;fileName&#39;), elem)</span>
+    <span class="n">sample_path</span> <span class="o">=</span> <span class="n">sample_path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cardfs</span><span class="o">.</span><span class="n">card_root</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;fileName&#39;</span><span class="p">:</span>
+        <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sample_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">elem</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;fileName&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sample_path</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">elem</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_xml.DelugeXml.write_xml" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">write_xml</span><span class="p">(</span><span class="n">new_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_xml.DelugeXml.write_xml" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Write the song XML.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_xml.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">write_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_path</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Write the song XML.&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">new_path</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">doc</span><span class="p">:</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="deluge_card.deluge_xml.read_and_clean_xml" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">read_and_clean_xml</span><span class="p">(</span><span class="n">xml_path</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_xml.read_and_clean_xml" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Strip illegal elements.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_xml.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_and_clean_xml</span><span class="p">(</span><span class="n">xml_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Strip illegal elements.&quot;&quot;&quot;</span>
+    <span class="n">newxml</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">xml_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lcount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="n">lcount</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;&lt;firmwareVersion&gt;&#39;</span> <span class="o">==</span> <span class="n">line</span><span class="p">[:</span><span class="mi">17</span><span class="p">]</span> <span class="ow">and</span> <span class="n">lcount</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;&lt;earliestCompatibleFirmware&gt;&#39;</span> <span class="o">==</span> <span class="n">line</span><span class="p">[:</span><span class="mi">28</span><span class="p">]</span> <span class="ow">and</span> <span class="n">lcount</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">newxml</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">newxml</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">newxml</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../api/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Main" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Main
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../contributing/" class="md-footer__link md-footer__link--next" aria-label="Next: Contributing" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Contributing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://github.com/mupaduw/deluge-card" target="_blank" rel="noopener" title="Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="mailto:chrisbc@artisan.co.nz" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.instant", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+    
+  </body>
+</html>
