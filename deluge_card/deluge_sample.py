@@ -1,14 +1,12 @@
 """Main classes representing Deluge Sample."""
 
 import itertools
-from pathlib import Path, PurePath
+from pathlib import Path
 from typing import Iterator, List
 
 from attrs import define, field
 
 from .helpers import ensure_absolute
-
-SAMPLE_TYPES = {".wav", ".mp3", ".aiff", ".ogg"}
 
 if False:
     # for forward-reference type-checking:
@@ -17,46 +15,6 @@ if False:
     import deluge_song
     import deluge_synth
     import deluge_xml
-
-    import deluge_card
-
-
-def _sample_files(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
-    """Get all samples."""
-    smp = Path(card.card_root, 'SAMPLES')
-    paths = (p.resolve() for p in Path(smp).rglob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
-    for fname in paths:
-        # print(fname)
-        if Path(fname).name[0] == '.':  # Apple copy crap
-            continue
-        if not pattern:
-            yield Sample(Path(fname))
-            continue
-        if PurePath(fname).match(pattern):
-            yield Sample(Path(fname))
-
-
-def all_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
-    """Get all samples, preferring those used in XML."""
-    used_samples = all_used_samples(card, pattern)
-    all_samples = set(_sample_files(card, pattern))
-    for sample in used_samples:
-        # all_samples.remove(sample) #sample equality
-        # discard does not throw if item does no exist, so handles broken refs
-        all_samples.discard(sample)  # sample equality,
-        yield sample
-    for sample in all_samples:
-        yield sample
-
-
-def all_used_samples(card: 'deluge_card.DelugeCardFS', pattern: str = '') -> Iterator['Sample']:
-    """Get all samples referenced in XML files."""
-    all_sample_gens = itertools.chain(
-        map(lambda synth: synth.samples(pattern), card.synths()),
-        map(lambda sng: sng.samples(pattern), card.songs()),
-        map(lambda kit: kit.samples(pattern), card.kits()),
-    )
-    return itertools.chain.from_iterable(all_sample_gens)
 
 
 def modify_sample_paths(

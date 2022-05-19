@@ -5,7 +5,7 @@ from unittest import TestCase, mock
 
 from lxml import etree
 
-from deluge_card import DelugeCardFS, DelugeSynth, all_samples, all_used_samples
+from deluge_card import DelugeCardFS, DelugeSynth
 from deluge_card.deluge_sample import ensure_absolute, modify_sample_paths, modify_sample_synths, mv_samples
 
 
@@ -81,7 +81,7 @@ class TestMoveSamples(TestCase):
         # )
 
         # samples = all_used_samples(self.card, matching)
-        samples = all_samples(self.card, matching)
+        samples = self.card.samples(matching)
         # samples = itertools.chain.from_iterable(all_sample_gens)
 
         ssl = list(samples)

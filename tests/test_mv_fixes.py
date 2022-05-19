@@ -8,7 +8,7 @@ import attr
 import attrs
 
 import deluge_card.deluge_song
-from deluge_card import DelugeCardFS, DelugeKit, DelugeSong, all_samples, all_used_samples
+from deluge_card import DelugeCardFS, DelugeKit, DelugeSong
 from deluge_card.deluge_card import InvalidDelugeCard
 from deluge_card.deluge_sample import (  # ensure_absolute,; modify_sample_kits,; modify_sample_paths,; modify_sample_songs,; validate_mv_dest,
     Sample,
@@ -60,7 +60,7 @@ class TestBugFixRabidSongSampleMove(TestCase):
 
         # samples = all_used_samples(self.card, matching)
         # samples = self.card.samples(matching)
-        samples = all_samples(self.card, matching)
+        samples = self.card.samples(matching)
         ssl = list(samples)
 
         modops = list(mv_samples(self.card.card_root, ssl, matching, new_path))
@@ -83,7 +83,7 @@ class TestBugFixWaldorfSongSynthSampleMove(TestCase):
 
         # samples = all_used_samples(self.card, matching)
         # samples = self.card.samples(matching)
-        samples = all_samples(self.card, matching)
+        samples = self.card.samples(matching)
         ssl = list(samples)
 
         modops = list(mv_samples(self.card.card_root, ssl, matching, new_path))

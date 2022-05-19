@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from deluge_card import list_deluge_fs
-from deluge_card.deluge_sample import mv_samples, validate_mv_dest
+from deluge_card.deluge_sample import validate_mv_dest
 
 
 def main():
@@ -32,26 +32,24 @@ def main():
     card = card_imgs[0]
     try:
         validate_mv_dest(card.card_root, Path(args.dest))
-        # samples = all_used_samples(card)
-        samples = card.samples(pattern=args.pattern)
         new_path = Path(args.dest)
     except ValueError as err:
         print(err)
         return
 
-    counters = dict(move_file=0, update_song_xml=0, update_kit_xml=0, update_synth_xml=0)
-    for modop in mv_samples(card.card_root, samples, args.pattern, new_path):
+    count = dict(move_file=0, update_song_xml=0, update_kit_xml=0, update_synth_xml=0)
+    for modop in card.mv_samples(args.pattern, new_path):
         if args.debug:
             print(f'modop: {modop}')
-        counters[modop.operation] += 1
+        count[modop.operation] += 1
         if args.verbose:
-            print(f"{str(modop.path)} {modop.operation.replace('_', ' ')}")
+            print(f"{str(modop.path)} {modop.operation}")
 
     if args.summary | args.verbose:
         print(
-            f'moved {counters["move_file"]} samples, in {counters["update_song_xml"]} songs, '
-            f'{counters["update_kit_xml"]} kits, '
-            f'{counters["update_synth_xml"]} synths.'
+            f'moved {count["move_file"]} samples, in {count["update_song_xml"]} songs, '
+            f'{count["update_kit_xml"]} kits, '
+            f'{count["update_synth_xml"]} synths.'
         )
 
 

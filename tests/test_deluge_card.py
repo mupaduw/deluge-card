@@ -2,7 +2,7 @@
 import importlib.metadata
 import os
 from pathlib import Path
-from unittest import TestCase
+from unittest import TestCase, mock
 
 from deluge_card import DelugeCardFS
 
@@ -93,3 +93,25 @@ class TestListSamples(TestCase):
     def test_list_samples_2(self):
         samples = list(self.card.samples("**/Artists/A/kick*"))
         self.assertEqual(len(samples), 1)
+
+
+class TestMoveSamples(TestCase):
+    def setUp(self):
+        cwd = os.path.dirname(os.path.realpath(__file__))
+        p = Path(cwd, 'fixtures', 'DC01')
+        self.card = DelugeCardFS(p)
+
+    @mock.patch('deluge_card.deluge_sample.SampleMoveOperation.do_move')
+    @mock.patch('deluge_card.deluge_xml.DelugeXml.write_xml', return_value="filepath")
+    def test_move_samples(self, mock_write, mock_move):
+        matching = '**/DRUMS/Kick/CR78 Kick.wav'
+        new_path = Path('SAMPLES/MV/NEW2.wav')
+
+        movops = list(self.card.mv_samples(matching, new_path))
+
+        for m in movops:
+            print(m)
+
+        self.assertEqual(len(movops), 4)
+        self.assertEqual(mock_write.call_count, 3)
+        self.assertEqual(mock_move.call_count, 1)

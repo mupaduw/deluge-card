@@ -1,12 +1,13 @@
 """Main class representing a Deluge Filesystem in a folder or a mounted SD card."""
 
+import itertools
 from pathlib import Path, PurePath
 from typing import Iterator
 
 from attrs import define, field
 
 from .deluge_kit import DelugeKit
-from .deluge_sample import Sample, all_samples
+from .deluge_sample import ModOp, Sample, mv_samples
 from .deluge_song import DelugeSong
 from .deluge_synth import DelugeSynth
 
@@ -15,6 +16,7 @@ SAMPLES = 'SAMPLES'
 KITS = 'KITS'
 SYNTHS = 'SYNTHS'
 TOP_FOLDERS = [SONGS, SYNTHS, KITS, SAMPLES]
+SAMPLE_TYPES = [".wav", ".mp3", ".aiff", ".ogg"]
 
 
 def list_deluge_fs(folder) -> Iterator['DelugeCardFS']:
@@ -164,7 +166,40 @@ class DelugeCardFS:
             if PurePath(filepath).match(pattern):
                 yield DelugeSynth(self, filepath)
 
-    def samples(self, pattern: str = "") -> Iterator['Sample']:
+    def _sample_files(self, pattern: str = '') -> Iterator['Sample']:
+        """Get all samples.
+
+        Args:
+            pattern (str): glob-style filename pattern.
+
+        Yields:
+            object (Sample): matching samples.
+        """
+        smp = Path(self.card_root, 'SAMPLES')
+        paths = (p.resolve() for p in Path(smp).rglob("**/*") if p.suffix.lower() in SAMPLE_TYPES)
+        for fname in paths:
+            # print(fname)
+            if Path(fname).name[0] == '.':  # Apple copy crap
+                continue
+            if not pattern:
+                yield Sample(Path(fname))
+                continue
+            if PurePath(fname).match(pattern):
+                yield Sample(Path(fname))
+
+    def mv_samples(self, pattern: str, dest: Path) -> Iterator[ModOp]:
+        """Move samples, updating any affected XML files.
+
+        Args:
+            pattern (str): glob-style filename pattern.
+            dest: (Path): new path for the moved objec(s)
+
+        Yields:
+            object (ModOp): Details of the move operation.
+        """
+        yield from mv_samples(self.card_root, self.samples(pattern), pattern, dest)
+
+    def samples(self, pattern: str = "") -> Iterator[Sample]:
         """Generator for samples in the Card.
 
         Args:
@@ -173,4 +208,28 @@ class DelugeCardFS:
         Yields:
             object (Sample): the next sample on the card.
         """
-        return all_samples(self, pattern)
+        used_samples = self.used_samples(pattern)
+        all_samples = set(self._sample_files(pattern))
+        for sample in used_samples:
+            # all_samples.remove(sample) #sample equality
+            # discard does not throw if item does no exist, so handles broken refs
+            all_samples.discard(sample)  # sample equality,
+            yield sample
+        for sample in all_samples:
+            yield sample
+
+    def used_samples(self, pattern: str = '') -> Iterator['Sample']:
+        """Get all samples referenced in XML files.
+
+        Args:
+            pattern (str): glob-style filename pattern.
+
+        Yields:
+            object (Sample): the next sample on the card.
+        """
+        used_sample_gens = itertools.chain(
+            map(lambda synth: synth.samples(pattern), self.synths()),
+            map(lambda sng: sng.samples(pattern), self.songs()),
+            map(lambda kit: kit.samples(pattern), self.kits()),
+        )
+        return itertools.chain.from_iterable(used_sample_gens)
