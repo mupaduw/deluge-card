@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.6.1] - 2022-05-19
+### Changed
+ - bad changelog entry for 0.6.0
+
 ## [0.6.0] - 2022-05-19
 ### Added
  - mv_samples method on DelugeCardFS for top-level API.
