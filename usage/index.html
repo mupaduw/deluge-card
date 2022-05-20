@@ -280,15 +280,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-cards-and-songs-available-at-folder" class="md-nav__link">
-    list cards, and songs available at folder:
+  <a href="#list-cards-and-their-songs" class="md-nav__link">
+    list cards and their songs:
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#list-card-samples-and-usage" class="md-nav__link">
-    list card samples and usage:
+  <a href="#list-samples-and-usage" class="md-nav__link">
+    list samples and usage:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-samples" class="md-nav__link">
+    move samples
   </a>
   
 </li>
@@ -437,15 +444,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-cards-and-songs-available-at-folder" class="md-nav__link">
-    list cards, and songs available at folder:
+  <a href="#list-cards-and-their-songs" class="md-nav__link">
+    list cards and their songs:
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#list-card-samples-and-usage" class="md-nav__link">
-    list card samples and usage:
+  <a href="#list-samples-and-usage" class="md-nav__link">
+    list samples and usage:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-samples" class="md-nav__link">
+    move samples
   </a>
   
 </li>
@@ -479,7 +493,7 @@
 <p>To use deluge-card in a project</p>
 <div class="highlight"><pre><span></span><code>import deluge_card
 </code></pre></div>
-<h3 id="list-cards-and-songs-available-at-folder">list cards, and songs available at folder:<a class="headerlink" href="#list-cards-and-songs-available-at-folder" title="Permanent link">&para;</a></h3>
+<h3 id="list-cards-and-their-songs">list cards and their songs:<a class="headerlink" href="#list-cards-and-their-songs" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>from deluge_card import list_deluge_fs
 
 for card in list_deluge_fs(&#39;/deluge_cards/root_folder&#39;):
@@ -489,15 +503,20 @@ for card in list_deluge_fs(&#39;/deluge_cards/root_folder&#39;):
     for song in card.songs():
         print(song, song.tempo(), song.key())
 </code></pre></div>
-<h3 id="list-card-samples-and-usage">list card samples and usage:<a class="headerlink" href="#list-card-samples-and-usage" title="Permanent link">&para;</a></h3>
+<h3 id="list-samples-and-usage">list samples and usage:<a class="headerlink" href="#list-samples-and-usage" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>from deluge_card import DelugeCardFS
 
 card = DelugeCardFS(&#39;path/to/my/card&#39;)
 # list the samples on the card
 for samples in card.samples():
     songs = set([s.song for s in sample.settings()])
-    usage = len(list(sample.settings))
-    print(sample, &quot;used in&quot;, usage, &quot;settings, in&quot;, len(songs), &quot;songs.&quot;)
+    usage = list(sample.settings)
+    print(sample, &quot;used in&quot;, len(usage), &quot;settings, in&quot;, len(songs), &quot;songs.&quot;)
+</code></pre></div>
+<h3 id="move-samples">move samples<a class="headerlink" href="#move-samples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>card = DelugeCardFS(&#39;path/to/my/card&#39;)
+for update_operation in card.mv_samples(&quot;**/Kick*.wav&quot;, Path(&#39;SAMPLES/Moved&#39;)):
+    print(update_operation)
 </code></pre></div>
 
               

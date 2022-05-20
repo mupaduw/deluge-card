@@ -351,6 +351,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS._sample_files" class="md-nav__link">
+    _sample_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.from_folder" class="md-nav__link">
     from_folder()
   </a>
@@ -379,6 +386,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS.mv_samples" class="md-nav__link">
+    mv_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.samples" class="md-nav__link">
     samples()
   </a>
@@ -395,6 +409,13 @@
           <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.synths" class="md-nav__link">
     synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS.used_samples" class="md-nav__link">
+    used_samples()
   </a>
   
 </li>
@@ -550,6 +571,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS._sample_files" class="md-nav__link">
+    _sample_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.from_folder" class="md-nav__link">
     from_folder()
   </a>
@@ -578,6 +606,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS.mv_samples" class="md-nav__link">
+    mv_samples()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.samples" class="md-nav__link">
     samples()
   </a>
@@ -594,6 +629,13 @@
           <li class="md-nav__item">
   <a href="#deluge_card.deluge_card.DelugeCardFS.synths" class="md-nav__link">
     synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_card.DelugeCardFS.used_samples" class="md-nav__link">
+    used_samples()
   </a>
   
 </li>
@@ -682,6 +724,7 @@
 
 
 
+
   <div class="doc doc-object doc-class">
 
 
@@ -722,9 +765,7 @@
 
           <details class="quote">
             <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 58</span>
-<span class="normal"> 59</span>
-<span class="normal"> 60</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 60</span>
 <span class="normal"> 61</span>
 <span class="normal"> 62</span>
 <span class="normal"> 63</span>
@@ -840,7 +881,66 @@
 <span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
-<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DelugeCardFS</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Main class representing a Deluge SD card/folder structure.</span>
 
@@ -949,7 +1049,40 @@
             <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
                 <span class="k">yield</span> <span class="n">DelugeSynth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_sample_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get all samples.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            object (Sample): matching samples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">smp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="s1">&#39;SAMPLES&#39;</span><span class="p">)</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">smp</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;**/*&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">SAMPLE_TYPES</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="c1"># print(fname)</span>
+            <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>  <span class="c1"># Apple copy crap</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">mv_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">ModOp</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Move samples, updating any affected XML files.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+<span class="sd">            dest: (Path): new path for the moved objec(s)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            object (ModOp): Details of the move operation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">yield from</span> <span class="n">mv_samples</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
 
 <span class="sd">        Args:</span>
@@ -958,7 +1091,31 @@
 <span class="sd">        Yields:</span>
 <span class="sd">            object (Sample): the next sample on the card.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">all_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+        <span class="n">used_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="n">all_samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">used_samples</span><span class="p">:</span>
+            <span class="c1"># all_samples.remove(sample) #sample equality</span>
+            <span class="c1"># discard does not throw if item does no exist, so handles broken refs</span>
+            <span class="n">all_samples</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>  <span class="c1"># sample equality,</span>
+            <span class="k">yield</span> <span class="n">sample</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">all_samples</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">sample</span>
+
+    <span class="k">def</span> <span class="nf">used_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get all samples referenced in XML files.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            object (Sample): the next sample on the card.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">used_sample_gens</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">synth</span><span class="p">:</span> <span class="n">synth</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">synths</span><span class="p">()),</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sng</span><span class="p">:</span> <span class="n">sng</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">songs</span><span class="p">()),</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">kit</span><span class="p">:</span> <span class="n">kit</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kits</span><span class="p">()),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
           </details>
 
@@ -972,6 +1129,112 @@
 
 
 
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_card.DelugeCardFS._sample_files" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_card.DelugeCardFS._sample_files" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get all samples.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.Sample" href="../modules/#deluge_card.deluge_sample.Sample">Sample</a></code>
+          </td>
+          <td><p>matching samples.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">_sample_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all samples.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        object (Sample): matching samples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">smp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="s1">&#39;SAMPLES&#39;</span><span class="p">)</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="n">smp</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;**/*&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">SAMPLE_TYPES</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="c1"># print(fname)</span>
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>  <span class="c1"># Apple copy crap</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">Sample</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -1037,9 +1300,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
@@ -1047,7 +1308,9 @@
 <span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span>
-<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">from_folder</span><span class="p">(</span><span class="n">folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;DelugeCardFS&#39;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;New instance from a Deluge Folder structure.</span>
 
@@ -1128,9 +1391,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
@@ -1146,7 +1407,9 @@
 <span class="normal">91</span>
 <span class="normal">92</span>
 <span class="normal">93</span>
-<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">initialise</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;DelugeCardFS&#39;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a new Deluge Folder structure.</span>
 
@@ -1226,16 +1489,16 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
 <span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
-<span class="normal">117</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_mounted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_mounted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Is this a mounted SD card.</span>
 
 <span class="sd">    Returns:</span>
@@ -1312,9 +1575,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
@@ -1326,7 +1587,9 @@
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
-<span class="normal">149</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">kits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeKit&#39;</span><span class="p">]:</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">kits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeKit&#39;</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Generator for kits in the Card.</span>
 
 <span class="sd">    Args:</span>
@@ -1341,6 +1604,104 @@
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">DelugeKit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_card.DelugeCardFS.mv_samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">mv_samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_card.DelugeCardFS.mv_samples" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Move samples, updating any affected XML files.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dest</code></td>
+          <td>
+                <code><span title="pathlib.Path">Path</span></code>
+          </td>
+          <td><p>(Path): new path for the moved objec(s)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.ModOp" href="../modules/#deluge_card.deluge_sample.ModOp">ModOp</a></code>
+          </td>
+          <td><p>Details of the move operation.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mv_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">ModOp</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Move samples, updating any affected XML files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+<span class="sd">        dest: (Path): new path for the moved objec(s)</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        object (ModOp): Details of the move operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">yield from</span> <span class="n">mv_samples</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -1408,16 +1769,24 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
 
 <span class="sd">    Args:</span>
@@ -1426,7 +1795,15 @@
 <span class="sd">    Yields:</span>
 <span class="sd">        object (Sample): the next sample on the card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">all_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+    <span class="n">used_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+    <span class="n">all_samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">used_samples</span><span class="p">:</span>
+        <span class="c1"># all_samples.remove(sample) #sample equality</span>
+        <span class="c1"># discard does not throw if item does no exist, so handles broken refs</span>
+        <span class="n">all_samples</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>  <span class="c1"># sample equality,</span>
+        <span class="k">yield</span> <span class="n">sample</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">all_samples</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">sample</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -1494,9 +1871,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
@@ -1508,7 +1883,9 @@
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeSong&#39;</span><span class="p">]:</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">songs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeSong&#39;</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Generator for songs in the Card.</span>
 
 <span class="sd">    Args:</span>
@@ -1590,9 +1967,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
 <span class="normal">156</span>
@@ -1604,7 +1979,9 @@
 <span class="normal">162</span>
 <span class="normal">163</span>
 <span class="normal">164</span>
-<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">synths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeSynth&#39;</span><span class="p">]:</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">synths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeSynth&#39;</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Generator for synths in the Card.</span>
 
 <span class="sd">    Args:</span>
@@ -1619,6 +1996,102 @@
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">DelugeSynth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_card.DelugeCardFS.used_samples" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">used_samples</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#deluge_card.deluge_card.DelugeCardFS.used_samples" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get all samples referenced in XML files.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pattern</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>glob-style filename pattern.</p></td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Yields:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>object</code></td>          <td>
+                <code><a class="autorefs autorefs-internal" title="deluge_card.deluge_sample.Sample" href="../modules/#deluge_card.deluge_sample.Sample">Sample</a></code>
+          </td>
+          <td><p>the next sample on the card.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">used_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get all samples referenced in XML files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pattern (str): glob-style filename pattern.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        object (Sample): the next sample on the card.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">used_sample_gens</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">synth</span><span class="p">:</span> <span class="n">synth</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">synths</span><span class="p">()),</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sng</span><span class="p">:</span> <span class="n">sng</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">songs</span><span class="p">()),</span>
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">kit</span><span class="p">:</span> <span class="n">kit</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kits</span><span class="p">()),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -1659,16 +2132,16 @@
 
           <details class="quote">
             <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidDelugeCard</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidDelugeCard</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is not a valid DelugeCard FS.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
@@ -1729,13 +2202,13 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a new InvalidDelugeCard Exception.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1820,9 +2293,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
@@ -1843,7 +2314,9 @@
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_deluge_fs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeCardFS&#39;</span><span class="p">]:</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_deluge_fs</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;DelugeCardFS&#39;</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;List deluge_card look-alike filesystems.</span>
 
 <span class="sd">    Args:</span>
