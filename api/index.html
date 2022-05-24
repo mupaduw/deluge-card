@@ -940,7 +940,18 @@
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DelugeCardFS</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Main class representing a Deluge SD card/folder structure.</span>
 
@@ -1083,7 +1094,7 @@
         <span class="k">yield from</span> <span class="n">mv_samples</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">card_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
+        <span class="sd">&quot;&quot;&quot;Generator for all samples in the card.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            pattern (str): glob-style filename pattern.</span>
@@ -1091,15 +1102,17 @@
 <span class="sd">        Yields:</span>
 <span class="sd">            object (Sample): the next sample on the card.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sample_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Sample</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
         <span class="n">used_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
-        <span class="n">all_samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+        <span class="n">all_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">used_samples</span><span class="p">:</span>
-            <span class="c1"># all_samples.remove(sample) #sample equality</span>
-            <span class="c1"># discard does not throw if item does no exist, so handles broken refs</span>
-            <span class="n">all_samples</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>  <span class="c1"># sample equality,</span>
+            <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
             <span class="k">yield</span> <span class="n">sample</span>
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">all_samples</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">sample</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="p">:</span>
+                <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
+                <span class="k">yield</span> <span class="n">sample</span>
 
     <span class="k">def</span> <span class="nf">used_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Get all samples referenced in XML files.</span>
@@ -1110,12 +1123,21 @@
 <span class="sd">        Yields:</span>
 <span class="sd">            object (Sample): the next sample on the card.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sample_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Sample</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">used_sample_gens</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
             <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">synth</span><span class="p">:</span> <span class="n">synth</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">synths</span><span class="p">()),</span>
             <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sng</span><span class="p">:</span> <span class="n">sng</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">songs</span><span class="p">()),</span>
             <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">kit</span><span class="p">:</span> <span class="n">kit</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kits</span><span class="p">()),</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">)</span>
+
+        <span class="c1"># merge samples in different settings (song, kit, synth)</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="p">:</span>
+                <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span><span class="o">.</span><span class="n">settings</span> <span class="o">+=</span> <span class="n">sample</span><span class="o">.</span><span class="n">settings</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 </code></pre></div></td></tr></table></div>
           </details>
 
@@ -1723,7 +1745,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Generator for samples in the Card.</p>
+      <p>Generator for all samples in the card.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1786,8 +1808,10 @@
 <span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span>
-<span class="normal">219</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Generator for samples in the Card.</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sample</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generator for all samples in the card.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        pattern (str): glob-style filename pattern.</span>
@@ -1795,15 +1819,17 @@
 <span class="sd">    Yields:</span>
 <span class="sd">        object (Sample): the next sample on the card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sample_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Sample</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
     <span class="n">used_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">used_samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
-    <span class="n">all_samples</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+    <span class="n">all_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">used_samples</span><span class="p">:</span>
-        <span class="c1"># all_samples.remove(sample) #sample equality</span>
-        <span class="c1"># discard does not throw if item does no exist, so handles broken refs</span>
-        <span class="n">all_samples</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>  <span class="c1"># sample equality,</span>
+        <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
         <span class="k">yield</span> <span class="n">sample</span>
     <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">all_samples</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="n">sample</span>
+        <span class="k">if</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="p">:</span>
+            <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
+            <span class="k">yield</span> <span class="n">sample</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -2063,9 +2089,7 @@
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_card.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
 <span class="normal">224</span>
 <span class="normal">225</span>
 <span class="normal">226</span>
@@ -2077,7 +2101,18 @@
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">used_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">used_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Get all samples referenced in XML files.</span>
 
 <span class="sd">    Args:</span>
@@ -2086,12 +2121,21 @@
 <span class="sd">    Yields:</span>
 <span class="sd">        object (Sample): the next sample on the card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sample_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Sample</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="n">used_sample_gens</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
         <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">synth</span><span class="p">:</span> <span class="n">synth</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">synths</span><span class="p">()),</span>
         <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">sng</span><span class="p">:</span> <span class="n">sng</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">songs</span><span class="p">()),</span>
         <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">kit</span><span class="p">:</span> <span class="n">kit</span><span class="o">.</span><span class="n">samples</span><span class="p">(</span><span class="n">pattern</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">kits</span><span class="p">()),</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">)</span>
+
+    <span class="c1"># merge samples in different settings (song, kit, synth)</span>
+    <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">used_sample_gens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sample</span><span class="o">.</span><span class="n">path</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="p">:</span>
+            <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span><span class="o">.</span><span class="n">settings</span> <span class="o">+=</span> <span class="n">sample</span><span class="o">.</span><span class="n">settings</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sample_map</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sample_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>

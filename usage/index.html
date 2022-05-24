@@ -509,9 +509,8 @@ for card in list_deluge_fs(&#39;/deluge_cards/root_folder&#39;):
 card = DelugeCardFS(&#39;path/to/my/card&#39;)
 # list the samples on the card
 for samples in card.samples():
-    songs = set([s.song for s in sample.settings()])
     usage = list(sample.settings)
-    print(sample, &quot;used in&quot;, len(usage), &quot;settings, in&quot;, len(songs), &quot;songs.&quot;)
+    print(sample, &quot;used in&quot;, len(usage), &quot;settings&quot;)
 </code></pre></div>
 <h3 id="move-samples">move samples<a class="headerlink" href="#move-samples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>card = DelugeCardFS(&#39;path/to/my/card&#39;)
