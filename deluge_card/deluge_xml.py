@@ -94,19 +94,17 @@ class DelugeXml:
             object (Sample): the next sample object.
         """
         tree = etree.ElementTree(self.xmlroot)
+        sample_map: Dict[Path, Sample] = dict()
 
-        sample_map: Dict[Sample, Sample] = dict()
-
-        def update_sample_map(sample_file, tree) -> Sample:
+        def update_sample_map(sample_file, tree) -> None:
             sample = Sample(ensure_absolute(self.cardfs.card_root, Path(sample_file)))
-            if sample in sample_map.keys():
-                sample = sample_map[sample]
+            if sample.path in sample_map.keys():
+                sample = sample_map[sample.path]
             else:
-                sample_map[sample] = sample
+                sample_map[sample.path] = sample
             sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
-            return sample
 
-        def match_pattern(sample_file, pattern):
+        def match_pattern(sample_file: str, pattern: str) -> None:
             if sample_file:
                 if (not allow_missing) and (not ensure_absolute(self.cardfs.card_root, Path(sample_file)).exists()):
                     return
@@ -121,5 +119,4 @@ class DelugeXml:
         for e in self.xmlroot.findall(".//fileName"):
             match_pattern(e.text, pattern)
 
-        for m in sample_map.values():
-            yield m
+        return (m for m in sample_map.values())

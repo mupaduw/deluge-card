@@ -26,9 +26,8 @@ from deluge_card import DelugeCardFS
 card = DelugeCardFS('path/to/my/card')
 # list the samples on the card
 for samples in card.samples():
-	songs = set([s.song for s in sample.settings()])
 	usage = list(sample.settings)
-	print(sample, "used in", len(usage), "settings, in", len(songs), "songs.")
+	print(sample, "used in", len(usage), "settings")
 
 ```
 
