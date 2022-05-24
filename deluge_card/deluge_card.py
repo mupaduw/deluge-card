@@ -2,7 +2,7 @@
 
 import itertools
 from pathlib import Path, PurePath
-from typing import Iterator
+from typing import Dict, Iterator
 
 from attrs import define, field
 
@@ -200,7 +200,7 @@ class DelugeCardFS:
         yield from mv_samples(self.card_root, self.samples(pattern), pattern, dest)
 
     def samples(self, pattern: str = "") -> Iterator[Sample]:
-        """Generator for samples in the Card.
+        """Generator for all samples in the card.
 
         Args:
             pattern (str): glob-style filename pattern.
@@ -208,15 +208,17 @@ class DelugeCardFS:
         Yields:
             object (Sample): the next sample on the card.
         """
+        sample_map: Dict[Path, Sample] = dict()
+
         used_samples = self.used_samples(pattern)
-        all_samples = set(self._sample_files(pattern))
+        all_samples = self._sample_files(pattern)
         for sample in used_samples:
-            # all_samples.remove(sample) #sample equality
-            # discard does not throw if item does no exist, so handles broken refs
-            all_samples.discard(sample)  # sample equality,
+            sample_map[sample.path] = sample
             yield sample
         for sample in all_samples:
-            yield sample
+            if sample.path not in sample_map:
+                sample_map[sample.path] = sample
+                yield sample
 
     def used_samples(self, pattern: str = '') -> Iterator['Sample']:
         """Get all samples referenced in XML files.
@@ -227,9 +229,18 @@ class DelugeCardFS:
         Yields:
             object (Sample): the next sample on the card.
         """
+        sample_map: Dict[Path, Sample] = dict()
         used_sample_gens = itertools.chain(
             map(lambda synth: synth.samples(pattern), self.synths()),
             map(lambda sng: sng.samples(pattern), self.songs()),
             map(lambda kit: kit.samples(pattern), self.kits()),
         )
-        return itertools.chain.from_iterable(used_sample_gens)
+
+        # merge samples in different settings (song, kit, synth)
+        for sample in itertools.chain.from_iterable(used_sample_gens):
+            if sample.path in sample_map:
+                sample_map[sample.path].settings += sample.settings
+            else:
+                sample_map[sample.path] = sample
+
+        return (s for s in sample_map.values())

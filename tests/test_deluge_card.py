@@ -79,8 +79,12 @@ class TestListSamples(TestCase):
     def test_list_all_samples(self):
         samples = list(self.card.samples())
         for s in samples:
-            print(s.path)
-        self.assertEqual(len(samples), 9)
+            print(
+                s.path,
+            )
+            for st in s.settings:
+                print(st.xml_file.path.name, st.xml_path)
+        self.assertEqual(len(samples), 7)
 
     def test_list_samples_0(self):
         samples = list(self.card.samples("*snare*"))
@@ -93,6 +97,29 @@ class TestListSamples(TestCase):
     def test_list_samples_2(self):
         samples = list(self.card.samples("**/Artists/A/kick*"))
         self.assertEqual(len(samples), 1)
+
+    def test_same_sample_in_multiple_settings(self):
+        samples = list(self.card.samples("**/DRUMS/Kick/CR78 Kick.wav"))
+        for s in samples:
+            print(
+                s.path,
+            )
+            for st in s.settings:
+                print(st.xml_file.path.name, st.xml_path)
+        self.assertEqual(len(samples), 1)
+        self.assertEqual(len(samples[0].settings), 3)
+
+    def test_similar_sample_in_multiple_settings(self):
+        samples = list(self.card.samples("**/Kick/CR78 Kick.wav"))
+        for s in samples:
+            print(
+                s.path,
+            )
+            for st in s.settings:
+                print(st.xml_file.path.name, st.xml_path)
+        self.assertEqual(len(samples), 2)
+        self.assertEqual(len(samples[0].settings), 3)
+        self.assertEqual(len(samples[1].settings), 0)
 
 
 class TestMoveSamples(TestCase):

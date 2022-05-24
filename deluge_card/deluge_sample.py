@@ -154,7 +154,7 @@ class SampleMoveOperation(object):
         self.old_path.rename(self.new_path)
 
 
-@define(frozen=True)
+@define  # (frozen=True)
 class Sample(object):
     """represents a sample file.
 
@@ -165,6 +165,12 @@ class Sample(object):
 
     path: Path
     settings: List['SampleSetting'] = field(factory=list, eq=False)
+
+    def __eq__(self, other):
+        return super(Sample, self).__eq__(other)
+
+    def __hash__(self):
+        return super(Sample, self).__hash__()
 
 
 @define

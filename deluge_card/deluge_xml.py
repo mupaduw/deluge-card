@@ -2,7 +2,7 @@
 
 import io
 from pathlib import Path, PurePath
-from typing import Iterator
+from typing import Dict, Iterator
 
 from attrs import define, field
 from lxml import etree
@@ -34,7 +34,7 @@ def read_and_clean_xml(xml_path):
 
 @define
 class DelugeXml:
-    """Class representing XML n a DelugeCard (in SONGS/*.xml).
+    """Class representing XML n a DelugeCard (in SONG|KIT|SYNTH xml).
 
     Attributes:
         cardfs (DelugeCardFS): Card folder system containing this file.
@@ -85,7 +85,7 @@ class DelugeXml:
         return str(filename)
 
     def samples(self, pattern: str = "", allow_missing=False) -> Iterator[Sample]:
-        """Generator for samples referenced in the DelugeSong.
+        """Generator for samples referenced in the DelugeXML file.
 
         Args:
             pattern (str): glob-style filename pattern.
@@ -95,28 +95,31 @@ class DelugeXml:
         """
         tree = etree.ElementTree(self.xmlroot)
 
-        def sample_in_setting(sample_file, tree) -> Sample:
+        sample_map: Dict[Sample, Sample] = dict()
+
+        def update_sample_map(sample_file, tree) -> Sample:
             sample = Sample(ensure_absolute(self.cardfs.card_root, Path(sample_file)))
+            if sample in sample_map.keys():
+                sample = sample_map[sample]
+            else:
+                sample_map[sample] = sample
             sample.settings.append(SampleSetting(self, sample, tree.getpath(e)))
             return sample
 
-        def match_and_yield(sample_file, pattern):
+        def match_pattern(sample_file, pattern):
             if sample_file:
                 if (not allow_missing) and (not ensure_absolute(self.cardfs.card_root, Path(sample_file)).exists()):
                     return
                 if not pattern:
-                    return sample_in_setting(sample_file, tree)
-                if PurePath(sample_file).match(pattern):
-                    return sample_in_setting(sample_file, tree)
+                    update_sample_map(sample_file, tree)
+                elif PurePath(sample_file).match(pattern):
+                    update_sample_map(sample_file, tree)
 
         for e in self.xmlroot.findall(".//*[@fileName]"):
-            m = match_and_yield(e.get('fileName'), pattern)
-            if not m:
-                continue
-            yield m
+            match_pattern(e.get('fileName'), pattern)
 
         for e in self.xmlroot.findall(".//fileName"):
-            m = match_and_yield(e.text, pattern)
-            if not m:
-                continue
+            match_pattern(e.text, pattern)
+
+        for m in sample_map.values():
             yield m
