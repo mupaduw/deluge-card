@@ -5,11 +5,14 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js
 """
 
 import enum
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
+from typing import Any, Generator, Iterator, List
 
+import lxml.etree
 from attrs import define
 
+from .deluge_sound import DelugeSound
 from .deluge_xml import DelugeXml
 
 if False:
@@ -36,6 +39,21 @@ class Mode(enum.Enum):
     lydian = [0, 2, 4, 6, 7, 9, 11]
     mixolydian = [0, 2, 4, 5, 7, 9, 10]
     locrian = [0, 1, 3, 5, 6, 8, 10]
+
+
+@dataclass
+class Kit:
+    """Describes a kit object."""
+
+    kit: lxml.etree._Element
+    sounds: Iterator[DelugeSound] = field(init=False)
+
+    def __post_init__(self):
+        def gen_sounds():
+            for s in self.kit.find('soundSources').iter('sound'):
+                yield DelugeSound(s)
+
+        self.sounds = gen_sounds()
 
 
 @define(repr=False, hash=False, eq=False)
@@ -139,3 +157,15 @@ class DelugeSong(DelugeXml):
         tempo = round((44100 * 60) / (96 * realTPT), 1)
         # tempo = round(55125/realTPT/2, 1)
         return tempo
+
+    def synths(self) -> Generator[DelugeSound, Any, Any]:
+        """The synths defined in this song."""
+        sounds = self.xmlroot.findall('.//instruments/sound')
+        for s in sounds:
+            yield DelugeSound(s)
+
+    def kits(self) -> Generator[Kit, Any, Any]:
+        """The kits defined in this song."""
+        kits = self.xmlroot.findall('.//instruments/kit')
+        for k in kits:
+            yield (Kit(k))
