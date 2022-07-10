@@ -26,7 +26,7 @@ class DelugeSynth(DelugeXml):
 
     def __attrs_post_init__(self):
         self.root_elem = 'sound'
-        super(DelugeSynth, self).__attrs_post_init__()
+        super().__attrs_post_init__()
 
     def __repr__(self) -> str:
         return f"DelugeSynth({self.path})"

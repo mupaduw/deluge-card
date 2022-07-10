@@ -12,7 +12,7 @@ from typing import Any, Generator, Iterator, List
 import lxml.etree
 from attrs import define
 
-from .deluge_sound import DelugeSound
+from .deluge_sound import DelugeSongKitSound, DelugeSongSound
 from .deluge_xml import DelugeXml
 
 if False:
@@ -46,12 +46,12 @@ class Kit:
     """Describes a kit object."""
 
     kit: lxml.etree._Element
-    sounds: Iterator[DelugeSound] = field(init=False)
+    sounds: Iterator[DelugeSongSound] = field(init=False)
 
     def __post_init__(self):
         def gen_sounds():
             for s in self.kit.find('soundSources').iter('sound'):
-                yield DelugeSound(s)
+                yield DelugeSongKitSound(s)
 
         self.sounds = gen_sounds()
 
@@ -158,12 +158,14 @@ class DelugeSong(DelugeXml):
         # tempo = round(55125/realTPT/2, 1)
         return tempo
 
-    def synths(self) -> Generator[DelugeSound, Any, Any]:
+    @property
+    def synths(self) -> Generator[DelugeSongSound, Any, Any]:
         """The synths defined in this song."""
         sounds = self.xmlroot.findall('.//instruments/sound')
         for s in sounds:
-            yield DelugeSound(s)
+            yield DelugeSongSound(s)
 
+    @property
     def kits(self) -> Generator[Kit, Any, Any]:
         """The kits defined in this song."""
         kits = self.xmlroot.findall('.//instruments/kit')
