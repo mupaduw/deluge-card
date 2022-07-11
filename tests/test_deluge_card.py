@@ -36,7 +36,7 @@ class TestListSynths(TestCase):
 
     def test_list_all_synths(self):
         synths = list(self.card.synths())
-        self.assertEqual(len(synths), 1)
+        self.assertEqual(len(synths), 3)
 
     def test_list_filtered_synths(self):
         synths = list(self.card.synths("*991A*"))
@@ -51,7 +51,7 @@ class TestListSongs(TestCase):
 
     def test_list_all_songs(self):
         songs = list(self.card.songs())
-        self.assertEqual(len(songs), 5)
+        self.assertEqual(len(songs), 6)
 
     def test_list_sampless_0(self):
         songs = list(self.card.songs("*002*"))

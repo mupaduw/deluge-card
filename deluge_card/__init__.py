@@ -8,4 +8,5 @@ from .deluge_card import DelugeCardFS, InvalidDelugeCard, list_deluge_fs
 from .deluge_kit import DelugeKit
 from .deluge_sample import Sample, mv_samples
 from .deluge_song import DelugeSong
+from .deluge_sound import DelugeSongSound, DelugeSynthSound
 from .deluge_synth import DelugeSynth

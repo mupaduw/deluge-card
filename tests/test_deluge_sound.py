@@ -39,11 +39,30 @@ class TestSoundFromSynth(TestCase):
         self.assertEqual(sound.lpf_mode.value, '24dB')
 
 
+class TestSoundFromSynthExtra(TestCase):
+    def setUp(self):
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        p2 = Path(self.cwd, 'fixtures', 'DC01', 'SYNTHS', '11-STRINGS1.XML')
+        self.card = DelugeCardFS(Path(self.cwd, 'fixtures', 'DC01'))
+        self.synth = DelugeSynth(self.card, p2)
+
+    def test_transpose(self):
+        sound = DelugeSynthSound.from_synth(self.synth)
+        self.assertEqual(sound.transpose, 0)  # default value if no tranpose settings
+
+    def test_synth_numeric_polyphonic_attrib(self):
+        """Synth with polyphony = '1'."""
+        p = Path(self.cwd, 'fixtures', 'DC01', 'SYNTHS', 'SYNT000.XML')
+        synth = DelugeSynth(self.card, p)
+        sound = DelugeSynthSound.from_synth(synth)
+        self.assertEqual(sound.polyphonic, Polyphony('poly'))
+
+
 class TestSongBase(TestCase):
     def setUp(self):
-        cwd = os.path.dirname(os.path.realpath(__file__))
-        self.card = DelugeCardFS(Path(cwd, 'fixtures', 'DC01'))
-        p = Path(cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
+        self.cwd = os.path.dirname(os.path.realpath(__file__))
+        self.card = DelugeCardFS(Path(self.cwd, 'fixtures', 'DC01'))
+        p = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001.XML')
         self.song = DelugeSong(self.card, p)
 
 
@@ -61,6 +80,15 @@ class TestSynthSoundsFromSong(TestSongBase):
         sound = list(self.song.synths)[0]
         self.assertEqual(sound.preset_slot, "133")
         self.assertEqual(sound.preset_sub_slot, "-1")
+
+    def test_song2_sound_attribs(self):
+        """Song with missing presetSlot."""
+        p2 = Path(self.cwd, 'fixtures', 'DC01', 'SONGS', 'SONG001B.XML')
+        song2 = DelugeSong(self.card, p2)
+
+        sound = list(song2.synths)[0]
+        self.assertEqual(sound.preset_slot, None)
+        self.assertEqual(sound.preset_sub_slot, None)
 
 
 class TestKitSoundsFromSong(TestSongBase):

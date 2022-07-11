@@ -2,6 +2,7 @@
 
 import enum
 from dataclasses import dataclass, field
+from pathlib import Path
 
 import lxml.etree
 
@@ -15,12 +16,25 @@ class Polyphony(enum.Enum):
     polyphonic = 'poly'
     auto = 'auto'
     choke = 'choke'
+    legato = 'legato'
+    mono = 'mono'
+
+    @classmethod
+    def _missing_(cls, value):
+        """Some older synth files used numeric values, here I take a guess at their meaning."""
+        if value == "0":
+            return Polyphony.mono
+        if value == "1":
+            return Polyphony.polyphonic
+        raise ValueError('Valid types: %s' % (', '.join([repr(m.value) for m in cls]),))
 
 
 class SynthMode(enum.Enum):
     """Enumerate the synth engine modes."""
 
     subtractive = 'subtractive'
+    fm = 'fm'
+    ringmod = 'ringmod'
 
 
 class LpfMode(enum.Enum):
@@ -28,6 +42,7 @@ class LpfMode(enum.Enum):
 
     _12dB = '12dB'
     _24dB = '24dB'
+    _24dB_drive = '24dBDrive'
 
 
 class ModFxType(enum.Enum):
@@ -35,20 +50,31 @@ class ModFxType(enum.Enum):
 
     none = 'none'
     phaser = 'phaser'
+    chorus = 'chorus'
+    flanger = 'flanger'
 
 
 def attr_or_elem(elem: lxml.etree._Element, name: str, cast=str):
-    """Deluge Sytth/Sound are similar forms but the former uses elements and the latter uses attributes."""
+    """Deluge Synth/Sound are similar forms but the former uses elements and the latter uses attributes."""
     rval = None
     try:
         if elem.get(name):
             rval = elem.get(name)
         else:
-            rval = elem.getroottree().find(f'.//{name}').text
-    except Exception as err:
-        print('got exception', name, rval, cast)
-        raise err
+            rval = elem.getroottree().find(f'./{name}').text
+    except Exception:
+        print(f'attr_or_elem() got Exception looking for "{name}" in {elem}')
+        raise
     return cast(rval)
+
+
+def default_attr_or_elem(elem: lxml.etree._Element, name: str, cast=str, default=None):
+    """Handle attr_or_elem when the value may be missing."""
+    try:
+        return attr_or_elem(elem, name, cast)
+    except AttributeError:
+        print(f'got AttributeError for {name} in {elem}')
+        return default
 
 
 class Base(object):
@@ -92,8 +118,8 @@ class PresetSound(Base):
 
     def __post_init__(self):
         super().__post_init__()
-        self.preset_slot = attr_or_elem(self.sound, 'presetSlot')
-        self.preset_sub_slot = attr_or_elem(self.sound, 'presetSubSlot')
+        self.preset_slot = default_attr_or_elem(self.sound, 'presetSlot', default=None)
+        self.preset_sub_slot = default_attr_or_elem(self.sound, 'presetSubSlot', default=None)
 
 
 @dataclass
@@ -118,19 +144,17 @@ class BaseSound(Base):
 class DelugeSynthSound(BaseSound, PolyphonicSound):
     """A synth sound."""
 
+    path: Path
     transpose: int = field(init=False)
 
     def __post_init__(self):
         super().__post_init__()
-        self.transpose = int(self.sound.getroottree().find('./transpose').text)
+        self.transpose = default_attr_or_elem(self.sound, 'transpose', cast=int, default=0)
 
     @staticmethod
     def from_synth(synth: DelugeSynth) -> 'DelugeSynthSound':
         """Get synth from Synth XML (aka Synth Preset)."""
-        print(
-            f'from_synth {synth.xmlroot} {synth.xmlroot.keys()} {synth.xmlroot.get("polyphonic")} {dir(synth.xmlroot)}'
-        )
-        return DelugeSynthSound(synth.xmlroot)
+        return DelugeSynthSound(synth.xmlroot, path=synth.path)
 
 
 @dataclass
@@ -143,7 +167,6 @@ class DelugeSongSound(BaseSound, PolyphonicSound, PresetSound):
 
     def __post_init__(self):
         super().__post_init__()
-        # self.activeModFunction = attr_or_elem(self.sound, 'activeModFunction', )
         self.default_velocity = attr_or_elem(self.sound, 'defaultVelocity', int)
         self.is_armed = attr_or_elem(self.sound, 'isArmedForRecording', bool)
 
@@ -154,5 +177,4 @@ class DelugeSongKitSound(BaseSound, NamedSound):
 
     # activeModFunction: bool = field(init=False)
     def __post_init__(self):
-        # NamedSound.__post_init__(self)
         super().__post_init__()
