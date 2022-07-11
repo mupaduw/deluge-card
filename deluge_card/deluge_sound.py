@@ -1,12 +1,15 @@
 """Main class representing a Deluge Sound - used in Synth, Kit and Song XML."""
 
 import enum
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import lxml.etree
 
 from .deluge_synth import DelugeSynth
+
+log = logging.getLogger(__name__)
 
 
 class Polyphony(enum.Enum):
@@ -63,7 +66,7 @@ def attr_or_elem(elem: lxml.etree._Element, name: str, cast=str):
         else:
             rval = elem.getroottree().find(f'./{name}').text
     except Exception:
-        print(f'attr_or_elem() got Exception looking for "{name}" in {elem}')
+        log.info(f'attr_or_elem() got Exception looking for "{name}" in {elem}')
         raise
     return cast(rval)
 
@@ -73,7 +76,7 @@ def default_attr_or_elem(elem: lxml.etree._Element, name: str, cast=str, default
     try:
         return attr_or_elem(elem, name, cast)
     except AttributeError:
-        print(f'got AttributeError for {name} in {elem}')
+        log.info(f'got AttributeError for {name} in {elem}')
         return default
 
 
@@ -95,7 +98,6 @@ class NamedSound(Base):
     def __post_init__(self):
         super().__post_init__()
         self.name = attr_or_elem(self.sound, 'name')
-        # print('NamedSound.__post_init__ named:', self.name)
 
 
 @dataclass
