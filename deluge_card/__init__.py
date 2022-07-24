@@ -2,7 +2,7 @@
 
 __author__ = """Chris Chamberlain"""
 __email__ = 'chrisbc@artisan.co.nz'
-__version__ = '0.7.1'
+__version__ = '0.7.2'
 
 from .deluge_card import DelugeCardFS, InvalidDelugeCard, list_deluge_fs
 from .deluge_kit import DelugeKit
