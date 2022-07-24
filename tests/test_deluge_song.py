@@ -102,3 +102,18 @@ class TestScales(TestDelugeSong):
         self.assertEqual(key, 'Bb major')
         self.assertEqual(mocked.call_count, 1)
         # mocked.assert_called_once_with('rootNote')
+
+
+class TestInstrument(TestDelugeSong):
+    def test_synth_count(self):
+        self.assertEqual(len(list(self.song.synths)), 3)
+
+    def test_kit_count(self):
+        self.assertEqual(len(list(self.song.kits)), 2)
+
+    def test_kit_one_sounds(self):
+        k1 = list(self.song.kits)[0]
+        kit_sounds = list(k1.sounds)
+        self.assertEqual(len(kit_sounds), 14)
+        self.assertEqual(kit_sounds[0].name, 'KICK')
+        self.assertEqual(kit_sounds[13].name, 'TOMH')
