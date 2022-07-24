@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.7.2] - 2022-07-24
+### Changed
+ - bump patch version to fix bad pypi version info
+
 ## [0.7.1] - 2022-07-24
 ### Added
  - WIP on Sound API (for deluge-gui)
