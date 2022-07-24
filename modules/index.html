@@ -482,6 +482,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.kits" class="md-nav__link">
+    kits()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_song.DelugeSong.minimum_firmware" class="md-nav__link">
     minimum_firmware()
   </a>
@@ -517,6 +524,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.synths" class="md-nav__link">
+    synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_song.DelugeSong.tempo" class="md-nav__link">
     tempo()
   </a>
@@ -525,6 +539,13 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.Kit" class="md-nav__link">
+    Kit
+  </a>
   
 </li>
         
@@ -854,6 +875,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.kits" class="md-nav__link">
+    kits()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_song.DelugeSong.minimum_firmware" class="md-nav__link">
     minimum_firmware()
   </a>
@@ -889,6 +917,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.DelugeSong.synths" class="md-nav__link">
+    synths()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deluge_card.deluge_song.DelugeSong.tempo" class="md-nav__link">
     tempo()
   </a>
@@ -897,6 +932,13 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deluge_card.deluge_song.Kit" class="md-nav__link">
+    Kit
+  </a>
   
 </li>
         
@@ -2076,25 +2118,7 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
           <details class="quote">
             <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 41</span>
-<span class="normal"> 42</span>
-<span class="normal"> 43</span>
-<span class="normal"> 44</span>
-<span class="normal"> 45</span>
-<span class="normal"> 46</span>
-<span class="normal"> 47</span>
-<span class="normal"> 48</span>
-<span class="normal"> 49</span>
-<span class="normal"> 50</span>
-<span class="normal"> 51</span>
-<span class="normal"> 52</span>
-<span class="normal"> 53</span>
-<span class="normal"> 54</span>
-<span class="normal"> 55</span>
-<span class="normal"> 56</span>
-<span class="normal"> 57</span>
-<span class="normal"> 58</span>
-<span class="normal"> 59</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 59</span>
 <span class="normal"> 60</span>
 <span class="normal"> 61</span>
 <span class="normal"> 62</span>
@@ -2176,7 +2200,39 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@define</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">hash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DelugeSong</span><span class="p">(</span><span class="n">DelugeXml</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class representing song data on a DelugeCard (in SONGS/*.xml).</span>
 
@@ -2277,6 +2333,20 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
         <span class="n">tempo</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="mi">44100</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">96</span> <span class="o">*</span> <span class="n">realTPT</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
         <span class="c1"># tempo = round(55125/realTPT/2, 1)</span>
         <span class="k">return</span> <span class="n">tempo</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">synths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">DelugeSongSound</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The synths defined in this song.&quot;&quot;&quot;</span>
+        <span class="n">sounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//instruments/sound&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sounds</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">DelugeSongSound</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">kits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Kit</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The kits defined in this song.&quot;&quot;&quot;</span>
+        <span class="n">kits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//instruments/kit&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kits</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">Kit</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
           </details>
 
@@ -2292,6 +2362,45 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
 
 
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.kits" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">kits</span><span class="p">()</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#deluge_card.deluge_song.DelugeSong.kits" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>The kits defined in this song.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">kits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Kit</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;The kits defined in this song.&quot;&quot;&quot;</span>
+    <span class="n">kits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//instruments/kit&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kits</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">Kit</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -2330,13 +2439,13 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">minimum_firmware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">minimum_firmware</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get the songs earliest Compatible Firmware version.</span>
 
 <span class="sd">    Returns:</span>
@@ -2386,14 +2495,14 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mode_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mode_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Get the notes in the song scale (mode).</span>
 
 <span class="sd">    Returns:</span>
@@ -2444,13 +2553,13 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">root_note</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">root_note</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get the root note.</span>
 
 <span class="sd">    Returns:</span>
@@ -2500,15 +2609,15 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get the song scale and key.</span>
 
 <span class="sd">    Returns:</span>
@@ -2560,17 +2669,17 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">scale_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get the descriptive name of the song scale (mode).</span>
 
 <span class="sd">    Returns:</span>
@@ -2581,6 +2690,45 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
         <span class="k">return</span> <span class="n">Mode</span><span class="p">(</span><span class="n">mn</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;other&#39;</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="deluge_card.deluge_song.DelugeSong.synths" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">synths</span><span class="p">()</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#deluge_card.deluge_song.DelugeSong.synths" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>The synths defined in this song.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">synths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">DelugeSongSound</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;The synths defined in this song.&quot;&quot;&quot;</span>
+    <span class="n">sounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xmlroot</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//instruments/sound&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sounds</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">DelugeSongSound</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
     </div>
@@ -2629,25 +2777,7 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 </details>
         <details class="quote">
           <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
@@ -2662,7 +2792,25 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tempo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tempo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get the song tempo in beats per minute.</span>
 
 <span class="sd">    Returns:</span>
@@ -2718,6 +2866,81 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
 
 
+<h2 id="deluge_card.deluge_song.Kit" class="doc doc-heading">
+          <code>Kit</code>
+
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#deluge_card.deluge_song.Kit" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+
+      <p>Describes a kit object.</p>
+
+
+          <details class="quote">
+            <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Kit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Describes a kit object.&quot;&quot;&quot;</span>
+
+    <span class="n">kit</span><span class="p">:</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">_Element</span>
+    <span class="n">sounds</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">DelugeSongSound</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">gen_sounds</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kit</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;soundSources&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;sound&#39;</span><span class="p">):</span>
+                <span class="k">yield</span> <span class="n">DelugeSongKitSound</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span> <span class="o">=</span> <span class="n">gen_sounds</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
 <h2 id="deluge_card.deluge_song.Mode" class="doc doc-heading">
           <code>Mode</code>
 
@@ -2736,16 +2959,16 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
           <details class="quote">
             <summary>Source code in <code>deluge_card/deluge_song.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Enum for the scale modes.&quot;&quot;&quot;</span>
 
     <span class="n">major</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
@@ -3038,7 +3261,7 @@ ref https://github.com/jamiefaye/downrush/blob/master/xmlView/src/SongUtils.js</
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_elem</span> <span class="o">=</span> <span class="s1">&#39;sound&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DelugeSynth</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DelugeSynth(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
